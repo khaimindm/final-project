@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html lang="ru-RU">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/registration.css">
+  <title>Форма регистрации</title>
+</head>
+<body>
+
+<h2>Система записи к врачу</h2>
+
+<form id="registration-form" action="" method="post" autocomplete="on">
+  <label for="login">Логин:</label><br>
+  <input type="text" id="login" name="login"><br>
+  <label for="password">Пароль:</label><br>
+  <input type="text" id="password" name="password"><br><br>
+  <label for="fname">Имя:</label><br>
+  <input type="text" id="fname" name="fname"><br>
+  <label for="lname">Фамилия:</label><br>
+  <input type="text" id="lname" name="lname"><br><br>
+  <label for="birthday">Дата рождения</label><br>
+  <input type="date" id="birthday" name="birthday"><br><br>
+  <label for="role">Выберите роль:</label><br>
+  <select id="role" name="role">
+    <option value="doctor">Доктор</option>
+    <option value="patient">Пациент</option>
+  </select><br><br><br>
+  <input type="submit" value="Регистрация" class="submit_button"><br><br>
+  <span id="message" name="message" class="message"></span><br>
+</form>
+<br>
+
+<p id="authorization">
+<a href="authorization.html">Авторизация</a>
+</p>
+
+<script src="js/registration.js"></script>
+
+</body>
+</html>

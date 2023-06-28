@@ -1,0 +1,105 @@
+﻿<!DOCTYPE html>
+<html lang="ru-RU">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/main_specialist.css">
+  <title>Главная страница</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+<body>
+  
+  <div id="top">
+    <ul id="toppanel">
+      <li class="toppanelel"><a href="" id="home" class="material-icons">home</a></li>
+      <li class="toppanelel" style="float: right;"><a href="">Выход</a></li>
+      <li class="toppanelel" style="float: right;">Пользователь</li>      
+    </ul>    
+  </div>
+
+  <div id="main">    
+    <form id="dateForm" action="" method="post">
+      <label for="date">Дата:</label>
+      <input type="date" name="date" id="date">
+      <input type="submit" value="Применить">
+    </form>
+  </div>
+
+  <div id="elForMainTable">
+    <table id="mainTable" class="mainTable">
+      <caption>Список пациентов</caption>
+      <tr>
+        <th>ФИО пациента</th>
+        <th>Время</th>
+        <th class="mainTable">Прием осуществлен</th>
+      </tr>
+      <tr>
+        <td class="user"><span id="0" class="user">ФИО Пользователь 1</span></td>
+        <td class="mainTable">12:00</td>
+        <td class="mainTable">Да</td>
+      </tr>
+      <tr>
+        <td class="user"><span id="1" class="user">ФИО Пользователь 2</span></td>
+        <td class="mainTable">13:00</td>
+        <td class="mainTable">Нет</td>
+      </tr>
+      <tr>
+        <td class="user"><span id="2" class="user">ФИО Пользователь 3</span></td>
+        <td class="mainTable">14:00</td>
+        <td class="mainTable">Да</td>
+      </tr>
+      <tr>
+        <td class="user"><span id="3" class="user">ФИО Пользователь 4</span></td>
+        <td class="mainTable">15:00</td>
+        <td class="mainTable">Да</td>
+      </tr>
+    </table>
+  </div>
+  
+  <div id="doctorsAppointmentModal" class="modal">
+    
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <H3 id="modalHeader">Пациент</H3>
+      <div id="mainEl">
+        <form id="doctorsAppointmentModalForm" action="" method="post">
+          <div>
+            <label for="medicalHistory" class="mainForm">Анамнез</label>
+            <textarea name="medicalHistory" id="medicalHistory" rows="5"></textarea><br>
+          </div><br>
+
+          <div>
+            <label for="diagn" class="mainForm">Диагноз</label>
+            <textarea name="diagn" id="diagn" rows="2"></textarea><br>
+          </div><br>
+
+          <label for="result" class="mainForm">Прием осуществлен?</label>
+          <select name="" id="result">
+            <option value="true">Да</option>
+            <option value="false">Нет</option>
+          </select><br><br>
+          <span id="message" class="message"></span><br>
+          <button type="button" id="cancelBtn" class="cancel">Отмена</button>
+          <input type="submit" id="applyBtn" class="apply" value="Применить">
+
+        </form>      
+      </div>      
+    </div>
+
+  </div><br><br>
+
+  <div id="labelAppointmentEl">Запись к специалисту</div>
+  <div id="appointmentEl">    
+    <h3 class="appointmentEl">Специалисты</h3>
+    <ul id="list">
+      <li class="mainlist"><a href="">Терапевт</a></li>
+      <li class="mainlist"><a href="">Хирург</a></li>
+      <li class="mainlist"><a href="">Кардиолог</a></li>
+      <li class="mainlist"><a href="">Невролог</a></li>
+    </ul>
+  </div>
+
+  <script src="js/main_specialist.js"></script>
+
+</body>
+</html>

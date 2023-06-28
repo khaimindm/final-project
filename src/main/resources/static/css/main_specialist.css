@@ -1,0 +1,216 @@
+body {
+    background-color: #f0f0f1;
+    font-family: Arial, Verdana, sans-serif;
+}
+
+#top {
+    margin-left: 10px;
+}
+
+#toppanel {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+li.toppanelel {
+    float: left;
+    display: block;
+    padding: 8px;
+}
+
+#home {
+    background-color: #2196f3;
+    padding-top: 5px;
+    padding-right: 20px;
+    padding-bottom: 5px;
+    padding-left: 20px;
+    color: #ffffff;
+    text-align: center;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+#home:hover {
+    background-color: #0b7dda;
+}
+
+#main {
+    clear: both;    
+    margin-left: 10px;
+    padding-top: 15px;
+}
+
+#dateForm {
+    font-size: 20px;
+}
+
+#date {
+    font-size: 15px;    
+}
+
+#elForMainTable {
+    width: 650px;
+    background-color: white;
+    margin-top: 15px;
+    margin-left: 10px;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    border-radius: 10px;
+    box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+}
+
+table.mainTable {
+    width: 600px;
+    margin: auto;
+}
+
+th.mainTable {
+    width: 150px;    
+}
+
+td.mainTable {
+    text-align: center;
+}
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    background-color: #f0f0f1;
+    margin: 15% auto;
+    padding: 30px 20px 30px 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+span.user:hover {
+    background-color: #cfe8fc;
+}
+
+#mainEl {
+    border-left: 6px solid #2196f3;
+    border-radius: 2px;
+    margin: auto;
+    width: 80%;
+    background-color: #ffffff;    
+    text-align: center;
+    padding: 25px 25px 25px 25px;
+}
+
+#modalHeader {
+    clear: both;
+    margin-left: 35px;
+}
+
+#medicalHistory {
+    font-size: 16px;
+    resize: none;
+    width: 100%;
+}
+
+#diagn {
+    font-size: 16px;
+    resize: none;
+    width: 100%;
+}
+
+label.mainForm {
+    float: left;
+    font-size: large;
+}
+
+#result {
+    float: left;
+    font-size: large;
+}
+
+span.message {
+    visibility: hidden;
+    font-size: 13px;
+    text-align: center;
+    color: red;
+}
+
+button.cancel {  
+    margin-top: 15px;  
+    font-size: 18px;
+    padding: 10px 40px 10px 40px;
+    background-color: white;
+    border-style: solid;
+    border-width: thin;
+    border-color: #b3b3b3;
+    border-radius: 5px;    
+}
+
+button.cancel:hover {
+    background-color: rgb(204, 204, 204, 0.5);
+}
+
+input.apply {
+    color: white;
+    font-size: 18px;
+    padding: 10px 40px 10px 40px;
+    background-color: #2196f3;
+    border-style: none;
+    border-radius: 5px;
+}
+
+input.apply:hover {
+    background-color: #0b7dda;
+}
+
+#labelAppointmentEl {
+    margin-left: 10px;
+}
+
+#appointmentEl {
+    border-left: 6px solid #6eb9f7;
+    background-color: #ffffff;
+    width: 600px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    padding-left: 10px;
+    border-radius: 0px 10px 10px 0px;
+    box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.1);
+}
+
+h3.appointmentEl {
+    color: #4d4d4d;
+}
+
+li.mainlist {
+    padding: 3px;
+}
