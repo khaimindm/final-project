@@ -1,0 +1,12 @@
+create table Persons (
+id int NOT NULL AUTO_INCREMENT,
+login varchar(100) NOT NULL,
+password varchar NOT NULL,
+first_name varchar(255) NOT NULL,
+last_name varchar(255) NOT NULL, 
+birthday date NOT NULL,
+role varchar(20),
+PRIMARY KEY (id)
+);
+
+INSERT INTO Persons (login, "password", first_name, last_name, birthday, role) VALUES ('admin', 'admin', 'someFirstName', 'someLastName', 1980-01-01, 'recordKeeper');
