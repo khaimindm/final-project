@@ -1,22 +1,26 @@
 ﻿<!DOCTYPE html>
-<html lang="ru-RU">
+<html lang="ru-RU" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/login.css">
-  <title>Форма авторизации</title>
+  <title>Страница авторизации</title>
 </head>
 <body>
 
 <h2>Заголовок</h2>
 
-<form id="authorization-form" action="" method="post" autocomplete="on">
+<form id="authorization-form" action="/process_login" method="post" autocomplete="on">
   <label for="login">Имя пользователя:</label><br>
-  <input type="text" id="login" name="login"><br><br>
+  <input type="text" id="login" name="username"><br><br>
   <label for="password">Пароль:</label><br>
-  <input type="text" id="password" name="password"><br><br>
+  <input type="password" id="password" name="password"><br><br>
   <input type="submit" value="Вход" class="submit_button"><br><br>
   <span id="message" name="message" class="message"></span><br>
+
+  <div th:if="${param.error}">
+    Неправильные имя или пароль
+  </div>
 </form>
 <br>
 

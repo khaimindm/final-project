@@ -4,7 +4,7 @@ function checkForm(event) {
   event.preventDefault();
   let el = document.getElementById('authorization-form');
 
-  let login = el.login.value;
+  let login = el.username.value;
   let password = el.password.value;
 
   let error = "";
