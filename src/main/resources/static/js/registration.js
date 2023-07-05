@@ -17,7 +17,7 @@ function checkForm(event) {
   event.preventDefault();
   let el = document.getElementById('registration-form');
 
-  let login = el.login.value;
+  let login = el.username.value;
   let password = el.password.value;
   let fname = el.fname.value;
   let lname = el.lname.value;

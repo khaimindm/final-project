@@ -1,22 +1,27 @@
 ﻿<!DOCTYPE html>
-<html lang="ru-RU">
+<html lang="ru-RU" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/registration.css">
-  <title>Форма регистрации</title>
+  <title>Страница регистрации</title>
 </head>
 <body>
 
 <h2>Система записи к врачу</h2>
 
-<form id="registration-form" action="" method="post" autocomplete="on">
+<form id="registration-form" th:action="@{/auth/registration}" th:method="post" autocomplete="on" th:object="${person}">
   <label for="login">Логин:</label><br>
-  <input type="text" id="login" name="login"><br>
+  <input type="text" id="login" th:field="*{username}"><br> <!-- name="login" -->
+  <div style="color:red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username Error</div>
+  <br>
   <label for="password">Пароль:</label><br>
-  <input type="text" id="password" name="password"><br><br>
+  <input type="password" th:field="*{password}" id="password"> <!-- name="password" -->
+  <div style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</div>
+  <br><br>
   <label for="fname">Имя:</label><br>
-  <input type="text" id="fname" name="fname"><br>
+  <input type="text" id="fname" th:field="*{fname}"> <!-- name="fname" -->
+  <br>
   <label for="lname">Фамилия:</label><br>
   <input type="text" id="lname" name="lname"><br><br>
   <label for="birthday">Дата рождения</label><br>
