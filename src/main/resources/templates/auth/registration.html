@@ -12,27 +12,27 @@
 
 <form id="registration-form" th:action="@{/auth/registration}" th:method="post" autocomplete="on" th:object="${person}">
   <label for="login">Логин:</label><br>
-  <input type="text" id="login" th:field="*{username}"><br> <!-- name="login" -->
+  <input type="text" id="login"  name="username"><br>
   <div style="color:red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username Error</div>
   <br>
   <label for="password">Пароль:</label><br>
-  <input type="password" th:field="*{password}" id="password"> <!-- name="password" -->
+  <input type="password" name="password" id="password">
   <div style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</div>
   <br><br>
   <label for="fname">Имя:</label><br>
-  <input type="text" id="fname" th:field="*{fname}"> <!-- name="fname" -->
+  <input type="text" id="fname" name="fname">
   <div style="color:red" th:if="${#fields.hasErrors('fname')}" th:errors="*{fname}">First name Error</div>
   <br>
   <label for="lname">Фамилия:</label><br>
-  <input type="text" id="lname" th:field="*{lname}" > <!-- name="lname" -->
+  <input type="text" id="lname" name="lname" >
   <div style="color:red" th:if="${#fields.hasErrors('lname')}" th:errors="*{lname}">Last name Error</div>
   <br><br>
   <label for="birthday">Дата рождения</label><br>
-  <input type="date" id="birthday" th:field="*{birthday}"> <!-- name="birthday" -->
+  <input type="date" id="birthday" name="birthday">
   <div style="color:red" th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}">Birthday Error</div>
   <br><br>
   <label for="role">Выберите роль:</label><br>
-  <select id="role" required th:field="*{role}"> <!-- name="role" -->
+  <select id="role" required name="role">
     <option value="">Выберите роль</option>
     <option value="doctor">Доктор</option>
     <option value="patient">Пациент</option>
