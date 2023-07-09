@@ -17,15 +17,15 @@ function checkForm(event) {
   event.preventDefault();
   let el = document.getElementById('registration-form');
 
-  let login = el.username.value;
+  let username = el.username.value;
   let password = el.password.value;
-  let fname = el.fname.value;
-  let lname = el.lname.value;
+  let firstName = el.firstName.value;
+  let lastName = el.lastName.value;
   let birthday = el.birthday.value;
 
   let error = "";
 
-  if(login == "" || password == "" || fname == "" || lname == "" || birthday == "") {
+  if(username == "" || password == "" || firstName == "" || lastName == "" || birthday == "") {
   error = "Заполните все поля";
   document.getElementById('message').innerHTML = error;
   document.getElementById('message').style.visibility = "visible";

@@ -22,7 +22,7 @@ form {
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-#birthday, #password, #login, #fname, #lname, #role {
+#birthday, #password, #username, #firstName, #lastName, #role {
   font-size: 20px;
 }
 
