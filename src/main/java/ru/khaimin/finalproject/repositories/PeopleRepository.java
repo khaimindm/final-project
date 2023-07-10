@@ -9,5 +9,5 @@ import ru.khaimin.finalproject.entity.Person;
 
 @Repository
 public interface PeopleRepository extends JpaRepository<Person, Integer> {
-    Optional<Person> findByLogin(String username);
+    Optional<Person> findByUsername(String username);
 }

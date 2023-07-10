@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/css/login.css">
+  <link th:href="@{/css/login.css}" rel="stylesheet">
   <title>Страница авторизации</title>
 </head>
 <body>
@@ -18,9 +18,10 @@
   <input type="submit" value="Вход" class="submit_button"><br><br>
   <span id="message" name="message" class="message"></span><br>
 
-  <div th:if="${param.error}">
+  <span class="messageFromSpring" th:if="${param.error}">
     Неправильные имя или пароль
-  </div>
+  </span><br>
+
 </form>
 <br>
 
@@ -28,7 +29,7 @@
 <a href="/auth/registration">Создать учетную запись</a>
 </p>
 
-<script src="/js/login.js"></script>
+<script type="text/javascript" th:src="@{/js/login.js}"></script>
 
 </body>
 </html>

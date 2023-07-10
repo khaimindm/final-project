@@ -1,5 +1,7 @@
 package ru.khaimin.finalproject.entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalDate;
 
 import javax.persistence.*;
@@ -29,6 +31,7 @@ public class Person {
     private String lastName;
 
     @Column(name = "birthday")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthday;
 
     @Column(name = "role")

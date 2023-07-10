@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/css/registration.css">
+  <link th:href="@{/css/registration.css}" rel="stylesheet">
   <title>Страница регистрации</title>
 </head>
 <body>
@@ -33,7 +33,7 @@
   <br><br>
   <label for="role">Выберите роль:</label><br>
   <select id="role" required th:field="*{role}">
-    <option value="">Выберите роль</option>
+    <option value="" selected></option>
     <option value="doctor">Доктор</option>
     <option value="patient">Пациент</option>
   </select>
@@ -49,7 +49,7 @@
 <a href="/auth/login">Авторизация</a>
 </p>
 
-<script src="/js/registration.js"></script>
+<script type="text/javascript" th:src="@{/js/registration.js}"></script>
 
 </body>
 </html>

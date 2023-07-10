@@ -23,7 +23,8 @@ public class PeopleService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) {
-        Optional<Person> person = peopleRepository.findByLogin(username);
+        //Error
+        Optional<Person> person = peopleRepository.findByUsername(username);
         return new PersonDetails(person.get());
     }
     

@@ -14,7 +14,6 @@ function todayDate() {
 }
 
 function checkForm(event) {
-  event.preventDefault();
   let el = document.getElementById('registration-form');
 
   let username = el.username.value;
@@ -26,6 +25,7 @@ function checkForm(event) {
   let error = "";
 
   if(username == "" || password == "" || firstName == "" || lastName == "" || birthday == "") {
+  event.preventDefault();
   error = "Заполните все поля";
   document.getElementById('message').innerHTML = error;
   document.getElementById('message').style.visibility = "visible";

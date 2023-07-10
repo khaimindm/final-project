@@ -51,6 +51,12 @@ span.message {
   color: red;
 }
 
+span.messageFromSpring{
+  font-size: 13px;
+  text-align: center;
+  color: red;
+}
+
 #registration {
   text-align: center;
   color: #666666;

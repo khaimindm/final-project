@@ -23,7 +23,7 @@ public class PersonDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<Person> person = peopleRepository.findByLogin(username);
+        Optional<Person> person = peopleRepository.findByUsername(username);
 
         if (!person.isPresent()) {
             throw new UsernameNotFoundException("Пользователь не найден!");
