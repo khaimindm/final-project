@@ -12,7 +12,8 @@ import ru.khaimin.finalproject.repositories.PeopleRepository;
 import ru.khaimin.finalproject.security.PersonDetails;
 
 @Service
-public class PeopleService implements UserDetailsService {
+public class PeopleService {
+    //implements UserDetailsService
 
     private final PeopleRepository peopleRepository;
 
@@ -21,11 +22,17 @@ public class PeopleService implements UserDetailsService {
         this.peopleRepository = peopleRepository;
     }
 
-    @Override
+    /*@Override
     public UserDetails loadUserByUsername(String username) {
         //Error
         Optional<Person> person = peopleRepository.findByUsername(username);
         return new PersonDetails(person.get());
+    }*/
+
+
+    public Optional<Person> loadUser(String username) {
+        Optional<Person> person = peopleRepository.findByUsername(username);
+        return person;
     }
     
 }

@@ -27,7 +27,7 @@ public class PersonValidator implements Validator {
     public void validate(Object target, Errors errors) {
         Person person = (Person) target;
 
-        if (!peopleService.loadUserByUsername(person.getUsername()).getUsername().isEmpty()) {
+        if (peopleService.loadUser(person.getUsername()).isPresent()) {
             errors.rejectValue("username", "", "Пользователь с таким логином уже существует");
         }
     }
