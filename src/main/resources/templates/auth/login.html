@@ -11,6 +11,8 @@
 <h2>Страница авторизации</h2>
 
 <form id="authorization-form" action="/process_login" method="post" autocomplete="on">
+  <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+  
   <label for="login">Имя пользователя:</label><br>
   <input type="text" id="login" name="username"><br><br>
   <label for="password">Пароль:</label><br>
