@@ -27,8 +27,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // конфигурируем авторизацию
 
         http.authorizeRequests()
+        .antMatchers("/main_record_keeper").hasRole("RECORDKEEPER")
+        .antMatchers("/main_specialist").hasRole("SPECIALIST")
+        .antMatchers("/main_patient").hasRole("PATIENT")
         .antMatchers("/auth/login", "/auth/registration", "/error", "/css/**", "/js/**").permitAll()
-        .anyRequest().authenticated()
+        .anyRequest().hasAnyRole("RECORDKEEPER")        
         .and()
         .formLogin().loginPage("/auth/login")
         .loginProcessingUrl("/process_login")
