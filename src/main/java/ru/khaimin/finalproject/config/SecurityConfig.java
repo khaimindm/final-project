@@ -10,12 +10,18 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import ru.khaimin.finalproject.security.UrlAuthenticationSuccessHandler;
 import ru.khaimin.finalproject.services.PersonDetailsService;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final PersonDetailsService personDetailsService;
+    @Bean
+    public AuthenticationSuccessHandler authenticationSuccessHandler(){
+        return new UrlAuthenticationSuccessHandler();
+    }
 
     @Autowired
     public SecurityConfig(PersonDetailsService personDetailsService) {
@@ -35,7 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .and()
         .formLogin().loginPage("/auth/login")
         .loginProcessingUrl("/process_login")
-        .defaultSuccessUrl("/hello", true)
+        .successHandler(authenticationSuccessHandler())
         .failureUrl("/auth/login?error")
         .and()
         .logout()
