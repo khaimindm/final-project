@@ -36,6 +36,7 @@
     <option value="" selected></option>
     <option value="ROLE_SPECIALIST">Специалист</option>
     <option value="ROLE_PATIENT">Пациент</option>
+    <option value="ROLE_RECORDKEEPER">Регистратор</option>
   </select>
   <div style="color:red" th:if="${#fields.hasErrors('role')}" th:errors="*{role}">Role Error</div>
   <br><br><br>
