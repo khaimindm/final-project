@@ -41,6 +41,10 @@ public class AuthController {
     public String performRegistration(@ModelAttribute("person") @Valid Person person,
     BindingResult bindingResult) {
 
+        if (person.getRole().isEmpty()) {
+            person.setRole("ROLE_PATIENT");            
+        }
+
         personValidator.validate(person, bindingResult);
 
         if (bindingResult.hasErrors()) {
@@ -50,5 +54,20 @@ public class AuthController {
         registrationService.register(person);
 
         return "redirect:/auth/login";
+    }
+
+    @PostMapping("/registration_record_keeper")
+    public String performRegistrationRecordKeeper(@ModelAttribute("person") @Valid Person person,
+    BindingResult bindingResult) {
+        
+        personValidator.validate(person, bindingResult);
+
+        if (bindingResult.hasErrors()) {
+            return "/auth/registration_record_keeper";
+        }
+
+        registrationService.register(person);
+
+        return "redirect:/main_record_keeper";
     }
 }

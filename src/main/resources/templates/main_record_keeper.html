@@ -39,12 +39,14 @@
         </form>
       </div>
       <p>
-        <button id="addSpecBtn" class="additionalFunctionsBtn">Добавить специалиста</button><br><br>
-        <button id="deleteSpecBtn" class="additionalFunctionsBtn">Удалить специалиста</button>
+        <!-- <button id="addSpecBtn" class="additionalFunctionsBtn">Добавить специалиста</button><br><br> -->
+        <a href="/auth/registration_record_keeper">Добавить специалиста</a>
+        <!-- <button id="deleteSpecBtn" class="additionalFunctionsBtn">Удалить специалиста</button> -->
       </p>      
     </div>
   </div>
-
+  
+<!--
   <div id="addModal" class="modal">
     <div class="addModal-content">
       <span class="addClose">&times;</span>
@@ -52,6 +54,18 @@
       <form id="addNewSpecForm" action="" method="post">
         <label for="nameOfTheSpecialist">Наименование специалиста</label><br>
         <input type="text" id="nameOfTheSpecialist" name="nameOfTheSpecialist"><br>
+        <label for="firstName">Имя:</label>
+        <input type="text" id="firstName" th:field="*{firstName}">
+        <div style="color:red" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">First name Error</div>
+        <br>
+        <label for="lastName">Фамилия:</label><br>
+        <input type="text" id="lastName" th:field="*{lastName}">
+        <div style="color:red" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Last name Error</div>
+        <br><br>
+        <label for="birthday">Дата рождения</label><br>
+        <input type="date" id="birthday" th:field="*{birthday}">
+        <div style="color:red" th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}">Birthday Error</div>
+        <br><br>        
         <span id="messageAddNewSpecForm" name="messageAddNewSpecForm" class="message"></span><br>
         <button type="button" id="cancelBtnAddModal" class="cancel">Отмена</button>
         <input type="submit" class="applyBtn" value="Добавить"><br>
@@ -78,6 +92,7 @@
       </form>
     </div>
   </div>
+-->
 
   <script src="js/main_record_keeper.js"></script>
 

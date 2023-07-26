@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link th:href="@{/css/registration.css}" rel="stylesheet">
+  <link th:href="@{/css/registration_record_keeper.css}" rel="stylesheet">
   <title>Страница регистрации</title>
 </head>
 <body>
@@ -30,6 +30,14 @@
   <label for="birthday">Дата рождения</label><br>
   <input type="date" id="birthday" th:field="*{birthday}">
   <div style="color:red" th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}">Birthday Error</div>
+  <br><br>
+  <label for="role">Выберите роль:</label><br>
+  <select id="role" required th:field="*{role}">
+    <option value="" selected></option>
+    <option value="ROLE_PATIENT">Пациент</option>
+    <option value="ROLE_SPECIALIST">Специалист</option>
+  </select>
+  <div style="color:red" th:if="${#fields.hasErrors('role')}" th:errors="*{role}">Role Error</div>
   <br><br><br>
   <input type="submit" value="Регистрация" class="submit_button"><br><br>
   <span id="message" name="message" class="message"></span><br>
@@ -40,7 +48,7 @@
 <a href="/auth/login">Авторизация</a>
 </p>
 
-<script type="text/javascript" th:src="@{/js/registration.js}"></script>
+<script type="text/javascript" th:src="@{/js/registration_record_keeper.js}"></script>
 
 </body>
 </html>
