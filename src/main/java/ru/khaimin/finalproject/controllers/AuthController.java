@@ -56,6 +56,11 @@ public class AuthController {
         return "redirect:/auth/login";
     }
 
+    @GetMapping("/registration_record_keeper")
+    public String addSpecialist(@ModelAttribute("person") Person person) {
+        return "auth/registration_record_keeper";
+    } 
+
     @PostMapping("/registration_record_keeper")
     public String performRegistrationRecordKeeper(@ModelAttribute("person") @Valid Person person,
     BindingResult bindingResult) {

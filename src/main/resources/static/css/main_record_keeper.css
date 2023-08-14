@@ -209,3 +209,7 @@ input.listExistingSpec {
     border-width: thin;
     border-radius: 3px;
 }
+
+.additionalFunctions {
+    margin-left: 10px;
+}
