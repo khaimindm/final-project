@@ -3,7 +3,40 @@
   font-family: Arial, Verdana, sans-serif;
 }
 
-h2 {
+#top {
+    margin-left: 10px;
+}
+
+#toppanel {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+li.toppanelel {
+    float: left;
+    display: block;
+    padding: 8px;
+}
+
+#home {
+    background-color: #2196f3;
+    padding-top: 5px;
+    padding-right: 20px;
+    padding-bottom: 5px;
+    padding-left: 20px;
+    color: #ffffff;
+    text-align: center;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+#home:hover {
+    background-color: #0b7dda;
+}
+
+#title {
+  clear: both;
   color: #404040;
   text-align: center;
   margin-top: 50px;
@@ -49,9 +82,4 @@ span.message {
   font-size: 13px;
   text-align: center;
   color: red;
-}
-
-#authorization {
-  text-align: center;
-  color: #666666;
 }

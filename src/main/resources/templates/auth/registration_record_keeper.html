@@ -5,10 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link th:href="@{/css/registration_record_keeper.css}" rel="stylesheet">
   <title>Страница регистрации</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
 <body>
 
-<h2>Страница регистрации</h2>
+<div id="top">
+  <ul id="toppanel">
+    <li class="toppanelel"><a href="" id="home" class="material-icons">home</a></li>
+    <li class="toppanelel" style="float: right;">
+      <form th:action="@{/logout}" th:method="POST">
+        <input type="submit" value="Выход"/>
+      </form>
+    </li>
+    <li class="toppanelel" style="float: right;">Пользователь</li>
+  </ul>
+</div>
+
+<h2 id="title">Регистрация нового специалиста, пользователя</h2>
 
 <form id="registration-form" th:action="@{/auth/registration}" th:method="post" autocomplete="on" th:object="${person}">
   <label for="username">Логин:</label><br>
@@ -43,10 +56,6 @@
   <span id="message" name="message" class="message"></span><br>
 </form>
 <br>
-
-<p id="authorization">
-<a href="/auth/login">Авторизация</a>
-</p>
 
 <script type="text/javascript" th:src="@{/js/registration_record_keeper.js}"></script>
 
