@@ -4,35 +4,35 @@
 }
 
 #top {
-    margin-left: 10px;
+  margin-left: 10px;
 }
 
 #toppanel {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
 }
 
 li.toppanelel {
-    float: left;
-    display: block;
-    padding: 8px;
+  float: left;
+  display: block;
+  padding: 8px;
 }
 
 #home {
-    background-color: #2196f3;
-    padding-top: 5px;
-    padding-right: 20px;
-    padding-bottom: 5px;
-    padding-left: 20px;
-    color: #ffffff;
-    text-align: center;
-    border-radius: 5px;
-    text-decoration: none;
+  background-color: #2196f3;
+  padding-top: 5px;
+  padding-right: 20px;
+  padding-bottom: 5px;
+  padding-left: 20px;
+  color: #ffffff;
+  text-align: center;
+  border-radius: 5px;
+  text-decoration: none;
 }
 
 #home:hover {
-    background-color: #0b7dda;
+  background-color: #0b7dda;
 }
 
 #title {
@@ -43,7 +43,7 @@ li.toppanelel {
   margin-bottom: 10px;
 }
 
-form {
+#registration-form {
   text-align: center;
   padding: 25px 25px 25px 25px;
   width: 320px;

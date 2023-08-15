@@ -9,19 +9,19 @@
 </head>
 <body>
 
-<div id="top">
-  <ul id="toppanel">
-    <li class="toppanelel"><a href="" id="home" class="material-icons">home</a></li>
-    <li class="toppanelel" style="float: right;">
-      <form th:action="@{/logout}" th:method="POST">
-        <input type="submit" value="Выход"/>
-      </form>
-    </li>
-    <li class="toppanelel" style="float: right;">Пользователь</li>
-  </ul>
-</div>
+  <div id="top">
+    <ul id="toppanel">
+      <li class="toppanelel"><a href="" id="home" class="material-icons">home</a></li>
+      <li class="toppanelel" style="float: right;">
+        <form th:action="@{/logout}" th:method="POST">
+          <input type="submit" value="Выход"/>
+        </form>
+      </li>      
+      <li class="toppanelel" style="float: right;">Пользователь</li>      
+    </ul>    
+  </div>
 
-<h2 id="title">Регистрация нового специалиста, пользователя</h2>
+  <h2 id="title">Регистрация нового специалиста, пользователя</h2>
 
 <form id="registration-form" th:action="@{/auth/registration}" th:method="post" autocomplete="on" th:object="${person}">
   <label for="username">Логин:</label><br>
@@ -52,6 +52,8 @@
   </select>
   <div style="color:red" th:if="${#fields.hasErrors('role')}" th:errors="*{role}">Role Error</div>
   <br><br><br>
+  <label for="speciality">Наименование специальности</label>
+  <input type="text" id="speciality" th:field="*{speciality}">
   <input type="submit" value="Регистрация" class="submit_button"><br><br>
   <span id="message" name="message" class="message"></span><br>
 </form>

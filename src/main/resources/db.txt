@@ -1,4 +1,4 @@
-create table Persons (id int PRIMARY KEY AUTO_INCREMENT, user_name varchar(100) NOT NULL, password varchar(200) NOT NULL, first_name varchar(255) NOT NULL, last_name varchar(255) NOT NULL, birthday date NOT NULL, role varchar(20) NOT NULL);
+create table Persons (id int PRIMARY KEY AUTO_INCREMENT, user_name varchar(100) NOT NULL, password varchar(200) NOT NULL, first_name varchar(255) NOT NULL, last_name varchar(255) NOT NULL, birthday date NOT NULL, role varchar(20) NOT NULL), specialist_id varchar(5);
 
 INSERT INTO Persons (user_name, password, first_name, last_name, birthday, role) VALUES ('admin', '$2a$10$BbReyrJCZr5g27uqM/wiq.TvVFNVgRhhDnlC9AUBCsvEHAZqkcM22', 'someFirstName', 'someLastName', '1990-05-05', 'ROLE_RECORDKEEPER');
 INSERT INTO Persons (user_name, password, first_name, last_name, birthday, role) VALUES ('specialist', '$2a$10$kQR.rnkgmeOsN/HnenuOR.fuKyDoLYwF7xgWDe2d03GPXeSkU9ZaO', 'someFirstName', 'someLastName', '1990-05-05', 'ROLE_SPECIALIST');

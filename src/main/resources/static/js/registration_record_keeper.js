@@ -1,4 +1,7 @@
 ﻿document.getElementById('registration-form').addEventListener("submit", checkForm);
+document.querySelector('#role').addEventListener("change", checkRole);
+
+checkRole();
 
 todayDate();
 
@@ -32,5 +35,13 @@ function checkForm(event) {
   } else {
   document.getElementById('message').innerHTML = "";
   document.getElementById('message').style.visibility ="hidden";
+  }
+}
+
+function checkRole() {
+  if(document.getElementById('role').value = "ROLE_SPECIALIST") {
+    document.getElementById('speciality').disabled = "false";
+  } else {
+    document.getElementById('speciality').disabled = "true";
   }
 }
