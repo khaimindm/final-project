@@ -23,7 +23,7 @@
 
   <h2 id="title">Регистрация нового специалиста, пользователя</h2>
 
-<form id="registration-form" th:action="@{/auth/registration}" th:method="post" autocomplete="on" th:object="${person}">
+<form id="registration-form" th:action="@{/auth/registration_record_keeper}" th:method="post" autocomplete="on" th:object="${person}">
   <label for="username">Логин:</label><br>
   <input type="text" id="username" th:field="*{username}"><br>
   <div style="color:red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username Error</div>
@@ -52,8 +52,6 @@
   </select>
   <div style="color:red" th:if="${#fields.hasErrors('role')}" th:errors="*{role}">Role Error</div>
   <br><br><br>
-  <label for="speciality">Наименование специальности</label>
-  <input type="text" id="speciality" th:field="*{speciality}">
   <input type="submit" value="Регистрация" class="submit_button"><br><br>
   <span id="message" name="message" class="message"></span><br>
 </form>
