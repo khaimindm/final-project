@@ -63,7 +63,7 @@ public class AuthController {
 
     @PostMapping("/registration_record_keeper")
     public String performRegistrationRecordKeeper(@ModelAttribute("person") @Valid Person person,
-    BindingResult bindingResult) {
+                                                  BindingResult bindingResult) {
         personValidator.validate(person, bindingResult);
 
         if (bindingResult.hasErrors()) {
@@ -71,11 +71,7 @@ public class AuthController {
         }
 
         registrationService.register(person);
-
-        if (person.getRole().equals("ROLE_SPECIALIST")) {
-            return "redirect:";
-        }
-
+        
         return "redirect:/main_record_keeper";
     }
 }

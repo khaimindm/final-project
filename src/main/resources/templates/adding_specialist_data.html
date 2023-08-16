@@ -1,10 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru-RU" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link th:href="@{/css/adding_specialist_data.css}" rel="stylesheet">
+    <title>Добавление данных специалиста</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
 <body>
+
+    <div id="top">
+        <ul id="toppanel">
+          <li class="toppanelel"><a href="" id="home" class="material-icons">home</a></li>
+          <li class="toppanelel" style="float: right;">
+            <form th:action="@{/logout}" th:method="POST">
+              <input type="submit" value="Выход"/>
+            </form>
+          </li>      
+          <li class="toppanelel" style="float: right;">Пользователь</li>      
+        </ul>    
+      </div>
+
+      <h2 id="title"></h2>
+
+      <form id="specialist_data_form" th:action="@{/adding_specialist_data}" th:method="post" th:object="${professionalActivity}">
+        <label for="specialtyName">Наименование специальности</label>
+        <input type="text" th:field="*{specialtyName}" id="specialtyName">
+        <br>
+        <div style="color:red" th:if="${#fields.hasErrors('specialtyName')}" th:errors="*{specialtyName}">Наименование специальности не должно быть пустым</div>
+        <br>
+        <label for="degreeCertificate">Номер диплома</label>
+        <input type="text" th:field="*{degreeCertificate}" id="degreeCertificate">
+        <br>
+        <label for="dateOfEmployment">Дата трудоустройства</label>
+        <input type="date" th:field="*{dateOfEmployment}" id="dateOfEmployment">
+        <br>
+        <input type="submit" value="Добавить" class="submit_button">
+        <br><br>
+      </form>
 
 </body>
 </html>
