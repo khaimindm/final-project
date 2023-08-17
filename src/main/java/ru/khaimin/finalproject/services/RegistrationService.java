@@ -12,16 +12,22 @@ public class RegistrationService {
     
     private final PeopleRepository peopleRepository;
     private final PasswordEncoder passwordEncoder;
+    private final AddSpecialistDataService addSpecialistDataService;
 
     @Autowired
-    public RegistrationService(PeopleRepository peopleRepository, PasswordEncoder passwordEncoder) {
+    public RegistrationService(PeopleRepository peopleRepository, PasswordEncoder passwordEncoder,
+                               AddSpecialistDataService addSpecialistDataService) {
         this.peopleRepository = peopleRepository;
         this.passwordEncoder = passwordEncoder;
+        this.addSpecialistDataService = addSpecialistDataService;
     }
 
     public void register(Person person) {
         person.setPassword(passwordEncoder.encode(person.getPassword()));
         //person.setRole("ROLE_PATIENT");
         peopleRepository.save(person);
+        if (person.getRole().equals("ROLE_SPECIALIST")) {
+            addSpecialistDataService.setPersonId(person.getId());
+        }
     }
 }

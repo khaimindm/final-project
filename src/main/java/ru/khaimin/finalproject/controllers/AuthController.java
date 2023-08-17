@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import ru.khaimin.finalproject.entity.Person;
+import ru.khaimin.finalproject.services.AddSpecialistDataService;
 import ru.khaimin.finalproject.services.RegistrationService;
 import ru.khaimin.finalproject.util.PersonValidator;
 
@@ -21,8 +22,9 @@ public class AuthController {
     private final RegistrationService registrationService;
     private final PersonValidator personValidator;
     
+    
     @Autowired
-    public AuthController (RegistrationService registrationService, PersonValidator personValidator) {
+    public AuthController (RegistrationService registrationService, PersonValidator personValidator, AddSpecialistDataService addSpecialistDataService) {
         this.registrationService = registrationService;
         this.personValidator = personValidator;
     }
@@ -71,6 +73,10 @@ public class AuthController {
         }
 
         registrationService.register(person);
+
+        if (person.getRole().equals("ROLE_SPECIALIST")) {
+            return "redirect:/adding_specialist_data";
+        }
         
         return "redirect:/main_record_keeper";
     }

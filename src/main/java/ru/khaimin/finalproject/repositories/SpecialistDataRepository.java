@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 import ru.khaimin.finalproject.entity.ProfessionalActivity;
 
 @Repository
-public class SpecialistDataRepository {    
+public interface SpecialistDataRepository extends JpaRepository<ProfessionalActivity, Integer> {    
 }

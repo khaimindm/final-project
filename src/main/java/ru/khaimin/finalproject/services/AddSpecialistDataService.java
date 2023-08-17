@@ -8,6 +8,7 @@ import ru.khaimin.finalproject.repositories.SpecialistDataRepository;
 
 @Service
 public class AddSpecialistDataService {
+    public int personId;
     private final SpecialistDataRepository specialistDataRepository;
 
     @Autowired
@@ -15,6 +16,21 @@ public class AddSpecialistDataService {
         this.specialistDataRepository = specialistDataRepository;
     }
 
-    public void addData(ProfessionalActivity professionalActivity) {        
+    public void addData(ProfessionalActivity professionalActivity) {
+        /* if (personId == 0) {
+        } */
+
+        professionalActivity.setPersonId(personId);
+
+        specialistDataRepository.save(professionalActivity);
+        personId = 0;
+    }
+
+    public int getPersonId() {
+        return personId;
+    }
+
+    public void setPersonId(int personId) {
+        this.personId = personId;
     }
 }
