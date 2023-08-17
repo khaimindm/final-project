@@ -27,6 +27,9 @@ public class RecordKeeperController {
     @GetMapping("adding_specialist_data")
     public String addingSpecialistData(@ModelAttribute("professionalActivity")
                                        ProfessionalActivity professionalActivity) {
+        if (addSpecialistDataService.getPersonId() == 0) {
+            return "redirect:/auth/registration_record_keeper";
+        }
         return "adding_specialist_data";
     }
     
