@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,11 +26,10 @@ public class RecordKeeperController {
     }
 
     @GetMapping("/main_record_keeper")
-    public String mainRecordKeeper() {
-        List<String> testsList = commonServices.loadSpecialties();
-        for (String string : testsList) {
-            System.out.println(string);
-        }
+    public String mainRecordKeeper(Model model) {
+        List<String> specialties = commonServices.loadSpecialties();
+        model.addAttribute("specialties", specialties );
+
         return "main_record_keeper";
     }
 

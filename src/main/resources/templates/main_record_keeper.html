@@ -24,11 +24,9 @@
   <div id="main">
     <h2>Специалисты</h2>
     <ul id="list">
-      <li class="mainlist"><a href="">Терапевт</a></li>
-      <li class="mainlist"><a href="">Хирург</a></li>
-      <li class="mainlist"><a href="">Кардиолог</a></li>
-      <li class="mainlist"><a href="">Невролог</a></li>
+      <li class="mainlist" th:each="specialty: ${specialties}"><a href="" th:text="${specialty}"></a></li>
     </ul>
+
     <div id="additionalFunctions">
       <h3>Дополнительные функции</h3>
       <div id="maxPeriodEl">
