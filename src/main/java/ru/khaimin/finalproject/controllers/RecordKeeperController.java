@@ -1,5 +1,7 @@
 package ru.khaimin.finalproject.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,19 +10,26 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import ru.khaimin.finalproject.entity.ProfessionalActivity;
 import ru.khaimin.finalproject.services.AddSpecialistDataService;
+import ru.khaimin.finalproject.services.CommonServices;
 
 @Controller
 public class RecordKeeperController {  
     
     private final AddSpecialistDataService addSpecialistDataService;
+    private final CommonServices commonServices;
     
     @Autowired
-    public RecordKeeperController(AddSpecialistDataService addSpecialistDataService) {
+    public RecordKeeperController(AddSpecialistDataService addSpecialistDataService, CommonServices commonServices) {
         this.addSpecialistDataService = addSpecialistDataService;
+        this.commonServices = commonServices;
     }
 
     @GetMapping("/main_record_keeper")
     public String mainRecordKeeper() {
+        List<String> testsList = commonServices.loadSpecialties();
+        for (String string : testsList) {
+            System.out.println(string);
+        }
         return "main_record_keeper";
     }
 
