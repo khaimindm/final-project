@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="ru-RU">
+<html lang="ru-RU" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,7 +18,7 @@
   </div>
 
   <div id="main">
-    <h1 class="main">Запись к: Специалист</h1>
+    <h1 class="main" th:text="'Запись к: ' + ${specialtyName}">value</h1>
     
     <div id="patientEl">
       <form id="patientForm" action="" method="post">

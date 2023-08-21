@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import ru.khaimin.finalproject.entity.ProfessionalActivity;
@@ -33,6 +34,12 @@ public class RecordKeeperController {
         return "main_record_keeper";
     }
 
+    @GetMapping("/{specialtyName}")
+    public String appointment(@PathVariable("specialtyName") String specialtyName, Model model) {
+        model.addAttribute("specialtyName", specialtyName);
+        return "appointment";
+    }
+
     @GetMapping("adding_specialist_data")
     public String addingSpecialistData(@ModelAttribute("professionalActivity")
                                        ProfessionalActivity professionalActivity) {
@@ -45,7 +52,8 @@ public class RecordKeeperController {
     @PostMapping("/adding_specialist_data")
     public String addSpecialistData(@ModelAttribute("professionalActivity") ProfessionalActivity professionalActivity) {
         addSpecialistDataService.addData(professionalActivity);
+        commonServices.setNextAction("/main_record_keeper");
 
-        return "redirect:/main_record_keeper";
+        return "redirect:/successful_action_page";
     }
 }

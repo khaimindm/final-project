@@ -24,7 +24,7 @@
   <div id="main">
     <h2>Специалисты</h2>
     <ul id="list">
-      <li class="mainlist" th:each="specialty: ${specialties}"><a href="" th:text="${specialty}"></a></li>
+      <li class="mainlist" th:each="specialty: ${specialties}"><a th:href="@{/{specialtyName}(specialtyName=${specialty})}" th:text="${specialty}"></a></li>
     </ul>
 
     <div id="additionalFunctions">

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ru-RU" xmlns:th="http://www.thymeleaf.org"></html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link th:href="@{/css/successful_action_page.css}" rel="stylesheet">
+    <title>Дейсвтие успешно</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+<body>
+    <div id="center">
+        <p id="checkCircle" class="material-icons">check_circle</p>
+        <h3>Действие выполнено успешно!</h3><br>
+        <a id="continue" th:href="${nextAction}">Продолжить</a><br><br>
+    </div>
+</body>
