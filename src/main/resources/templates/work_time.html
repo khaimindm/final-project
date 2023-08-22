@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+<html lang="ru-RU" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link th:href="@{/css/work_time.css}" rel="stylesheet">
+  <title>Заголовок</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+<body>
+    
+  <div id="top">
+    <ul id="toppanel">
+      <li class="toppanelel"><a href="" id="home" class="material-icons">home</a></li>
+      <li class="toppanelel" style="float: right;">
+        <form th:action="@{/logout}" th:method="POST">
+          <input type="submit" value="Выход"/>
+        </form>
+      </li>      
+      <li class="toppanelel" style="float: right;">Пользователь</li>      
+    </ul>    
+  </div>
+
+  
+  <script src="js/main_record_keeper.js"></script>
+
+</body>
+</html>
