@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
@@ -31,8 +33,14 @@ public class ProfessionalActivity {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfEmployment;
 
-    @Column(name = "persons_person_id")
-    private int personId;
+    //@Column(name = "persons_person_id")
+    //private int personId;
+
+    @ManyToOne
+    @JoinColumn(name = "persons_person_id", referencedColumnName = "person_id")
+    private Person person;
+
+    public ProfessionalActivity() {}
 
     public int getSpecialistId() {
         return specialistId;
@@ -66,11 +74,21 @@ public class ProfessionalActivity {
         this.dateOfEmployment = dateOfEmployment;
     }
 
-    public int getPersonId() {
-        return personId;
+    public Person getPerson() {
+        return person;
     }
 
-    public void setPersonId(int personId) {
-        this.personId = personId;
+    public void setPerson(Person person) {
+        this.person = person;
     }
+
+    //public int getPersonId() {
+    //    return personId;
+    //}
+
+    //public void setPersonId(int personId) {
+    //    this.personId = personId;
+    //}
+
+    
 }

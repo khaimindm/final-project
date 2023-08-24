@@ -74,7 +74,7 @@ public class AuthController {
 
         registrationService.register(person);
 
-        if (person.getRole().equals("ROLE_SPECIALIST")) {
+        if (person.getRole().equals("ROLE_SPECIALIST")) {            
             return "redirect:/adding_specialist_data";
         }
         

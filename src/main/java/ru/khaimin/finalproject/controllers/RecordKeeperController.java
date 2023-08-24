@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import ru.khaimin.finalproject.entity.Person;
 import ru.khaimin.finalproject.entity.ProfessionalActivity;
 import ru.khaimin.finalproject.services.AddSpecialistDataService;
 import ru.khaimin.finalproject.services.CommonServices;
@@ -18,12 +19,14 @@ import ru.khaimin.finalproject.services.CommonServices;
 public class RecordKeeperController {  
     
     private final AddSpecialistDataService addSpecialistDataService;
-    private final CommonServices commonServices;
-    
+    private final CommonServices commonServices;    
+    //private final Person person;
+
     @Autowired
     public RecordKeeperController(AddSpecialistDataService addSpecialistDataService, CommonServices commonServices) {
         this.addSpecialistDataService = addSpecialistDataService;
         this.commonServices = commonServices;
+        //this.person = person;
     }
 
     @GetMapping("/main_record_keeper")
@@ -42,17 +45,23 @@ public class RecordKeeperController {
 
     @GetMapping("adding_specialist_data")
     public String addingSpecialistData(@ModelAttribute("professionalActivity")
-                                       ProfessionalActivity professionalActivity) {
+                                       ProfessionalActivity professionalActivity, Model model) {
         if (addSpecialistDataService.getPersonId() == 0) {
             return "redirect:/auth/registration_record_keeper";
         }
+        Person currentPerson = addSpecialistDataService.getPersonToAddData();
+        model.addAttribute("person_first_last_name", currentPerson.getFirstName() + " " + currentPerson.getLastName());
         return "adding_specialist_data";
     }
     
     @PostMapping("/adding_specialist_data")
     public String addSpecialistData(@ModelAttribute("professionalActivity") ProfessionalActivity professionalActivity) {
-        addSpecialistDataService.addData(professionalActivity);
+        professionalActivity.setPerson(addSpecialistDataService.getPersonToAddData());
+        //addSpecialistDataService.getPersonToAddData().getProfessionalActivities().add(professionalActivity);
+        
+        //addSpecialistDataService.addData(professionalActivity);
         commonServices.setNextAction("/main_record_keeper");
+        addSpecialistDataService.setPersonToAddData(null);
 
         return "redirect:/successful_action_page";
     }

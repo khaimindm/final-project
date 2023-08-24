@@ -1,8 +1,10 @@
 package ru.khaimin.finalproject.entity;
 
+import org.hibernate.annotations.Cascade;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -36,6 +38,10 @@ public class Person {
 
     @Column(name = "role")
     private String role;
+
+    @OneToMany(mappedBy = "person")
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    private List<ProfessionalActivity> professionalActivities;
 
     public Person() {
     }
@@ -94,6 +100,14 @@ public class Person {
 
     public void setRole(String role) {
         this.role = role;
-    }    
+    }
+
+    public List<ProfessionalActivity> getProfessionalActivities() {
+        return professionalActivities;
+    }
+
+    public void setProfessionalActivities(List<ProfessionalActivity> professionalActivities) {
+        this.professionalActivities = professionalActivities;
+    }            
     
 }

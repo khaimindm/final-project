@@ -28,6 +28,7 @@ public class RegistrationService {
         peopleRepository.save(person);
         if (person.getRole().equals("ROLE_SPECIALIST")) {
             addSpecialistDataService.setPersonId(person.getId());
+            addSpecialistDataService.setPersonToAddData(person);
         }
     }
 }
