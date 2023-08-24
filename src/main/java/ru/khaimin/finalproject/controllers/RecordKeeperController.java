@@ -19,14 +19,12 @@ import ru.khaimin.finalproject.services.CommonServices;
 public class RecordKeeperController {  
     
     private final AddSpecialistDataService addSpecialistDataService;
-    private final CommonServices commonServices;    
-    //private final Person person;
+    private final CommonServices commonServices;
 
     @Autowired
     public RecordKeeperController(AddSpecialistDataService addSpecialistDataService, CommonServices commonServices) {
         this.addSpecialistDataService = addSpecialistDataService;
         this.commonServices = commonServices;
-        //this.person = person;
     }
 
     @GetMapping("/main_record_keeper")
@@ -57,9 +55,9 @@ public class RecordKeeperController {
     @PostMapping("/adding_specialist_data")
     public String addSpecialistData(@ModelAttribute("professionalActivity") ProfessionalActivity professionalActivity) {
         professionalActivity.setPerson(addSpecialistDataService.getPersonToAddData());
-        //addSpecialistDataService.getPersonToAddData().getProfessionalActivities().add(professionalActivity);
-        
-        //addSpecialistDataService.addData(professionalActivity);
+
+        addSpecialistDataService.addData(professionalActivity);
+        addSpecialistDataService.getPersonToAddData().setProfessionalActivity(professionalActivity);
         commonServices.setNextAction("/main_record_keeper");
         addSpecialistDataService.setPersonToAddData(null);
 

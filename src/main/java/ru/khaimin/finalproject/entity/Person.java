@@ -39,9 +39,9 @@ public class Person {
     @Column(name = "role")
     private String role;
 
-    @OneToMany(mappedBy = "person")
+    @OneToOne(mappedBy = "person")
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
-    private List<ProfessionalActivity> professionalActivities;
+    private ProfessionalActivity professionalActivity;
 
     public Person() {
     }
@@ -102,12 +102,11 @@ public class Person {
         this.role = role;
     }
 
-    public List<ProfessionalActivity> getProfessionalActivities() {
-        return professionalActivities;
+    public ProfessionalActivity getProfessionalActivity() {
+        return professionalActivity;
     }
 
-    public void setProfessionalActivities(List<ProfessionalActivity> professionalActivities) {
-        this.professionalActivities = professionalActivities;
-    }            
-    
+    public void setProfessionalActivity(ProfessionalActivity professionalActivity) {
+        this.professionalActivity = professionalActivity;
+    }
 }
