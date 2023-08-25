@@ -14,17 +14,21 @@ import ru.khaimin.finalproject.entity.Person;
 import ru.khaimin.finalproject.entity.ProfessionalActivity;
 import ru.khaimin.finalproject.services.AddSpecialistDataService;
 import ru.khaimin.finalproject.services.CommonServices;
+import ru.khaimin.finalproject.services.PeopleService;
 
 @Controller
 public class RecordKeeperController {  
     
     private final AddSpecialistDataService addSpecialistDataService;
     private final CommonServices commonServices;
+    private final PeopleService peopleService;
 
     @Autowired
-    public RecordKeeperController(AddSpecialistDataService addSpecialistDataService, CommonServices commonServices) {
+    public RecordKeeperController(AddSpecialistDataService addSpecialistDataService, CommonServices commonServices,
+                                  PeopleService peopleService) {
         this.addSpecialistDataService = addSpecialistDataService;
         this.commonServices = commonServices;
+        this.peopleService = peopleService;
     }
 
     @GetMapping("/main_record_keeper")
@@ -41,7 +45,7 @@ public class RecordKeeperController {
         return "appointment";
     }
 
-    @GetMapping("adding_specialist_data")
+    @GetMapping("/adding_specialist_data")
     public String addingSpecialistData(@ModelAttribute("professionalActivity")
                                        ProfessionalActivity professionalActivity, Model model) {
         if (addSpecialistDataService.getPersonId() == 0) {
@@ -60,7 +64,20 @@ public class RecordKeeperController {
         addSpecialistDataService.getPersonToAddData().setProfessionalActivity(professionalActivity);
         commonServices.setNextAction("/main_record_keeper");
         addSpecialistDataService.setPersonToAddData(null);
+        if (addSpecialistDataService.getPersonToAddData() == null) {
+            System.out.println("PersonToAddData is null");
+        }
 
         return "redirect:/successful_action_page";
+    }
+
+    @GetMapping("/list_of_specialists")
+    public String allSpecialists(Model model) {
+        List<Person> allSpecialists = peopleService.getAllSpecialists();
+        for (Person person : allSpecialists) {
+            System.out.println(person.getFirstName());
+        }
+        model.addAttribute("specialists", allSpecialists);
+        return "/list_of_specialists";
     }
 }

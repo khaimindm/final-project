@@ -1,2 +1,2 @@
 create table persons (person_id int PRIMARY KEY AUTO_INCREMENT, user_name varchar(100) NOT NULL, password varchar(200) NOT NULL, first_name varchar(255) NOT NULL, last_name varchar(255) NOT NULL, birthday date NOT NULL, role varchar(20) NOT NULL);
-create table professional_activity (specialist_id int PRIMARY KEY AUTO_INCREMENT, specialty_name varchar(100) NOT NULL, degree_certificate varchar(100) NOT NULL, date_of_employment date NOT NULL, persons_person_id int NOT NULL);
+create table professional_activity (specialist_id int PRIMARY KEY AUTO_INCREMENT, specialty_name varchar(100) NOT NULL, degree_certificate varchar(100) NOT NULL, date_of_employment date NOT NULL, persons_person_id int NOT NULL, UNIQUE (persons_person_id));

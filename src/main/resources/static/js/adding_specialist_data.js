@@ -1,5 +1,8 @@
 document.getElementById('specialist_data_form').addEventListener("submit", checkForm);
 
+var modal = document.getElementById("modalId");
+var span = document.getElementsByClassName("close")[0];
+
 todayDate();
 
 function todayDate() {

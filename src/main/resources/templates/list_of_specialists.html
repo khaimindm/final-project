@@ -31,7 +31,11 @@
       </tr>
     </thead>
     <tbody>
-      <tr th:each="specialist: ${specialists}"></tr>
+      <tr th:each="specialist: ${specialists}">
+        <td>Специальность</td>
+        <td th:text="${specialist.firstName} + ', ' + ${specialist.lastName}"></td>
+        <td>Функция</td>
+      </tr>
     </tbody>
   </table>
   

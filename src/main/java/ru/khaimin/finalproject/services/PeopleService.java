@@ -1,5 +1,6 @@
 package ru.khaimin.finalproject.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +14,6 @@ import ru.khaimin.finalproject.security.PersonDetails;
 
 @Service
 public class PeopleService {
-    //implements UserDetailsService
-
     private final PeopleRepository peopleRepository;
 
     @Autowired
@@ -22,17 +21,13 @@ public class PeopleService {
         this.peopleRepository = peopleRepository;
     }
 
-    /*@Override
-    public UserDetails loadUserByUsername(String username) {
-        //Error
-        Optional<Person> person = peopleRepository.findByUsername(username);
-        return new PersonDetails(person.get());
-    }*/
-
-
     public Optional<Person> loadUser(String username) {
         Optional<Person> person = peopleRepository.findByUsername(username);
         return person;
+    }
+
+    public List<Person> getAllSpecialists() {        
+        return peopleRepository.findAllByRole("ROLE_SPECIALIST");
     }
     
 }

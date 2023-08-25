@@ -1,5 +1,6 @@
 package ru.khaimin.finalproject.repositories;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,4 +11,5 @@ import ru.khaimin.finalproject.entity.Person;
 @Repository
 public interface PeopleRepository extends JpaRepository<Person, Integer> {
     Optional<Person> findByUsername(String username);
+    List<Person> findAllByRole(String role);
 }
