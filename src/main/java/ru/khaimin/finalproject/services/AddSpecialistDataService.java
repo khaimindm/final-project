@@ -6,19 +6,19 @@ import org.springframework.stereotype.Service;
 import ru.khaimin.finalproject.entity.Person;
 import ru.khaimin.finalproject.entity.ProfessionalActivity;
 import ru.khaimin.finalproject.repositories.PeopleRepository;
-import ru.khaimin.finalproject.repositories.SpecialistDataRepository;
+import ru.khaimin.finalproject.repositories.ProfessionalActivityRepository;
 
 @Service
 public class AddSpecialistDataService {
     public int personId;
-    private final SpecialistDataRepository specialistDataRepository;
+    private final ProfessionalActivityRepository professionalActivityRepository;
     private final PeopleRepository peopleRepository;
     private Person personToAddData;
 
 
     @Autowired
-    public AddSpecialistDataService(SpecialistDataRepository specialistDataRepository, PeopleRepository peopleRepository) {
-        this.specialistDataRepository = specialistDataRepository;
+    public AddSpecialistDataService(ProfessionalActivityRepository professionalActivityRepository, PeopleRepository peopleRepository) {
+        this.professionalActivityRepository = professionalActivityRepository;
         this.peopleRepository = peopleRepository;
     }
 
@@ -28,7 +28,7 @@ public class AddSpecialistDataService {
 
         //professionalActivity.setPersonId(personId);
 
-        specialistDataRepository.save(professionalActivity);
+        professionalActivityRepository.save(professionalActivity);
         personId = 0;
     }
 

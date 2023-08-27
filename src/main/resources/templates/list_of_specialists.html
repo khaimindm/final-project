@@ -32,9 +32,9 @@
     </thead>
     <tbody>
       <tr th:each="specialist: ${specialists}">
-        <td>Специальность</td>
+        <td th:text="${specialist.getProfessionalActivity().getSpecialtyName()}">Специальность</td>
         <td th:text="${specialist.firstName} + ', ' + ${specialist.lastName}"></td>
-        <td>Функция</td>
+        <td><a th:href="@{/{id}/work_time(id=${specialist.getId()})}">Установить график</a></td>
       </tr>
     </tbody>
   </table>

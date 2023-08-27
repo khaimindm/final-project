@@ -1,14 +1,14 @@
 package ru.khaimin.finalproject.repositories;
 
-import java.util.List;
-import java.util.Optional;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import ru.khaimin.finalproject.entity.Person;
 import ru.khaimin.finalproject.entity.ProfessionalActivity;
 
+import java.util.Optional;
+
 @Repository
-public interface SpecialistDataRepository extends JpaRepository<ProfessionalActivity, Integer> {    
+public interface ProfessionalActivityRepository extends JpaRepository<ProfessionalActivity, Integer> {
+
 }

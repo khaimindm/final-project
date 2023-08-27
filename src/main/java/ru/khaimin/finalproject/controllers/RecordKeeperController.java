@@ -15,6 +15,7 @@ import ru.khaimin.finalproject.entity.ProfessionalActivity;
 import ru.khaimin.finalproject.services.AddSpecialistDataService;
 import ru.khaimin.finalproject.services.CommonServices;
 import ru.khaimin.finalproject.services.PeopleService;
+import ru.khaimin.finalproject.services.RecordKeeperService;
 
 @Controller
 public class RecordKeeperController {  
@@ -23,12 +24,15 @@ public class RecordKeeperController {
     private final CommonServices commonServices;
     private final PeopleService peopleService;
 
+    private final RecordKeeperService recordKeeperService;
+
     @Autowired
     public RecordKeeperController(AddSpecialistDataService addSpecialistDataService, CommonServices commonServices,
-                                  PeopleService peopleService) {
+                                  PeopleService peopleService, RecordKeeperService recordKeeperService) {
         this.addSpecialistDataService = addSpecialistDataService;
         this.commonServices = commonServices;
         this.peopleService = peopleService;
+        this.recordKeeperService = recordKeeperService;
     }
 
     @GetMapping("/main_record_keeper")
@@ -64,9 +68,6 @@ public class RecordKeeperController {
         addSpecialistDataService.getPersonToAddData().setProfessionalActivity(professionalActivity);
         commonServices.setNextAction("/main_record_keeper");
         addSpecialistDataService.setPersonToAddData(null);
-        if (addSpecialistDataService.getPersonToAddData() == null) {
-            System.out.println("PersonToAddData is null");
-        }
 
         return "redirect:/successful_action_page";
     }
@@ -74,10 +75,13 @@ public class RecordKeeperController {
     @GetMapping("/list_of_specialists")
     public String allSpecialists(Model model) {
         List<Person> allSpecialists = peopleService.getAllSpecialists();
-        for (Person person : allSpecialists) {
-            System.out.println(person.getFirstName());
-        }
+
         model.addAttribute("specialists", allSpecialists);
         return "/list_of_specialists";
+    }
+
+    @GetMapping("/{id}/work_time")
+    public String workTime(@PathVariable("id") int id) {
+        return "/work_time";
     }
 }
