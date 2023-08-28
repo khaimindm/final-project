@@ -32,6 +32,9 @@ public class WorkTime {
     @Column(name = "work_time_end_at")
     private LocalTime workTimeEndAt;
 
+    @Column(name = "availability")
+    private boolean availability;
+
     @ManyToOne
     @JoinColumn(name = "persons_person_id", referencedColumnName = "id")
     private Person person;
@@ -56,12 +59,28 @@ public class WorkTime {
         this.dateOfWork = dateOfWork;
     }
 
-    public LocalTime getWorkTime() {
-        return workTime;
+    public LocalTime getWorkTimeStartAt() {
+        return workTimeStartAt;
     }
 
-    public void setWorkTime(LocalTime workTime) {
-        this.workTime = workTime;
+    public void setWorkTimeStartAt(LocalTime workTimeStartAt) {
+        this.workTimeStartAt = workTimeStartAt;
+    }
+
+    public LocalTime getWorkTimeEndAt() {
+        return workTimeEndAt;
+    }
+
+    public void setWorkTimeEndAt(LocalTime workTimeEndAt) {
+        this.workTimeEndAt = workTimeEndAt;
+    }
+
+    public boolean isAvailability() {
+        return availability;
+    }
+
+    public void setAvailability(boolean availability) {
+        this.availability = availability;
     }
 
     public Person getPerson() {

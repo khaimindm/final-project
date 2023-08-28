@@ -22,11 +22,28 @@
   </div>
 
   <div id="main">
-    <form id="form" th:action="@{/specialist/work_time}" th:method="post" th:object=""></form>
+    <form id="form" th:action="@{/specialist/work_time}" th:method="post" th:object="${workTime}">
+      <label for="lastName">Фамилия:</label><br>
+      <input type="text" id="lastName" th:value="*{specialist.getLastName()}" readonly><br>
+      <label for="firstName">Имя:</label><br>
+      <input type="text" id="firstName" th:value="*{specialist.getFirstName()}" readonly><br><br>
+
+      <label for="dateOfWork">Дата:</label><br>
+      <input type="date" id="dateOfWork" th:field="*{dateOfWork}"><br>
+      <span>Время работы:</span><br>
+      <input type="checkbox" id="workTimeMorning" value="morning"><br>
+      <label for="workTimeMorning">08:00 - 12:00</label>
+      <input type="checkbox" id="workTimeAfternoon" value="afternoon"><br>
+      <label for="workTimeAfternoon">13:00 - 17:00</label><br>
+      <!-- <label for="appointmentInterval">Интервал между приемами</label><br>
+      <input type="number" id="appointmentInterval" min="1" max="120"><br> -->
+      <input type="submit" value="Применить" class="submit_button"><br><br>
+      <span id="message" name="message" class="message"></span><br>
+    </form>
   </div>
 
   
-  <script src="js/main_record_keeper.js"></script>
+  <script src="js/work_time.js"></script>
 
 </body>
 </html>

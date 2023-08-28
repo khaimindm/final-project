@@ -1,6 +1,7 @@
 package ru.khaimin.finalproject.controllers;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import ru.khaimin.finalproject.entity.Person;
 import ru.khaimin.finalproject.entity.ProfessionalActivity;
+import ru.khaimin.finalproject.entity.WorkTime;
 import ru.khaimin.finalproject.services.AddSpecialistDataService;
 import ru.khaimin.finalproject.services.CommonServices;
 import ru.khaimin.finalproject.services.PeopleService;
@@ -80,7 +82,9 @@ public class RecordKeeperController {
     }
 
     @GetMapping("/specialist/{id}/work_time")
-    public String workTime(@PathVariable("id") int id) {
+    public String workTime(@PathVariable("id") int id, @ModelAttribute("workTime") WorkTime workTime, Model model) {
+        Optional<Person> person = recordKeeperService.getPersonById(id);
+        model.addAttribute("specialist", person);
         return "/work_time";
     }
 }

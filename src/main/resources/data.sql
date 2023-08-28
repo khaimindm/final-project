@@ -12,7 +12,7 @@ INSERT INTO professional_activity (specialty_name, degree_certificate, date_of_e
 INSERT INTO professional_activity (specialty_name, degree_certificate, date_of_employment, persons_person_id) VALUES ('Бактериолог', '123', '1990-05-05', '5');
 INSERT INTO professional_activity (specialty_name, degree_certificate, date_of_employment, persons_person_id) VALUES ('Хирург', '123', '1990-05-05', '6');
 
-INSERT INTO work_time (date_of_work, work_time_start_at, work_time_end_at, persons_person_id) VALUES ('1990-05-05', '08:00:00', '08:30:00', '2');
-INSERT INTO work_time (date_of_work, work_time_start_at, work_time_end_at, persons_person_id) VALUES ('1990-05-05', '08:30:00', '09:00:00', '2');
-INSERT INTO work_time (date_of_work, work_time_start_at, work_time_end_at, persons_person_id) VALUES ('1990-05-05', '09:00:00', '09:30:00', '2');
-INSERT INTO work_time (date_of_work, work_time_start_at, work_time_end_at, persons_person_id) VALUES ('1990-05-05', '09:30:00', '10:00:00', '2');
+INSERT INTO work_time (date_of_work, work_time_start_at, work_time_end_at, availability, persons_person_id) VALUES ('1990-05-05', '08:00:00', '08:30:00', 'true', '2');
+INSERT INTO work_time (date_of_work, work_time_start_at, work_time_end_at, availability, persons_person_id) VALUES ('1990-05-05', '08:30:00', '09:00:00', 'true', '2');
+INSERT INTO work_time (date_of_work, work_time_start_at, work_time_end_at, availability, persons_person_id) VALUES ('1990-05-05', '09:00:00', '09:30:00', 'false', '2');
+INSERT INTO work_time (date_of_work, work_time_start_at, work_time_end_at, availability, persons_person_id) VALUES ('1990-05-05', '09:30:00', '10:00:00', 'true', '2');
