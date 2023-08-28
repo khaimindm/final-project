@@ -1,0 +1,74 @@
+package ru.khaimin.finalproject.entity;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+@Entity
+@Table(name = "work_time")
+public class WorkTime {
+    @Id
+    @Column(name = "work_time_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int workTimeId;
+    
+    @Column(name = "date_of_work")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate dateOfWork;
+
+    @Column(name = "work_time_start_at")
+    private LocalTime workTimeStartAt;
+
+    @Column(name = "work_time_end_at")
+    private LocalTime workTimeEndAt;
+
+    @ManyToOne
+    @JoinColumn(name = "persons_person_id", referencedColumnName = "id")
+    private Person person;
+
+    public WorkTime() {
+
+    }
+
+    public int getWorkTimeId() {
+        return workTimeId;
+    }
+
+    public void setWorkTimeId(int workTimeId) {
+        this.workTimeId = workTimeId;
+    }
+
+    public LocalDate getDateOfWork() {
+        return dateOfWork;
+    }
+
+    public void setDateOfWork(LocalDate dateOfWork) {
+        this.dateOfWork = dateOfWork;
+    }
+
+    public LocalTime getWorkTime() {
+        return workTime;
+    }
+
+    public void setWorkTime(LocalTime workTime) {
+        this.workTime = workTime;
+    }
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
+    }
+}

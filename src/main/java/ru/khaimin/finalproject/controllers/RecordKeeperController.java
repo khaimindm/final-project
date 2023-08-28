@@ -72,15 +72,14 @@ public class RecordKeeperController {
         return "redirect:/successful_action_page";
     }
 
-    @GetMapping("/list_of_specialists")
+    @GetMapping("/specialists")
     public String allSpecialists(Model model) {
         List<Person> allSpecialists = peopleService.getAllSpecialists();
-
         model.addAttribute("specialists", allSpecialists);
         return "/list_of_specialists";
     }
 
-    @GetMapping("/{id}/work_time")
+    @GetMapping("/specialist/{id}/work_time")
     public String workTime(@PathVariable("id") int id) {
         return "/work_time";
     }

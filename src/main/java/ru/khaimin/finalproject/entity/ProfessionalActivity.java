@@ -33,7 +33,9 @@ public class ProfessionalActivity {
     @JoinColumn(name = "persons_person_id", referencedColumnName = "person_id")
     private Person person;
 
-    public ProfessionalActivity() {}
+    public ProfessionalActivity() {
+        
+    }
 
     public int getSpecialistId() {
         return specialistId;

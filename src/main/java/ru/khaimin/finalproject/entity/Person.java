@@ -43,7 +43,12 @@ public class Person {
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private ProfessionalActivity professionalActivity;
 
+    @OneToMany(mappedBy = "person")
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    private WorkTime workTime;
+
     public Person() {
+
     }
 
     public int getId() {

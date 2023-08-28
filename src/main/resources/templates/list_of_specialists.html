@@ -21,25 +21,25 @@
     </ul>    
   </div>
 
-  <h3>Специалисты</h3>
-  <table>
-    <thead>
-      <tr>
-        <th>Специальность</th>
-        <th>Имя, Фамилия</th>
-        <th>Функция</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr th:each="specialist: ${specialists}">
-        <td th:text="${specialist.getProfessionalActivity().getSpecialtyName()}">Специальность</td>
-        <td th:text="${specialist.firstName} + ', ' + ${specialist.lastName}"></td>
-        <td><a th:href="@{/{id}/work_time(id=${specialist.getId()})}">Установить график</a></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
+  <div id="main">
+    <h3>Специалисты</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Специальность</th>
+          <th>Фамилия, Имя</th>
+          <th>Функция</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="specialist: ${specialists}">
+          <td th:text="${specialist.getProfessionalActivity().getSpecialtyName()}">Специальность</td>
+          <td><a th:href="@{/specialist/{id}(id=${specialist.getId()})}" th:text="${specialist.getLastName()} + ' ' + ${specialist.getFirstName()}"></a></td>
+          <td><a th:href="@{/specialist/{id}/work_time(id=${specialist.getId()})}">Установить график</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
 </body>
 </html>

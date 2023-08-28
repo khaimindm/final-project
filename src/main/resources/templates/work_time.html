@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link th:href="@{/css/work_time.css}" rel="stylesheet">
-  <title>Заголовок</title>
+  <title>График работы</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
 <body>
@@ -19,6 +19,10 @@
       </li>      
       <li class="toppanelel" style="float: right;">Пользователь</li>      
     </ul>    
+  </div>
+
+  <div id="main">
+    <form id="form" th:action="@{/specialist/work_time}" th:method="post" th:object=""></form>
   </div>
 
   

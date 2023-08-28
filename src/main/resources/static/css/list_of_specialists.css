@@ -35,6 +35,12 @@ li.toppanelel {
     background-color: #0b7dda;
 }
 
+#main {
+  clear: both;  
+  padding-top: 10px;
+  padding-left: 10px;
+}
+
 table, th, td {
   border: 1px solid black;
   border-collapse: collapse;
@@ -45,5 +51,5 @@ th, td {
 }
 
 tr:nth-child(even) {
-  background-color: #D6EEEE;
+  background-color: #b8e0e0;
 }
