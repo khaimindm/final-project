@@ -22,28 +22,40 @@
   </div>
 
   <div id="main">
-    <form id="form" th:action="@{/specialist/work_time}" th:method="post" th:object="${workTime}">
+    <form id="form" th:action="@{/specialist/work_time}" th:method="post" th:object="${dataForWorkTime}">
+      <input type="hidden" th:field="*{id}" th:value="*{specialist.getId()}">
       <label for="lastName">Фамилия:</label><br>
-      <input type="text" id="lastName" th:value="*{specialist.getLastName()}" readonly><br>
+      <input type="text" id="lastName" th:field="*{lastName}" th:value="*{specialist.getLastName()}" readonly><br>
       <label for="firstName">Имя:</label><br>
-      <input type="text" id="firstName" th:value="*{specialist.getFirstName()}" readonly><br><br>
+      <input type="text" id="firstName" th:field="*{firstName}" th:value="*{specialist.getFirstName()}" readonly><br><br>
 
       <label for="dateOfWork">Дата:</label><br>
       <input type="date" id="dateOfWork" th:field="*{dateOfWork}"><br>
       <span>Время работы:</span><br>
-      <input type="checkbox" id="workTimeMorning" value="morning"><br>
-      <label for="workTimeMorning">08:00 - 12:00</label>
-      <input type="checkbox" id="workTimeAfternoon" value="afternoon"><br>
+      <input type="checkbox" id="workTimeMorning" th:field="*{workTimeMorning}" value="morning">
+      <label for="workTimeMorning">08:00 - 12:00</label><br>
+      <input type="checkbox" id="workTimeAfternoon" th:field="*{workTimeAfternoon}" value="afternoon">
       <label for="workTimeAfternoon">13:00 - 17:00</label><br>
-      <!-- <label for="appointmentInterval">Интервал между приемами</label><br>
-      <input type="number" id="appointmentInterval" min="1" max="120"><br> -->
+      <span id="checkboxMessage" class="message"></span><br><br>
+
+      <label for="appointmentInterval">Интервал между приемами:</label>
+      <select th:field="*{appointmentInterval}" id="appointmentInterval">
+        <option value="10">10</option>
+        <option value="20">20</option>
+        <option value="30" selected>30</option>
+        <option value="40">40</option>
+        <option value="50">50</option>
+        <option value="60">60</option>
+      </select>
+      <span> мин.</span><br><br><br>
+      <!-- <input type="number" id="appointmentInterval" min="1" max="120"><br> -->
       <input type="submit" value="Применить" class="submit_button"><br><br>
       <span id="message" name="message" class="message"></span><br>
     </form>
   </div>
 
   
-  <script src="js/work_time.js"></script>
+  <script type="text/javascript" th:src="@{/js/work_time.js}"></script>
 
 </body>
 </html>

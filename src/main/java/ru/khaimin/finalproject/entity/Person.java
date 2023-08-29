@@ -45,7 +45,7 @@ public class Person {
 
     @OneToMany(mappedBy = "person")
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
-    private WorkTime workTime;
+    private List<WorkTime> workTime;    
 
     public Person() {
 
@@ -114,4 +114,13 @@ public class Person {
     public void setProfessionalActivity(ProfessionalActivity professionalActivity) {
         this.professionalActivity = professionalActivity;
     }
+
+    public List<WorkTime> getWorkTime() {
+        return workTime;
+    }
+
+    public void setWorkTime(List<WorkTime> workTime) {
+        this.workTime = workTime;
+    }
+        
 }

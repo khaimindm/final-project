@@ -36,7 +36,7 @@ public class WorkTime {
     private boolean availability;
 
     @ManyToOne
-    @JoinColumn(name = "persons_person_id", referencedColumnName = "id")
+    @JoinColumn(name = "persons_person_id", referencedColumnName = "person_id")
     private Person person;
 
     public WorkTime() {

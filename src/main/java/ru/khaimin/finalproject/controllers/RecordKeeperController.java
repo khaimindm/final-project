@@ -1,5 +1,6 @@
 package ru.khaimin.finalproject.controllers;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,7 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import ru.khaimin.finalproject.entity.DataForWorkTime;
 import ru.khaimin.finalproject.entity.Person;
 import ru.khaimin.finalproject.entity.ProfessionalActivity;
 import ru.khaimin.finalproject.entity.WorkTime;
@@ -25,7 +28,6 @@ public class RecordKeeperController {
     private final AddSpecialistDataService addSpecialistDataService;
     private final CommonServices commonServices;
     private final PeopleService peopleService;
-
     private final RecordKeeperService recordKeeperService;
 
     @Autowired
@@ -82,9 +84,18 @@ public class RecordKeeperController {
     }
 
     @GetMapping("/specialist/{id}/work_time")
-    public String workTime(@PathVariable("id") int id, @ModelAttribute("workTime") WorkTime workTime, Model model) {
-        Optional<Person> person = recordKeeperService.getPersonById(id);
-        model.addAttribute("specialist", person);
+    public String workTime(@PathVariable("id") int id, @ModelAttribute("dataForWorkTime") DataForWorkTime dataForWorkTime, Model model) {
+        Optional<Person> person = recordKeeperService.getPersonById(id);             
+        model.addAttribute("specialist", person.orElse(new Person()));
         return "/work_time";
+    }
+
+    @PostMapping("/specialist/work_time")
+    public String addWorkTime(@ModelAttribute("dataForWorkTime") DataForWorkTime dataForWorkTime) {
+        
+        Person person = recordKeeperService.getPersonById(dataForWorkTime.getId()).orElse(new Person());
+        recordKeeperService.workTime(person, dataForWorkTime.getDateOfWork(), dataForWorkTime.getWorkTimeMorning(), dataForWorkTime.getWorkTimeAfternoon(), dataForWorkTime.getAppointmentInterval());
+        commonServices.setNextAction("/main_record_keeper");
+        return "redirect:/successful_action_page";
     }
 }

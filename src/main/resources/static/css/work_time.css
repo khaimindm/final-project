@@ -38,3 +38,10 @@ li.toppanelel {
 #main {
     clear: both;    
 }
+
+span.message {
+    visibility: hidden;
+    font-size: 13px;
+    text-align: center;
+    color: red;
+  }
