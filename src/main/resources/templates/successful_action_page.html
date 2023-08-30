@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru-RU" xmlns:th="http://www.thymeleaf.org"></html>
+<html lang="ru-RU" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,6 +11,7 @@
     <div id="center">
         <p id="checkCircle" class="material-icons">check_circle</p>
         <h3>Действие выполнено успешно!</h3><br>
-        <a id="continue" th:href="@{action}">Продолжить</a><br><br>
+        <a id="continue" th:href="@{{link}(link=${action})}">Продолжить</a><br><br>
     </div>
 </body>
+</html>

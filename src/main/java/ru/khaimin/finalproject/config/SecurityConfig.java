@@ -7,29 +7,25 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import ru.khaimin.finalproject.security.UrlAuthenticationSuccessHandler;
-import ru.khaimin.finalproject.services.PatientDetailsService;
 import ru.khaimin.finalproject.services.PersonDetailsService;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final PersonDetailsService personDetailsService;
-    private final PatientDetailsService patientDetailsService;
-    
+
     @Bean
     public AuthenticationSuccessHandler authenticationSuccessHandler(){
         return new UrlAuthenticationSuccessHandler();
     }
 
     @Autowired
-    public SecurityConfig(PersonDetailsService personDetailsService, PatientDetailsService patientDetailsService) {
+    public SecurityConfig(PersonDetailsService personDetailsService) {
         this.personDetailsService = personDetailsService;
-        this.patientDetailsService = patientDetailsService;
     }
 
     protected void configure(HttpSecurity http) throws Exception {
@@ -38,7 +34,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
         .antMatchers("/main_record_keeper", "/auth/registration_record_keeper",
-                     "/adding_specialist_data", "/appointment", "/list_of_specialists", "/work_time").hasRole("RECORDKEEPER")
+                     "/adding_specialist_data", "/appointment", "/list_of_specialists", "/work_time")
+                     .hasRole("RECORDKEEPER")
         .antMatchers("/main_specialist").hasRole("SPECIALIST")
         .antMatchers("/main_patient").hasRole("PATIENT")
         .antMatchers("/auth/login", "/auth/registration", "/error", "/css/**", "/js/**",
@@ -57,9 +54,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(personDetailsService)
-        .passwordEncoder(getPasswordEncoder());
-
-        auth.userDetailsService(patientDetailsService)
         .passwordEncoder(getPasswordEncoder());
     }
 
