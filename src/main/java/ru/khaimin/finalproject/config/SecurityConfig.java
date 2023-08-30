@@ -12,20 +12,24 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import ru.khaimin.finalproject.security.UrlAuthenticationSuccessHandler;
+import ru.khaimin.finalproject.services.PatientDetailsService;
 import ru.khaimin.finalproject.services.PersonDetailsService;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final PersonDetailsService personDetailsService;
+    private final PatientDetailsService patientDetailsService;
+    
     @Bean
     public AuthenticationSuccessHandler authenticationSuccessHandler(){
         return new UrlAuthenticationSuccessHandler();
     }
 
     @Autowired
-    public SecurityConfig(PersonDetailsService personDetailsService) {
+    public SecurityConfig(PersonDetailsService personDetailsService, PatientDetailsService patientDetailsService) {
         this.personDetailsService = personDetailsService;
+        this.patientDetailsService = patientDetailsService;
     }
 
     protected void configure(HttpSecurity http) throws Exception {
@@ -53,6 +57,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(personDetailsService)
+        .passwordEncoder(getPasswordEncoder());
+
+        auth.userDetailsService(patientDetailsService)
         .passwordEncoder(getPasswordEncoder());
     }
 

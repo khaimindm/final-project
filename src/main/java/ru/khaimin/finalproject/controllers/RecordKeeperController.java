@@ -5,24 +5,29 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import ru.khaimin.finalproject.entity.DataForWorkTime;
 import ru.khaimin.finalproject.entity.Person;
 import ru.khaimin.finalproject.entity.ProfessionalActivity;
 import ru.khaimin.finalproject.entity.WorkTime;
+import ru.khaimin.finalproject.security.PersonDetails;
 import ru.khaimin.finalproject.services.AddSpecialistDataService;
 import ru.khaimin.finalproject.services.CommonServices;
 import ru.khaimin.finalproject.services.PeopleService;
 import ru.khaimin.finalproject.services.RecordKeeperService;
 
 @Controller
+//@RequestMapping("/recordkeeper")
 public class RecordKeeperController {  
     
     private final AddSpecialistDataService addSpecialistDataService;
@@ -39,10 +44,16 @@ public class RecordKeeperController {
         this.recordKeeperService = recordKeeperService;
     }
 
-    @GetMapping("/main_record_keeper")
+    @GetMapping("/recordkeeper/main_record_keeper")
     public String mainRecordKeeper(Model model) {
         List<String> specialties = commonServices.loadSpecialties();
         model.addAttribute("specialties", specialties );
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        PersonDetails personDetails = (PersonDetails) authentication.getPrincipal();
+        
+        String firstLastName = personDetails.getPerson().getFirstName() + " " + personDetails.getPerson().getLastName();
+        model.addAttribute("firstLastName", firstLastName);
 
         return "main_record_keeper";
     }
@@ -53,7 +64,7 @@ public class RecordKeeperController {
         return "appointment";
     }
 
-    @GetMapping("/adding_specialist_data")
+    @GetMapping("/recordkeeper/adding_specialist_data")
     public String addingSpecialistData(@ModelAttribute("professionalActivity")
                                        ProfessionalActivity professionalActivity, Model model) {
         if (addSpecialistDataService.getPersonId() == 0) {
@@ -64,14 +75,19 @@ public class RecordKeeperController {
         return "adding_specialist_data";
     }
     
-    @PostMapping("/adding_specialist_data")
-    public String addSpecialistData(@ModelAttribute("professionalActivity") ProfessionalActivity professionalActivity) {
+    @PostMapping("/recordkeeper/adding_specialist_data")
+    public String addSpecialistData(@ModelAttribute("professionalActivity") ProfessionalActivity professionalActivity,
+                                    Model model) {
         professionalActivity.setPerson(addSpecialistDataService.getPersonToAddData());
 
         addSpecialistDataService.addData(professionalActivity);
         addSpecialistDataService.getPersonToAddData().setProfessionalActivity(professionalActivity);
-        commonServices.setNextAction("/main_record_keeper");
-        addSpecialistDataService.setPersonToAddData(null);
+        //commonServices.setNextAction("/recordkeeper/main_record_keeper");
+        //addSpecialistDataService.setPersonToAddData(null);
+
+        String test = "/recordkeeper/main_record_keeper";
+
+        model.addAttribute("action", test);        
 
         return "redirect:/successful_action_page";
     }

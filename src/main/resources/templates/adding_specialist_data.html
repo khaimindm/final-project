@@ -23,7 +23,7 @@
 
       <h2 id="title" th:text="'Добавить данные для специалиста: ' + ${person_first_last_name}"></h2>
 
-      <form id="specialist_data_form" th:action="@{/adding_specialist_data}" th:method="post" th:object="${professionalActivity}">
+      <form id="specialist_data_form" th:action="@{/recordkeeper/adding_specialist_data}" th:method="post" th:object="${professionalActivity}">
         <label for="specialtyName">Наименование специальности</label>
         <input type="text" th:field="*{specialtyName}" id="specialtyName">
         <br>

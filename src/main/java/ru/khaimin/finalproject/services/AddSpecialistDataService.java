@@ -29,7 +29,7 @@ public class AddSpecialistDataService {
         //professionalActivity.setPersonId(personId);
 
         professionalActivityRepository.save(professionalActivity);
-        personId = 0;
+        //personId = 0;
     }
 
     public String getPersonName() {

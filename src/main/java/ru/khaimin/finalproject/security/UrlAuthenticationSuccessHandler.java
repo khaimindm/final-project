@@ -50,7 +50,7 @@ public class UrlAuthenticationSuccessHandler implements AuthenticationSuccessHan
     protected String determineTargetUrl(final Authentication authentication) {
 
         Map<String, String> roleTargetUrlMap = new HashMap<>();
-        roleTargetUrlMap.put("ROLE_RECORDKEEPER", "/main_record_keeper");
+        roleTargetUrlMap.put("ROLE_RECORDKEEPER", "/recordkeeper/main_record_keeper");
         roleTargetUrlMap.put("ROLE_SPECIALIST", "/main_specialist");
         roleTargetUrlMap.put("ROLE_PATIENT", "/main_patient");
 

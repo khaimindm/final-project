@@ -75,9 +75,9 @@ public class AuthController {
         registrationService.register(person);
 
         if (person.getRole().equals("ROLE_SPECIALIST")) {            
-            return "redirect:/adding_specialist_data";
+            return "redirect:/recordkeeper/adding_specialist_data";
         }
         
-        return "redirect:/main_record_keeper";
+        return "redirect:/recordkeeper/main_record_keeper";
     }
 }
