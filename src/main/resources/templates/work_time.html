@@ -27,19 +27,22 @@
 
   <div id="main">
     <form id="form" th:action="@{/specialist/work_time}" th:method="post" th:object="${dataForWorkTime}">
-      <input type="hidden" th:field="*{id}" th:value="*{dataForWorkTime.getId()}">
+      <input type="hidden" th:field="*{dataForWorkTimeId}">
       <label for="lastName">Фамилия:</label><br>
-      <input type="text" id="lastName" th:field="*{lastName}" th:value="*{dataForWorkTime.getLastName()}" readonly><br>
+      <input type="text" id="lastName" th:field="*{lastName}" readonly><br>
       <label for="firstName">Имя:</label><br>
-      <input type="text" id="firstName" th:field="*{firstName}" th:value="*{dataForWorkTime.getFirstName()}" readonly><br><br>
+      <input type="text" id="firstName" th:field="*{firstName}" readonly><br><br>
 
       <label for="dateOfWork">Дата:</label><br>
       <input type="date" id="dateOfWork" th:field="*{dateOfWork}"><br>
       <span>Время работы:</span><br>
-      <input type="checkbox" id="workTimeMorning" th:field="*{workTimeMorning}" value="morning">
-      <label for="workTimeMorning">08:00 - 12:00</label><br>
-      <input type="checkbox" id="workTimeAfternoon" th:field="*{workTimeAfternoon}" value="afternoon">
-      <label for="workTimeAfternoon">13:00 - 17:00</label><br>
+
+      <label th:for="${#ids.next('workTimeMorning')}">08:00 - 12:00</label>
+      <input type="checkbox" id="workTimeMorning" th:field="*{workTimeMorning}"><br>
+
+      <label th:for="${#ids.next('workTimeAfternoon')}">13:00 - 17:00</label>
+      <input type="checkbox" id="workTimeAfternoon" th:field="*{workTimeAfternoon}">
+
       <span id="checkboxMessage" class="message"></span><br><br>
 
       <label for="appointmentInterval">Интервал между приемами:</label>
@@ -52,12 +55,11 @@
         <option value="60">60</option>
       </select>
       <span> мин.</span><br><br><br>
-      <!-- <input type="number" id="appointmentInterval" min="1" max="120"><br> -->
+
       <input type="submit" value="Применить" class="submit_button"><br><br>
       <span id="message" name="message" class="message"></span><br>
     </form>
   </div>
-
   
   <script type="text/javascript" th:src="@{/js/work_time.js}"></script>
 

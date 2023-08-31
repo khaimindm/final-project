@@ -30,6 +30,7 @@ public class RecordKeeperController {
     private final PeopleService peopleService;
     private final RecordKeeperService recordKeeperService;
 
+
     @Autowired
     public RecordKeeperController(AddSpecialistDataService addSpecialistDataService, CommonServices commonServices,
                                   PeopleService peopleService, RecordKeeperService recordKeeperService) {
@@ -90,24 +91,27 @@ public class RecordKeeperController {
 
     @GetMapping("/specialist/{id}/work_time")
     public String workTime(@PathVariable("id") int id, Model model) {
-        Optional<Person> person = recordKeeperService.getPersonById(id);
+        Person person = recordKeeperService.getPersonById(id).orElse(new Person());
+
         DataForWorkTime dataForWorkTime = new DataForWorkTime();
-        dataForWorkTime.setId(person.orElse(new Person()).getId());
-        dataForWorkTime.setLastName(person.orElse(new Person()).getLastName());
-        dataForWorkTime.setFirstName(person.orElse(new Person()).getFirstName());
+        dataForWorkTime.setDataForWorkTimeId(person.getId());
+        dataForWorkTime.setLastName(person.getLastName());
+        dataForWorkTime.setFirstName(person.getFirstName());
 
         model.addAttribute("dataForWorkTime", dataForWorkTime);
         return "/work_time";
     }
 
     @PostMapping("/specialist/work_time")
-    public String addWorkTime(@ModelAttribute("dataForWorkTime") DataForWorkTime dataForWorkTime) {
+    public String addWorkTime(@ModelAttribute("dataForWorkTime") DataForWorkTime dataForWorkTime, Model model) {
         
-        Person person = recordKeeperService.getPersonById(dataForWorkTime.getId()).orElse(new Person());
-        recordKeeperService.workTime(person, dataForWorkTime.getDateOfWork(), dataForWorkTime.getWorkTimeMorning(),
-                                     dataForWorkTime.getWorkTimeAfternoon(), dataForWorkTime.getAppointmentInterval());
-        
-        return "redirect:/successful_action_page";
+        Person person = recordKeeperService.getPersonById(dataForWorkTime.getDataForWorkTimeId()).orElse(new Person());
+        recordKeeperService.workTime(person, dataForWorkTime);
+
+        String action = "/main_record_keeper";
+        model.addAttribute("action", action);
+
+        return "/successful_action_page";
     }
 
     @ModelAttribute("currentUser")

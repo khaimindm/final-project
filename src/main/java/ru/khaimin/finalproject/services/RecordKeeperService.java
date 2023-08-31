@@ -2,6 +2,7 @@ package ru.khaimin.finalproject.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.khaimin.finalproject.entity.DataForWorkTime;
 import ru.khaimin.finalproject.entity.Person;
 import ru.khaimin.finalproject.entity.ProfessionalActivity;
 import ru.khaimin.finalproject.entity.WorkTime;
@@ -29,24 +30,23 @@ public class RecordKeeperService {
         return foundPerson;
     }
 
-    public void workTime(Person person, LocalDate dateOfWork, String workTimeMorning, String workTimeAfternoon,
-                            int appointmentInterval) {
+    public void workTime(Person person, DataForWorkTime dataForWorkTime) {
 
-        if (workTimeMorning.equals("morning")) {
+        if (dataForWorkTime.getWorkTimeMorning()) {
             LocalTime workTimeStartAt = LocalTime.of(8, 0);
             LocalTime workTimeEndAt = LocalTime.of(12, 0);
-            
-            //WorkTime workTime = person.getWorkTime();
-            WorkTime workTime = new WorkTime();
-            for(LocalTime time = workTimeStartAt; time.isAfter(workTimeEndAt); time.plusMinutes(appointmentInterval)) {
-                workTime.setDateOfWork(dateOfWork);
+
+
+            for(LocalTime time = workTimeStartAt; time.isAfter(workTimeEndAt); time.plusMinutes(dataForWorkTime.getAppointmentInterval())) {
+                WorkTime workTime = new WorkTime();
+                workTime.setDateOfWork(dataForWorkTime.getDateOfWork());
                 workTime.setWorkTimeStartAt(time);
-                time = time.plusMinutes(appointmentInterval);
+                time = time.plusMinutes(dataForWorkTime.getAppointmentInterval());
                 workTime.setWorkTimeEndAt(time);
-                time = time.minusMinutes(appointmentInterval);
+                time = time.minusMinutes(dataForWorkTime.getAppointmentInterval());
                 workTime.setAvailability(true);
-                workTimeRepository.save(workTime);
                 workTime.setPerson(person);
+                workTimeRepository.save(workTime);
             }
             
         }

@@ -4,17 +4,22 @@ import java.time.LocalDate;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class DataForWorkTime {
-    private int id;
+    @Id
+    private int dataForWorkTimeId;
     private String lastName;
     private String firstName;
     
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfWork;
 
-    private String workTimeMorning;
+    private Boolean workTimeMorning;
 
-    private String workTimeAfternoon;
+    private Boolean workTimeAfternoon;
 
     private int appointmentInterval;
 
@@ -22,12 +27,12 @@ public class DataForWorkTime {
         
     }
 
-    public int getId() {
-        return id;
+    public int getDataForWorkTimeId() {
+        return dataForWorkTimeId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setDataForWorkTimeId(int dataForWorkTimeId) {
+        this.dataForWorkTimeId = dataForWorkTimeId;
     }
 
     public String getLastName() {
@@ -54,19 +59,19 @@ public class DataForWorkTime {
         this.dateOfWork = dateOfWork;
     }
 
-    public String getWorkTimeMorning() {
+    public Boolean getWorkTimeMorning() {
         return workTimeMorning;
     }
 
-    public void setWorkTimeMorning(String workTimeMorning) {
+    public void setWorkTimeMorning(Boolean workTimeMorning) {
         this.workTimeMorning = workTimeMorning;
     }
 
-    public String getWorkTimeAfternoon() {
+    public Boolean getWorkTimeAfternoon() {
         return workTimeAfternoon;
     }
 
-    public void setWorkTimeAfternoon(String workTimeAfternoon) {
+    public void setWorkTimeAfternoon(Boolean workTimeAfternoon) {
         this.workTimeAfternoon = workTimeAfternoon;
     }
 
@@ -77,6 +82,4 @@ public class DataForWorkTime {
     public void setAppointmentInterval(int appointmentInterval) {
         this.appointmentInterval = appointmentInterval;
     }
-    
-
 }

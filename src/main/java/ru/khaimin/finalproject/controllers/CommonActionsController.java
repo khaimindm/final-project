@@ -18,10 +18,9 @@ public class CommonActionsController {
     }
 
 
-    @GetMapping("/successful_action_page")
+    /*@GetMapping("/successful_action_page")
     public String successfulAction(Model model) {
-        model.addAttribute("nextAction", commonServices.getNextAction());
-        commonServices.setNextAction(null);
+
         return "successful_action_page";
-    }
+    }*/
 }
