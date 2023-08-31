@@ -4,6 +4,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import ru.khaimin.finalproject.entity.Person;
 import ru.khaimin.finalproject.services.AddSpecialistDataService;
+import ru.khaimin.finalproject.services.CommonServices;
 import ru.khaimin.finalproject.services.RegistrationService;
 import ru.khaimin.finalproject.util.PersonValidator;
 
@@ -21,12 +23,15 @@ public class AuthController {
 
     private final RegistrationService registrationService;
     private final PersonValidator personValidator;
+    private final CommonServices commonServices;
     
     
     @Autowired
-    public AuthController (RegistrationService registrationService, PersonValidator personValidator, AddSpecialistDataService addSpecialistDataService) {
+    public AuthController (RegistrationService registrationService, PersonValidator personValidator,
+                           AddSpecialistDataService addSpecialistDataService, CommonServices commonServices) {
         this.registrationService = registrationService;
         this.personValidator = personValidator;
+        this.commonServices = commonServices;
     }
 
     @GetMapping("/login")
@@ -59,13 +64,14 @@ public class AuthController {
     }
 
     @GetMapping("/registration_record_keeper")
-    public String addSpecialist(@ModelAttribute("person") Person person) {
+    public String addSpecialist(@ModelAttribute("person") Person person, Model model) {
+        model.addAttribute("currentUser", commonServices.getCurrentUser());
         return "auth/registration_record_keeper";
     } 
 
     @PostMapping("/registration_record_keeper")
     public String performRegistrationRecordKeeper(@ModelAttribute("person") @Valid Person person,
-                                                  BindingResult bindingResult) {
+                                                  BindingResult bindingResult, Model model) {
         personValidator.validate(person, bindingResult);
 
         if (bindingResult.hasErrors()) {
@@ -77,7 +83,10 @@ public class AuthController {
         if (person.getRole().equals("ROLE_SPECIALIST")) {            
             return "redirect:/adding_specialist_data";
         }
+
+        String action = "/main_record_keeper";
+        model.addAttribute("action", action);
         
-        return "redirect:/main_record_keeper";
+        return "/successful_action_page";
     }
 }

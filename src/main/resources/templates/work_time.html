@@ -11,23 +11,27 @@
     
   <div id="top">
     <ul id="toppanel">
-      <li class="toppanelel"><a href="" id="home" class="material-icons">home</a></li>
+      <li class="toppanelel">
+        <a th:if="${currentUser.getRole} == 'ROLE_RECORDKEEPER'" th:href="@{/main_record_keeper}" id="home" class="material-icons">home</a></li>
+        <a th:if="${currentUser.getRole} == 'ROLE_SPECIALIST'" th:href="@{/main_specialist}" id="home" class="material-icons">home</a></li>
+        <a th:if="${currentUser.getRole} == 'ROLE_PATIENT'" th:href="@{/main_patient}" id="home" class="material-icons">home</a>
+      </li>
       <li class="toppanelel" style="float: right;">
         <form th:action="@{/logout}" th:method="POST">
           <input type="submit" value="Выход"/>
         </form>
       </li>      
-      <li class="toppanelel" style="float: right;">Пользователь</li>      
-    </ul>    
+      <li class="toppanelel" style="float: right;"><a th:href="@{/person/{id}(id=*{currentUser.getId()})}" th:text="*{currentUser.getFirstName()} + ' ' + *{currentUser.getLastName()}"></a></li>
+    </ul>
   </div>
 
   <div id="main">
     <form id="form" th:action="@{/specialist/work_time}" th:method="post" th:object="${dataForWorkTime}">
-      <input type="hidden" th:field="*{id}" th:value="*{specialist.getId()}">
+      <input type="hidden" th:field="*{id}" th:value="*{dataForWorkTime.getId()}">
       <label for="lastName">Фамилия:</label><br>
-      <input type="text" id="lastName" th:field="*{lastName}" th:value="*{specialist.getLastName()}" readonly><br>
+      <input type="text" id="lastName" th:field="*{lastName}" th:value="*{dataForWorkTime.getLastName()}" readonly><br>
       <label for="firstName">Имя:</label><br>
-      <input type="text" id="firstName" th:field="*{firstName}" th:value="*{specialist.getFirstName()}" readonly><br><br>
+      <input type="text" id="firstName" th:field="*{firstName}" th:value="*{dataForWorkTime.getFirstName()}" readonly><br><br>
 
       <label for="dateOfWork">Дата:</label><br>
       <input type="date" id="dateOfWork" th:field="*{dateOfWork}"><br>

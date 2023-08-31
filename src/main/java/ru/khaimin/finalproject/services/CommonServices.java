@@ -1,16 +1,19 @@
 package ru.khaimin.finalproject.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+
+import ru.khaimin.finalproject.entity.Person;
 import ru.khaimin.finalproject.repositories.CommonRepository;
+import ru.khaimin.finalproject.security.PersonDetails;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CommonServices {
-    public String nextAction;
+    
     private final CommonRepository commonRepository;
 
     @Autowired
@@ -23,12 +26,10 @@ public class CommonServices {
         return specialties;
     }
 
-    public String getNextAction() {
-        return nextAction;
-    }
-
-    public void setNextAction(String nextAction) {
-        this.nextAction = nextAction;
+    public Person getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        PersonDetails personDetails = (PersonDetails) authentication.getPrincipal();
+        return personDetails.getPerson();
     }
     
 }

@@ -42,14 +42,9 @@ public class RecordKeeperController {
     @GetMapping("/main_record_keeper")
     public String mainRecordKeeper(Model model) {
         List<String> specialties = commonServices.loadSpecialties();
-        model.addAttribute("specialties", specialties );
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        PersonDetails personDetails = (PersonDetails) authentication.getPrincipal();
+        model.addAttribute("specialties", specialties);
+        //model.addAttribute("currentUser", commonServices.getCurrentUser());
         
-        String firstLastName = personDetails.getPerson().getFirstName() + " " + personDetails.getPerson().getLastName();
-        model.addAttribute("firstLastName", firstLastName);
-
         return "main_record_keeper";
     }
 
@@ -67,6 +62,7 @@ public class RecordKeeperController {
         }
         Person currentPerson = addSpecialistDataService.getPersonToAddData();
         model.addAttribute("person_first_last_name", currentPerson.getFirstName() + " " + currentPerson.getLastName());
+        //model.addAttribute("currentUser", commonServices.getCurrentUser());
         return "adding_specialist_data";
     }
     
@@ -77,11 +73,9 @@ public class RecordKeeperController {
 
         addSpecialistDataService.addData(professionalActivity);
         addSpecialistDataService.getPersonToAddData().setProfessionalActivity(professionalActivity);
-        //commonServices.setNextAction("/main_record_keeper");
-        //addSpecialistDataService.setPersonToAddData(null);
+        addSpecialistDataService.setPersonToAddData(null);
 
         String action = "/main_record_keeper";
-
         model.addAttribute("action", action);
 
         return "/successful_action_page";
@@ -95,9 +89,14 @@ public class RecordKeeperController {
     }
 
     @GetMapping("/specialist/{id}/work_time")
-    public String workTime(@PathVariable("id") int id, @ModelAttribute("dataForWorkTime") DataForWorkTime dataForWorkTime, Model model) {
-        Optional<Person> person = recordKeeperService.getPersonById(id);             
-        model.addAttribute("specialist", person.orElse(new Person()));
+    public String workTime(@PathVariable("id") int id, Model model) {
+        Optional<Person> person = recordKeeperService.getPersonById(id);
+        DataForWorkTime dataForWorkTime = new DataForWorkTime();
+        dataForWorkTime.setId(person.orElse(new Person()).getId());
+        dataForWorkTime.setLastName(person.orElse(new Person()).getLastName());
+        dataForWorkTime.setFirstName(person.orElse(new Person()).getFirstName());
+
+        model.addAttribute("dataForWorkTime", dataForWorkTime);
         return "/work_time";
     }
 
@@ -105,8 +104,14 @@ public class RecordKeeperController {
     public String addWorkTime(@ModelAttribute("dataForWorkTime") DataForWorkTime dataForWorkTime) {
         
         Person person = recordKeeperService.getPersonById(dataForWorkTime.getId()).orElse(new Person());
-        recordKeeperService.workTime(person, dataForWorkTime.getDateOfWork(), dataForWorkTime.getWorkTimeMorning(), dataForWorkTime.getWorkTimeAfternoon(), dataForWorkTime.getAppointmentInterval());
-        commonServices.setNextAction("/main_record_keeper");
+        recordKeeperService.workTime(person, dataForWorkTime.getDateOfWork(), dataForWorkTime.getWorkTimeMorning(),
+                                     dataForWorkTime.getWorkTimeAfternoon(), dataForWorkTime.getAppointmentInterval());
+        
         return "redirect:/successful_action_page";
+    }
+
+    @ModelAttribute("currentUser")
+    public Person currentPerson() {
+        return commonServices.getCurrentUser();
     }
 }
