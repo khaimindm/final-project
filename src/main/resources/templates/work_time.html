@@ -26,33 +26,33 @@
   </div>
 
   <div id="main">
+    <h3>График работы</h3>
     <form id="form" th:action="@{/specialist/work_time}" th:method="post" th:object="${dataForWorkTime}">
       <input type="hidden" th:field="*{dataForWorkTimeId}">
-      <label for="lastName">Фамилия:</label><br>
-      <input type="text" id="lastName" th:field="*{lastName}" readonly><br>
-      <label for="firstName">Имя:</label><br>
+      <label for="lastName">Фамилия специалиста:</label><br>
+      <input type="text" id="lastName" th:field="*{lastName}" readonly><br><br>
+      <label for="firstName">Имя специалиста:</label><br>
       <input type="text" id="firstName" th:field="*{firstName}" readonly><br><br>
 
       <label for="dateOfWork">Дата:</label><br>
-      <input type="date" id="dateOfWork" th:field="*{dateOfWork}"><br>
+      <input type="date" id="dateOfWork" th:field="*{dateOfWork}"><br><br>
+      
       <span>Время работы:</span><br>
-
-      <label th:for="${#ids.next('workTimeMorning')}">08:00 - 12:00</label>
+      <label th:for="${#ids.next('workTimeMorning')}" id="workTimeMorningLabel">08:00 - 12:00</label>
       <input type="checkbox" id="workTimeMorning" th:field="*{workTimeMorning}"><br>
 
-      <label th:for="${#ids.next('workTimeAfternoon')}">13:00 - 17:00</label>
-      <input type="checkbox" id="workTimeAfternoon" th:field="*{workTimeAfternoon}">
-
+      <label th:for="${#ids.next('workTimeAfternoon')}" id="workTimeAfternoonLabel">13:00 - 17:00</label>
+      <input type="checkbox" id="workTimeAfternoon" th:field="*{workTimeAfternoon}"><br>
       <span id="checkboxMessage" class="message"></span><br><br>
 
       <label for="appointmentInterval">Интервал между приемами:</label>
       <select th:field="*{appointmentInterval}" id="appointmentInterval">
-        <option value="10">10</option>
-        <option value="20">20</option>
-        <option value="30" selected>30</option>
-        <option value="40">40</option>
-        <option value="50">50</option>
-        <option value="60">60</option>
+        <option th:value="'10'" th:text="10"></option>
+        <option th:value="'20'" th:text="20"></option>
+        <option th:value="'30'" th:text="30"></option>
+        <option th:value="'40'" th:text="40"></option>
+        <option th:value="'50'" th:text="50"></option>
+        <option th:value="'60'" th:text="60"></option>
       </select>
       <span> мин.</span><br><br><br>
 

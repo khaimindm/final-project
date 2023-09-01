@@ -3,11 +3,9 @@ document.getElementById('form').addEventListener("submit", checkForm);
 function checkForm(event) {
     let el = document.getElementById('form')
     let dateOfWork = el.dateOfWork.value;
-    let workTimeMorning = el.workTimeMorning.value;
-    let workTimeAfternoon = el.workTimeAfternoon.value;
     let checkboxError = "";
     
-    if (workTimeMorning == "" && workTimeAfternoon == "") {
+    if (!document.getElementById('workTimeMorning').checked && !document.getElementById('workTimeAfternoon').checked) {
         event.preventDefault();
         checkboxError = "Выберите одно или два значения";
         document.getElementById('checkboxMessage').innerHTML = checkboxError;
