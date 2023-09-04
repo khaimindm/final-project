@@ -10,8 +10,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cascade;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -38,6 +40,10 @@ public class WorkTime {
     @ManyToOne
     @JoinColumn(name = "persons_person_id", referencedColumnName = "person_id")
     private Person person;
+
+    @OneToOne(mappedBy = "workTime")
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    private BookAppointment bookAppointment;
 
     public WorkTime() {
 
@@ -90,4 +96,13 @@ public class WorkTime {
     public void setPerson(Person person) {
         this.person = person;
     }
+
+    public BookAppointment getBookAppointment() {
+        return bookAppointment;
+    }
+
+    public void setBookAppointment(BookAppointment bookAppointment) {
+        this.bookAppointment = bookAppointment;
+    }
+    
 }
