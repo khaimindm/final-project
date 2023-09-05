@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link th:href="@{/css/*.css}" rel="stylesheet">
+  <link th:href="@{/css/book_an_appointment.css}" rel="stylesheet">
   <title>Заголовок</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
@@ -25,6 +25,10 @@
     </ul>    
   </div>
 
+  <div id="main">
+    <h2 id="title" th:text="'Запись к: ' + ${specialtyName}"></h2>
+    <form id="form" th:action="@{/booking}" th:method="post" th:object=""></form>
+  </div>
   
   <script src="js/*.js"></script>
 
