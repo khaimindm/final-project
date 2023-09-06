@@ -20,11 +20,14 @@ import java.util.Optional;
 public class RecordKeeperService {
     private final PeopleRepository peopleRepository;
     private final WorkTimeRepository workTimeRepository;
+    private final ProfessionalActivityRepository professionalActivityRepository;
 
     @Autowired
-    public RecordKeeperService(PeopleRepository peopleRepository, WorkTimeRepository workTimeRepository) {
+    public RecordKeeperService(PeopleRepository peopleRepository, WorkTimeRepository workTimeRepository,
+                               ProfessionalActivityRepository professionalActivityRepository) {
         this.peopleRepository = peopleRepository;
         this.workTimeRepository = workTimeRepository;
+        this.professionalActivityRepository = professionalActivityRepository;
     }
 
     public Optional<Person> getPersonById(int id) {
@@ -33,6 +36,7 @@ public class RecordKeeperService {
     }
 
     public void workTime(Person person, DataForWorkTime dataForWorkTime) {
+         String specialtyName = professionalActivityRepository.findByPerson(person).orElse(new ProfessionalActivity()).getSpecialtyName();
 
         if (dataForWorkTime.getWorkTimeMorning()) {
             LocalTime workTimeStartAt = LocalTime.of(8, 0);
@@ -46,6 +50,7 @@ public class RecordKeeperService {
                 time = time.plusMinutes(dataForWorkTime.getAppointmentInterval());
                 workTime.setWorkTimeEndAt(time);
                 workTime.setAvailability(true);
+                workTime.setSpecialtyName(specialtyName);
                 workTime.setPerson(person);
                 workTimes.add(workTime);
             }
@@ -67,6 +72,7 @@ public class RecordKeeperService {
                 workTime.setWorkTimeEndAt(time);
                 System.out.println("Work time end at: " + time);
                 workTime.setAvailability(true);
+                workTime.setSpecialtyName(specialtyName);
                 workTime.setPerson(person);
                 workTimes.add(workTime);
             }

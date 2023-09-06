@@ -30,9 +30,6 @@ public class BookAppointment {
     @Column(name = "time_start_at")
     private LocalTime timeStartAt;
 
-    @Column(name = "time_end_at")
-    private LocalTime timeEndAt;
-
     @ManyToOne
     @JoinColumn(name = "persons_person_id", referencedColumnName = "person_id")
     private Person person;
@@ -67,14 +64,6 @@ public class BookAppointment {
 
     public void setTimeStartAt(LocalTime timeStartAt) {
         this.timeStartAt = timeStartAt;
-    }
-
-    public LocalTime getTimeEndAt() {
-        return timeEndAt;
-    }
-
-    public void setTimeEndAt(LocalTime timeEndAt) {
-        this.timeEndAt = timeEndAt;
     }
 
     public Person getPerson() {

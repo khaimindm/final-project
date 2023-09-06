@@ -27,7 +27,23 @@
 
   <div id="main">
     <h2 id="title" th:text="'Запись к: ' + ${specialtyName}"></h2>
-    <form id="form" th:action="@{/booking}" th:method="post" th:object=""></form>
+    <form id="form" th:action="@{/booking}" th:method="post" th:object="${bookAppointment}">
+      <label for="dateOfAppointment">Дата: </label>
+      <input type="date" th:field="*{dateOfAppointment}" id="dateOfAppointment"><br>
+
+      <label for="timeStartAt">Выберите доступное время: </label>
+      <select name="timeStartAt" id="timeStartAt">
+        <option th:each="i : ${availableTimes}" th:value="${i}" th:text="${i}" th:selected="${i== ${selectedTime}}"></option>
+      </select><br><br>
+
+      <label for="workTime">Доступные специалисты по выбранной дате и времени: </label>
+      <select th:field="workTime" id="workTime">
+        <option th:each="k :${availableSpecialists}" th:value="${k}" th:text="${k}">
+        </option>
+      </select>
+
+      <input type="submit" value="Записаться" class="submit_button">      
+    </form>
   </div>
   
   <script src="js/*.js"></script>

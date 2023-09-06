@@ -10,5 +10,6 @@ import java.util.Optional;
 
 @Repository
 public interface ProfessionalActivityRepository extends JpaRepository<ProfessionalActivity, Integer> {
-
+    Optional<ProfessionalActivity> findByPerson(Person person);
+    
 }

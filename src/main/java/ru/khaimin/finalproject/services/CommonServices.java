@@ -40,13 +40,18 @@ public class CommonServices {
         return personDetails.getPerson();
     }
     
-    public List<LocalTime> getAvailableTimeByDate(LocalDate date) {
-        Iterator<WorkTime> iterator = workTimeRepository.findByDateOfWorkAndAvailability(date, true).iterator();
+    public List<LocalTime> getAvailableTimeByDateAndSpecialtyName(LocalDate date, String specialtyName) {
+        Iterator<WorkTime> iterator = workTimeRepository.findByDateOfWorkAndAvailabilityAndSpecialtyName(date, true, specialtyName).iterator();
         List<LocalTime> availableTimes = new ArrayList<>();
         while (iterator.hasNext()) {
             availableTimes.add(iterator.next().getWorkTimeStartAt());
         }
         
         return availableTimes;
+    }
+
+    public List<WorkTime> getAvailableWorkTimeBySpecialtyNameAndDateAndTime(String specialtyName, LocalDate date,
+                                                                            LocalTime time) {
+        return workTimeRepository.findBySpecialtyNameAndDateOfWorkAndWorkTimeStartAt(specialtyName, date, time);
     }
 }

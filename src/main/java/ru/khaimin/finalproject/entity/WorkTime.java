@@ -37,6 +37,9 @@ public class WorkTime {
     @Column(name = "availability")
     private boolean availability;
 
+    @Column(name = "specialty_name")
+    private String specialtyName;
+
     @ManyToOne
     @JoinColumn(name = "persons_person_id", referencedColumnName = "person_id")
     private Person person;
@@ -103,6 +106,14 @@ public class WorkTime {
 
     public void setBookAppointment(BookAppointment bookAppointment) {
         this.bookAppointment = bookAppointment;
+    }
+
+    public String getSpecialtyName() {
+        return specialtyName;
+    }
+
+    public void setSpecialtyName(String specialtyName) {
+        this.specialtyName = specialtyName;
     }
     
 }
