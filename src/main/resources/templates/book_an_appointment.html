@@ -27,20 +27,25 @@
 
   <div id="main">
     <h2 id="title" th:text="'Запись к: ' + ${specialtyName}"></h2>
-    <form id="form" th:action="@{/booking}" th:method="post" th:object="${bookAppointment}">
-      <label for="dateOfAppointment">Дата: </label>
-      <input type="date" th:field="*{dateOfAppointment}" id="dateOfAppointment"><br>
+    
+    <form id="dataSelectionForm" th:method="post" th:object="${availableWorkTimes}">
+      <label for="dateOfWork">Дата: </label>
+      <input type="date" th:field="*{dateOfWork}" id="dateOfWork"><br>
 
       <label for="timeStartAt">Выберите доступное время: </label>
       <select name="timeStartAt" id="timeStartAt">
-        <option th:each="i : ${availableTimes}" th:value="${i}" th:text="${i}" th:selected="${i== ${selectedTime}}"></option>
-      </select><br><br>
+        <option th:each="i : ${availableTimes}" th:value="${i}" th:text="${i}"></option>
+      </select><br>
 
-      <label for="workTime">Доступные специалисты по выбранной дате и времени: </label>
-      <select th:field="workTime" id="workTime">
-        <option th:each="k :${availableSpecialists}" th:value="${k}" th:text="${k}">
+      <label for="availableSpecialists">Доступные специалисты для выбранной даты и времени: </label>
+      <select th:field="person" id="availableSpecialists">
+        <option th:each="k :${availableWorkTimes}" th:value="${k.getPerson()}" th:text="${k.getPerson().getFirstName()}">
         </option>
       </select>
+    </form>
+    
+
+    <form id="form" th:action="@{/booking}" th:method="post" th:object="${bookAppointment}">
 
       <input type="submit" value="Записаться" class="submit_button">      
     </form>

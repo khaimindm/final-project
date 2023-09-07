@@ -27,8 +27,12 @@ public class PatientController {
         this.commonServices = commonServices;
     }
     
-    public String mainPatient() {
-        
+    @GetMapping("/main_patient")
+    public String mainPatient(Model model) {
+        List<String> specialties = commonServices.loadSpecialties();
+        model.addAttribute("specialties", specialties);
+
+        return "/main_patient";
     }
 
     @GetMapping("/specialists/{specialtyName}")
@@ -36,17 +40,23 @@ public class PatientController {
         model.addAttribute("specialtyName", specialtyName);
         LocalDate currentDate = LocalDate.now();
         //model.addAttribute("currentDate", currentDate);
-        List<LocalTime> availableTimes = commonServices.getAvailableTimeByDateAndSpecialtyName(currentDate, specialtyName);
+        
+        //List<LocalTime> availableTimes = commonServices.getAvailableTimeByDateAndSpecialtyName(currentDate, specialtyName);
+
+        List<WorkTime> availableWorkTimes = commonServices.getAvailableWorkTimeBySpecialtyNameAndDateOfWork(specialtyName, currentDate);
+        //availableWorkTimes.get(0).getDateOfWork();
+        List<LocalTime> availableTimes = commonServices.getAvailableTimes(availableWorkTimes);
         model.addAttribute("availableTimes", availableTimes);
+        model.addAttribute("availableWorkTimes", availableWorkTimes);
 
         BookAppointment bookAppointment = new BookAppointment();
-        bookAppointment.setDateOfAppointment(currentDate);
+        commonServices.getCurrentUser();        
 
         model.addAttribute("bookAppointment", bookAppointment);
-        LocalTime selectedTime = availableTimes.get(0);
-        model.addAttribute("selectedTime", selectedTime);
+        //LocalTime selectedTime = availableTimes.get(0);
+        //model.addAttribute("selectedTime", selectedTime);
         
-        commonServices.getAvailableWorkTimeBySpecialtyNameAndDateAndTime(specialtyName, currentDate, selectedTime);
+        //commonServices.getAvailableWorkTimeBySpecialtyNameAndDateAndTime(specialtyName, currentDate, selectedTime);
 
         return "book_an_appointment";
     }

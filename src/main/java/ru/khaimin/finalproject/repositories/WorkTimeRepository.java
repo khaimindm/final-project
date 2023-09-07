@@ -16,4 +16,6 @@ public interface WorkTimeRepository extends JpaRepository<WorkTime, Integer>{
 
     List<WorkTime> findBySpecialtyNameAndDateOfWorkAndWorkTimeStartAt(String specialtyName, LocalDate dateOfWork,
                                                                       LocalTime workTimeStartAt);
+    
+    List<WorkTime> findBySpecialtyNameAndDateOfWork(String specialtyName, LocalDate dateOfWork);
 }

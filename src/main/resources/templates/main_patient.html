@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link th:href="@{/css/*.css}" rel="stylesheet">
+  <link th:href="@{/css/main_patient.css}" rel="stylesheet">
   <title>Заголовок</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
@@ -25,8 +25,12 @@
     </ul>    
   </div>
 
-  
-  <script src="js/*.js"></script>
+  <div id="main">
+    <h2>Специалисты</h2>
+    <ul id="list">
+      <li class="mainlist" th:each="specialty: ${specialties}"><a th:href="@{/specialists/{specialtyName}(specialtyName=${specialty})}" th:text="${specialty}"></a></li>
+    </ul>
+  </div>
 
 </body>
 </html>

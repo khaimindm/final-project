@@ -46,14 +46,14 @@ public class RecordKeeperController {
         model.addAttribute("specialties", specialties);
         //model.addAttribute("currentUser", commonServices.getCurrentUser());
         
-        return "main_record_keeper";
+        return "/main_record_keeper";
     }
 
-    @GetMapping("/{specialtyName}")
+    /* @GetMapping("/{specialtyName}")
     public String appointment(@PathVariable("specialtyName") String specialtyName, Model model) {
         model.addAttribute("specialtyName", specialtyName);
-        return "appointment";
-    }
+        return "/appointment";
+    } */
 
     @GetMapping("/adding_specialist_data")
     public String addingSpecialistData(@ModelAttribute("professionalActivity")
@@ -64,7 +64,7 @@ public class RecordKeeperController {
         Person currentPerson = addSpecialistDataService.getPersonToAddData();
         model.addAttribute("person_first_last_name", currentPerson.getFirstName() + " " + currentPerson.getLastName());
         //model.addAttribute("currentUser", commonServices.getCurrentUser());
-        return "adding_specialist_data";
+        return "/adding_specialist_data";
     }
     
     @PostMapping("/adding_specialist_data")

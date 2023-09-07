@@ -34,6 +34,10 @@ public class CommonServices {
         return specialties;
     }
 
+    public List<WorkTime> getAvailableWorkTimeBySpecialtyNameAndDateOfWork(String specialtyName, LocalDate dateOfWork) {
+        return workTimeRepository.findBySpecialtyNameAndDateOfWork(specialtyName, dateOfWork);
+    }
+
     public Person getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         PersonDetails personDetails = (PersonDetails) authentication.getPrincipal();
@@ -47,6 +51,16 @@ public class CommonServices {
             availableTimes.add(iterator.next().getWorkTimeStartAt());
         }
         
+        return availableTimes;
+    }
+
+    public List<LocalTime> getAvailableTimes(List<WorkTime> workTimes) {
+        Iterator<WorkTime> iterator = workTimes.iterator();
+        List<LocalTime> availableTimes = new ArrayList<>();
+        while (iterator.hasNext()) {
+            availableTimes.add(iterator.next().getWorkTimeStartAt());
+        }
+
         return availableTimes;
     }
 

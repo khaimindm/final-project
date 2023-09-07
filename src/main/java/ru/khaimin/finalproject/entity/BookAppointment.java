@@ -23,13 +23,6 @@ public class BookAppointment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int bookAppointmentId;
 
-    @Column(name = "date_of_appointment")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate dateOfAppointment;
-
-    @Column(name = "time_start_at")
-    private LocalTime timeStartAt;
-
     @ManyToOne
     @JoinColumn(name = "persons_person_id", referencedColumnName = "person_id")
     private Person person;
@@ -48,22 +41,6 @@ public class BookAppointment {
 
     public void setBookAppointmentId(int bookAppointmentId) {
         this.bookAppointmentId = bookAppointmentId;
-    }
-
-    public LocalDate getDateOfAppointment() {
-        return dateOfAppointment;
-    }
-
-    public void setDateOfAppointment(LocalDate dateOfAppointment) {
-        this.dateOfAppointment = dateOfAppointment;
-    }
-
-    public LocalTime getTimeStartAt() {
-        return timeStartAt;
-    }
-
-    public void setTimeStartAt(LocalTime timeStartAt) {
-        this.timeStartAt = timeStartAt;
     }
 
     public Person getPerson() {

@@ -37,9 +37,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                      "/adding_specialist_data", "/appointment", "/list_of_specialists", "/work_time")
                      .hasRole("RECORDKEEPER")
         .antMatchers("/main_specialist").hasRole("SPECIALIST")
-        .antMatchers("/main_patient").hasRole("PATIENT")
+        .antMatchers("/main_patient", "/specialists/*").hasRole("PATIENT")
         .antMatchers("/auth/login", "/auth/registration", "/error", "/css/**", "/js/**",
-                     "/successful_action_page", "/specialists").permitAll()
+                     "/successful_action_page").permitAll()
         .anyRequest().hasAnyRole("RECORDKEEPER")        
         .and()
         .formLogin().loginPage("/auth/login")
