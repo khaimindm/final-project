@@ -11,8 +11,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import ru.khaimin.finalproject.entity.BookAppointment;
+import ru.khaimin.finalproject.entity.DateAndSpecialtyNameForProcessing;
 import ru.khaimin.finalproject.entity.Person;
 import ru.khaimin.finalproject.entity.WorkTime;
 import ru.khaimin.finalproject.services.CommonServices;
@@ -35,6 +38,12 @@ public class PatientController {
         return "/main_patient";
     }
 
+    @PostMapping(path = "/availableTimeByDate", consumes = "application/json")
+    @ResponseBody
+    public List<LocalTime> availableTimeByDate(@ModelAttribute("dateAndSpecialtyNameForProcessing") DateAndSpecialtyNameForProcessing dateAndSpecialtyNameForProcessing) {
+        return commonServices.getAvailableTimeByDateAndSpecialtyName(dateAndSpecialtyNameForProcessing.getDate(), dateAndSpecialtyNameForProcessing.getSpecialtyName());
+    }
+
     @GetMapping("/specialists/{specialtyName}")
     public String bookAnAppointment(@PathVariable("specialtyName") String specialtyName, Model model) {
         model.addAttribute("specialtyName", specialtyName);
@@ -43,16 +52,16 @@ public class PatientController {
         
         //List<LocalTime> availableTimes = commonServices.getAvailableTimeByDateAndSpecialtyName(currentDate, specialtyName);
 
-        List<WorkTime> availableWorkTimes = commonServices.getAvailableWorkTimeBySpecialtyNameAndDateOfWork(specialtyName, currentDate);
+        //List<WorkTime> availableWorkTimes = commonServices.getAvailableWorkTimeBySpecialtyNameAndDateOfWork(specialtyName, currentDate);
         //availableWorkTimes.get(0).getDateOfWork();
-        List<LocalTime> availableTimes = commonServices.getAvailableTimes(availableWorkTimes);
-        model.addAttribute("availableTimes", availableTimes);
-        model.addAttribute("availableWorkTimes", availableWorkTimes);
+        //List<LocalTime> availableTimes = commonServices.getAvailableTimes(availableWorkTimes);
+        //model.addAttribute("availableTimes", availableTimes);
+        //model.addAttribute("availableWorkTimes", availableWorkTimes);
 
-        BookAppointment bookAppointment = new BookAppointment();
-        commonServices.getCurrentUser();        
+        //BookAppointment bookAppointment = new BookAppointment();
+        //ommonServices.getCurrentUser();        
 
-        model.addAttribute("bookAppointment", bookAppointment);
+        //model.addAttribute("bookAppointment", bookAppointment);
         //LocalTime selectedTime = availableTimes.get(0);
         //model.addAttribute("selectedTime", selectedTime);
         

@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta th:name="_csrf" th:content="${_csrf.token}"/>
+  <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
   <link th:href="@{/css/book_an_appointment.css}" rel="stylesheet">
   <title>Заголовок</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -26,32 +28,38 @@
   </div>
 
   <div id="main">
-    <h2 id="title" th:text="'Запись к: ' + ${specialtyName}"></h2>
+    <h2 id="title" th:text="'Запись к: ' + ${specialtyName}"></h2>    
     
-    <form id="dataSelectionForm" th:method="post" th:object="${availableWorkTimes}">
+    <!-- <form id="dataSelectionForm" th:method="post" th:object="${availableWorkTimes}">
       <label for="dateOfWork">Дата: </label>
       <input type="date" th:field="*{dateOfWork}" id="dateOfWork"><br>
 
       <label for="timeStartAt">Выберите доступное время: </label>
       <select name="timeStartAt" id="timeStartAt">
         <option th:each="i : ${availableTimes}" th:value="${i}" th:text="${i}"></option>
-      </select><br>
+      </select><br>      
+    </form> -->
 
-      <label for="availableSpecialists">Доступные специалисты для выбранной даты и времени: </label>
-      <select th:field="person" id="availableSpecialists">
-        <option th:each="k :${availableWorkTimes}" th:value="${k.getPerson()}" th:text="${k.getPerson().getFirstName()}">
-        </option>
-      </select>
+    <form id="dataSelectionForm" method="post">
+      <label for="dateOfWork">Дата: </label>
+      <input type="date" name="dateOfWork" id="dateOfWork"><br>
+
+      <label for="timeStartAt">Выберите доступное время: </label>
+      <select name="timeStartAt" id="timeStartAt">        
+      </select><br>      
     </form>
     
-
+    <!--
     <form id="form" th:action="@{/booking}" th:method="post" th:object="${bookAppointment}">
 
       <input type="submit" value="Записаться" class="submit_button">      
-    </form>
+    </form>3
+    -->
   </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
   
-  <script src="js/*.js"></script>
+  <script type="text/javascript" th:src="@{/js/book_an_appointment.js}"></script>
 
 </body>
 </html>
