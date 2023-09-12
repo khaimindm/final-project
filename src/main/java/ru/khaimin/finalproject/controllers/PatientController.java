@@ -2,7 +2,9 @@ package ru.khaimin.finalproject.controllers;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -38,11 +40,17 @@ public class PatientController {
         return "/main_patient";
     }
 
-    @PostMapping(path = "/availableTimeByDate", consumes = "application/json")
-    @ResponseBody
-    public List<LocalTime> availableTimeByDate(@ModelAttribute("dateAndSpecialtyNameForProcessing") DateAndSpecialtyNameForProcessing dateAndSpecialtyNameForProcessing) {
-        return commonServices.getAvailableTimeByDateAndSpecialtyName(dateAndSpecialtyNameForProcessing.getDate(), dateAndSpecialtyNameForProcessing.getSpecialtyName());
+    @GetMapping(
+        value = "/specialists/availableTimeByDate",
+        produces = "application/json"
+        )
+    @ResponseBody 
+    public String availableTimeByDate() {
+        return "{\"test\": \"Hello\"}";
     }
+    /* public List<LocalTime> availableTimeByDate(@ModelAttribute("dateAndSpecialtyNameForProcessing") DateAndSpecialtyNameForProcessing dateAndSpecialtyNameForProcessing) {
+        return commonServices.getAvailableTimeByDateAndSpecialtyName(dateAndSpecialtyNameForProcessing.getDate(), dateAndSpecialtyNameForProcessing.getSpecialtyName());
+    } */
 
     @GetMapping("/specialists/{specialtyName}")
     public String bookAnAppointment(@PathVariable("specialtyName") String specialtyName, Model model) {
