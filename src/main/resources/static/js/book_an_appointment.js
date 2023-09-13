@@ -1,7 +1,5 @@
 document.getElementById("dateOfWork").addEventListener('change', getAvailableTimeByDate);
 
-let specialtyName = document.getElementById('title').value;
-
 $(function () {
 	var token = $("meta[name='_csrf']").attr("content");
 	var header = $("meta[name='_csrf_header']").attr("content");
@@ -13,25 +11,33 @@ $(function () {
 
 function getAvailableTimeByDate() {
     let processingDate = document.getElementById('dateOfWork').value;
+    let specialtyName = document.getElementById('title').value;
+
+    console.log("processingDate: " + processingDate);
+    console.log("specialtyName: " + specialtyName);
 
     const params = {
         processingDate: processingDate,
         specialtyName: specialtyName
-    }    
+    }
+    
+    /* const testJson = {
+        "query": "Виктор Иван"
+      } */
 
-    /* $.getJSON('/specialists/availableTimeByDate', function(data) {
+    $.getJSON('/specialists/availableTimeByDate', params, function(data) {
         console.log(data);
-    }); */
+    });
 
     let test = "Test"
 
-    $.ajax({
+    /* $.ajax({
         type: "Get",
         URL: "/specialists/availableTimeByDate",
         dataType: "json",
-        data: JSON.stringify(test),
+        data: JSON.stringify(testJson),
         success: function(data) {
             console.log(data);
         }
-    })
+    }) */
 }

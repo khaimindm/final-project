@@ -14,7 +14,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import ru.khaimin.finalproject.entity.BookAppointment;
 import ru.khaimin.finalproject.entity.DateAndSpecialtyNameForProcessing;
@@ -45,7 +51,18 @@ public class PatientController {
         produces = "application/json"
         )
     @ResponseBody 
-    public String availableTimeByDate() {
+    public String availableTimeByDate(@RequestParam HashMap<String, Object> obj) throws JsonMappingException, JsonProcessingException {
+        //HashMap<String, Object> map = new HashMap<>();
+        //ObjectMapper objectMapper = new ObjectMapper();
+        //map = objectMapper.readValue(timeForProcessing, HashMap.class);
+        String processingDate = obj.get("processingDate").toString();
+        String specialtyName = obj.get("specialtyName").toString();
+        System.out.println("processingDate: " + processingDate);
+        System.out.println("specialtyName: " + specialtyName);
+        //System.out.println("Содер;имое map: " + map.get(0));
+        //String json = objectMapper.writeValueAsString(map);
+        //System.out.println("Строка json: " + json);
+        //return json;
         return "{\"test\": \"Hello\"}";
     }
     /* public List<LocalTime> availableTimeByDate(@ModelAttribute("dateAndSpecialtyNameForProcessing") DateAndSpecialtyNameForProcessing dateAndSpecialtyNameForProcessing) {
