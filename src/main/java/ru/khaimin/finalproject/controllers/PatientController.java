@@ -2,6 +2,7 @@ package ru.khaimin.finalproject.controllers;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -28,6 +30,7 @@ import ru.khaimin.finalproject.entity.Person;
 import ru.khaimin.finalproject.entity.WorkTime;
 import ru.khaimin.finalproject.services.CommonServices;
 import ru.khaimin.finalproject.services.PatientService;
+import com.fasterxml.jackson.databind.type.TypeFactory;
 
 @Controller
 public class PatientController {
@@ -57,13 +60,16 @@ public class PatientController {
         //map = objectMapper.readValue(timeForProcessing, HashMap.class);
         String processingDate = obj.get("processingDate").toString();
         String specialtyName = obj.get("specialtyName").toString();
-        System.out.println("processingDate: " + processingDate);
-        System.out.println("specialtyName: " + specialtyName);
-        //System.out.println("Содер;имое map: " + map.get(0));
-        //String json = objectMapper.writeValueAsString(map);
-        //System.out.println("Строка json: " + json);
-        //return json;
-        return "{\"test\": \"Hello\"}";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate date = LocalDate.parse(processingDate, formatter);
+        
+        List<LocalTime> listOfTimes = commonServices.getAvailableTimeByDateAndSpecialtyName(date, specialtyName);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        //List<LocalTime> = objectMapper.writeValueAsString(listOfTimes, TypeFactory.)
+        JavaType stringCollection = objectMapper.getTypeFactory().constructCollectionType(List.class, String.class);
+        String jsonArray = objectMapper.writeValueAsString(listOfTimes);
+        return jsonArray;
     }
     /* public List<LocalTime> availableTimeByDate(@ModelAttribute("dateAndSpecialtyNameForProcessing") DateAndSpecialtyNameForProcessing dateAndSpecialtyNameForProcessing) {
         return commonServices.getAvailableTimeByDateAndSpecialtyName(dateAndSpecialtyNameForProcessing.getDate(), dateAndSpecialtyNameForProcessing.getSpecialtyName());

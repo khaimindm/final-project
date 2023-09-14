@@ -10,8 +10,7 @@ $(function () {
 });
 
 function getAvailableTimeByDate() {
-    let processingDate = document.getElementById('dateOfWork').value;
-    let specialtyName = document.getElementById('title').value;
+    var processingDate = document.getElementById('dateOfWork').value;
 
     console.log("processingDate: " + processingDate);
     console.log("specialtyName: " + specialtyName);
@@ -29,7 +28,7 @@ function getAvailableTimeByDate() {
         console.log(data);
     });
 
-    let test = "Test"
+    var test = "Test"
 
     /* $.ajax({
         type: "Get",
