@@ -11,7 +11,7 @@ import ru.khaimin.finalproject.entity.WorkTime;
 
 @Repository
 public interface WorkTimeRepository extends JpaRepository<WorkTime, Integer>{
-    List<WorkTime> findByDateOfWorkAndAvailabilityAndSpecialtyName(LocalDate date, boolean availability,
+    List<WorkTime> findDistinctByDateOfWorkAndAvailabilityAndSpecialtyName(LocalDate date, boolean availability,
                                                                    String specialtyName);
 
     List<WorkTime> findBySpecialtyNameAndDateOfWorkAndWorkTimeStartAt(String specialtyName, LocalDate dateOfWork,

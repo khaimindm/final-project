@@ -44,11 +44,11 @@ public class CommonServices {
         return personDetails.getPerson();
     }
     
-    public List<LocalTime> getAvailableTimeByDateAndSpecialtyName(LocalDate date, String specialtyName) {
-        Iterator<WorkTime> iterator = workTimeRepository.findByDateOfWorkAndAvailabilityAndSpecialtyName(date, true, specialtyName).iterator();
-        List<LocalTime> availableTimes = new ArrayList<>();
+    public List<String> getAvailableTimeByDateAndSpecialtyName(LocalDate date, String specialtyName) {
+        Iterator<WorkTime> iterator = workTimeRepository.findDistinctByDateOfWorkAndAvailabilityAndSpecialtyName(date, true, specialtyName).iterator();
+        List<String> availableTimes = new ArrayList<>();
         while (iterator.hasNext()) {
-            availableTimes.add(iterator.next().getWorkTimeStartAt());
+            availableTimes.add(iterator.next().getWorkTimeStartAt().toString());
         }
         
         return availableTimes;

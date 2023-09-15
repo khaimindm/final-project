@@ -63,11 +63,10 @@ public class PatientController {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate date = LocalDate.parse(processingDate, formatter);
         
-        List<LocalTime> listOfTimes = commonServices.getAvailableTimeByDateAndSpecialtyName(date, specialtyName);
+        List<String> listOfTimes = commonServices.getAvailableTimeByDateAndSpecialtyName(date, specialtyName);
 
         ObjectMapper objectMapper = new ObjectMapper();
         //List<LocalTime> = objectMapper.writeValueAsString(listOfTimes, TypeFactory.)
-        JavaType stringCollection = objectMapper.getTypeFactory().constructCollectionType(List.class, String.class);
         String jsonArray = objectMapper.writeValueAsString(listOfTimes);
         return jsonArray;
     }
