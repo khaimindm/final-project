@@ -25,7 +25,14 @@ function getAvailableTimeByDate() {
       } */
 
     $.getJSON('/specialists/availableTimeByDate', params, function(data) {
-        console.log(data);
+        let value = JSON.parse(data);
+        let select = document.getElementById("timeStartAt");
+        select.options.length = 0;        
+        for (let i = 0; i < value.length; i++) {
+            select[i] = new Option(value[i], value[i]);
+            //const element = array[i];            
+        }
+        console.log(value);
     });
 
     var test = "Test"

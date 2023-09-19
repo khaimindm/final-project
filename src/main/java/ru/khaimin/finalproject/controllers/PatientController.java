@@ -68,6 +68,7 @@ public class PatientController {
         ObjectMapper objectMapper = new ObjectMapper();
         //List<LocalTime> = objectMapper.writeValueAsString(listOfTimes, TypeFactory.)
         String jsonArray = objectMapper.writeValueAsString(listOfTimes);
+        System.out.println(jsonArray);
         return jsonArray;
     }
     /* public List<LocalTime> availableTimeByDate(@ModelAttribute("dateAndSpecialtyNameForProcessing") DateAndSpecialtyNameForProcessing dateAndSpecialtyNameForProcessing) {
