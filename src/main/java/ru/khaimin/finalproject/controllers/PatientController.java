@@ -48,32 +48,7 @@ public class PatientController {
 
         return "/main_patient";
     }
-
-    @GetMapping(
-        value = "/specialists/availableTimeByDate",
-        produces = "application/json"
-        )
-    @ResponseBody 
-    public String availableTimeByDate(@RequestParam HashMap<String, Object> obj) throws JsonMappingException, JsonProcessingException {
-        String processingDate = obj.get("processingDate").toString();
-        String specialtyName = obj.get("specialtyName").toString();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate date = LocalDate.parse(processingDate, formatter);
-        
-        List<String> listOfTimes = commonServices.getAvailableTimeBySpecialtyNameAndDate(specialtyName, date);
-
-        ObjectMapper objectMapper = new ObjectMapper();
-        String jsonArray = objectMapper.writeValueAsString(listOfTimes);
-        return jsonArray;
-    }
-
-    @GetMapping("/specialists/{specialtyName}")
-    public String bookAnAppointment(@PathVariable("specialtyName") String specialtyName, Model model) {
-        model.addAttribute("specialtyName", specialtyName);
-        LocalDate currentDate = LocalDate.now();
-        return "book_an_appointment";
-    }
-
+    
     @ModelAttribute("currentUser")
     public Person currentPerson() {
         return commonServices.getCurrentUser();
