@@ -55,49 +55,22 @@ public class PatientController {
         )
     @ResponseBody 
     public String availableTimeByDate(@RequestParam HashMap<String, Object> obj) throws JsonMappingException, JsonProcessingException {
-        //HashMap<String, Object> map = new HashMap<>();
-        //ObjectMapper objectMapper = new ObjectMapper();
-        //map = objectMapper.readValue(timeForProcessing, HashMap.class);
         String processingDate = obj.get("processingDate").toString();
         String specialtyName = obj.get("specialtyName").toString();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate date = LocalDate.parse(processingDate, formatter);
         
-        List<String> listOfTimes = commonServices.getAvailableTimeByDateAndSpecialtyName(date, specialtyName);
+        List<String> listOfTimes = commonServices.getAvailableTimeBySpecialtyNameAndDate(specialtyName, date);
 
         ObjectMapper objectMapper = new ObjectMapper();
-        //List<LocalTime> = objectMapper.writeValueAsString(listOfTimes, TypeFactory.)
         String jsonArray = objectMapper.writeValueAsString(listOfTimes);
-        System.out.println(jsonArray);
         return jsonArray;
     }
-    /* public List<LocalTime> availableTimeByDate(@ModelAttribute("dateAndSpecialtyNameForProcessing") DateAndSpecialtyNameForProcessing dateAndSpecialtyNameForProcessing) {
-        return commonServices.getAvailableTimeByDateAndSpecialtyName(dateAndSpecialtyNameForProcessing.getDate(), dateAndSpecialtyNameForProcessing.getSpecialtyName());
-    } */
 
     @GetMapping("/specialists/{specialtyName}")
     public String bookAnAppointment(@PathVariable("specialtyName") String specialtyName, Model model) {
         model.addAttribute("specialtyName", specialtyName);
         LocalDate currentDate = LocalDate.now();
-        //model.addAttribute("currentDate", currentDate);
-        
-        //List<LocalTime> availableTimes = commonServices.getAvailableTimeByDateAndSpecialtyName(currentDate, specialtyName);
-
-        //List<WorkTime> availableWorkTimes = commonServices.getAvailableWorkTimeBySpecialtyNameAndDateOfWork(specialtyName, currentDate);
-        //availableWorkTimes.get(0).getDateOfWork();
-        //List<LocalTime> availableTimes = commonServices.getAvailableTimes(availableWorkTimes);
-        //model.addAttribute("availableTimes", availableTimes);
-        //model.addAttribute("availableWorkTimes", availableWorkTimes);
-
-        //BookAppointment bookAppointment = new BookAppointment();
-        //ommonServices.getCurrentUser();        
-
-        //model.addAttribute("bookAppointment", bookAppointment);
-        //LocalTime selectedTime = availableTimes.get(0);
-        //model.addAttribute("selectedTime", selectedTime);
-        
-        //commonServices.getAvailableWorkTimeBySpecialtyNameAndDateAndTime(specialtyName, currentDate, selectedTime);
-
         return "book_an_appointment";
     }
 

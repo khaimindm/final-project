@@ -28,33 +28,20 @@
   </div>
 
   <div id="main">
-    <h2 id="title" th:text="'Запись к: ' + ${specialtyName}"></h2>    
-    
-    <!-- <form id="dataSelectionForm" th:method="post" th:object="${availableWorkTimes}">
-      <label for="dateOfWork">Дата: </label>
-      <input type="date" th:field="*{dateOfWork}" id="dateOfWork"><br>
-
-      <label for="timeStartAt">Выберите доступное время: </label>
-      <select name="timeStartAt" id="timeStartAt">
-        <option th:each="i : ${availableTimes}" th:value="${i}" th:text="${i}"></option>
-      </select><br>      
-    </form> -->
+    <h2 id="title" th:text="'Запись к: ' + ${specialtyName}"></h2>
 
     <form id="dataSelectionForm" method="post">
       <label for="dateOfWork">Дата: </label>
-      <input type="date" name="dateOfWork" id="dateOfWork"><br>
+      <input type="date" name="dateOfWork" id="dateOfWork"><br><br>
 
       <label for="timeStartAt">Выберите доступное время: </label>
       <select name="timeStartAt" id="timeStartAt">        
-      </select><br>      
+      </select>
+      <br><br><br>
+      <input type="submit" value="Записаться" class="submit_button">
+      <span id="message" name="message" class="message"></span><br>
     </form>
-    
-    <!--
-    <form id="form" th:action="@{/booking}" th:method="post" th:object="${bookAppointment}">
-
-      <input type="submit" value="Записаться" class="submit_button">      
-    </form>3
-    -->
+        
   </div>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
