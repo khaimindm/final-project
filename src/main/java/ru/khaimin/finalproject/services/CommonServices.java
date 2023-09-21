@@ -14,10 +14,7 @@ import ru.khaimin.finalproject.security.PersonDetails;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class CommonServices {
@@ -49,13 +46,25 @@ public class CommonServices {
     public List<String> getAvailableTimeBySpecialtyNameAndDate(String specialtyName, LocalDate date) {
         //Optional<List<Time>> availableTimeBySpecialtyNameAndDate = workTimeRepository.findBySpecialtyNameAndDateOfWorkAndAvailability(specialtyName, date, true);
 
-        Iterator<Time> iterator = workTimeRepository.findBySpecialtyNameAndDateOfWorkAndAvailability(specialtyName, date, true).iterator();
+        Iterator<Time> iterator = workTimeRepository.findBySpecialtyNameAndDateOfWorkAndAvailability
+                (specialtyName, date, true).iterator();
         List<String> availableTimes = new ArrayList<>();
         while (iterator.hasNext()) {
             availableTimes.add(iterator.next().toLocalTime().toString());
         }
         
         return availableTimes;
+    }
+
+    public Map<Integer, String> getAvailableSpecialistsBySpecialtyNameAndDateOfWorkAndWorkTimeStartAtAndAvailability
+            (String specialtyName, LocalDate date, LocalTime time) {
+        Iterator<WorkTime> iterator = workTimeRepository.
+                findBySpecialtyNameAndDateOfWorkAndWorkTimeStartAtAndAvailability(specialtyName, date, time,
+                                                                        true).iterator();
+        Map<Integer, String> data = new HashMap<>();
+        while (iterator.hasNext()) {
+
+        }
     }
 
     public List<LocalTime> getAvailableTimes(List<WorkTime> workTimes) {

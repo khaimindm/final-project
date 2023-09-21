@@ -17,17 +17,16 @@ function todayDate() {
 $(function () {
 	var token = $("meta[name='_csrf']").attr("content");
 	var header = $("meta[name='_csrf_header']").attr("content");
-    console.log("Функция сработала: " + "header " + header + " " + "token " + token);
 	$(document).ajaxSend(function(e, xhr, options) {
 		xhr.setRequestHeader(header, token);
 	});
 });
 
 function getAvailableTimeByDate() {
-    let processingDate = document.getElementById('dateOfWork').value;
+    document.getElementById("noAvailableTimeMessage").innerHTML = "";
+    document.getElementById("noAvailableTimeMessage").style.visibility = "hidden";
 
-    console.log("processingDate: " + processingDate);
-    console.log("specialtyName: " + specialtyName);
+    let processingDate = document.getElementById('dateOfWork').value;
 
     let params = {
         processingDate: processingDate,
@@ -37,10 +36,18 @@ function getAvailableTimeByDate() {
     $.getJSON('/specialists/availableTimeByDate', params, function(data) {
         let dataJson = JSON.stringify(data);
         let value = JSON.parse(dataJson);
+        if (value !=0 ) {
         let select = document.getElementById("timeStartAt");
-        select.options.length = 0;        
+        select.options.length = 0;
         for (let i = 0; i < value.length; i++) {
             select[i] = new Option(value[i], value[i]);
+        }
+        } else {
+        let select = document.getElementById("timeStartAt");
+        select.options.length = 0;
+        let message = "Нет записи на выбранную дату"
+        document.getElementById("noAvailableTimeMessage").innerHTML = message;
+        document.getElementById("noAvailableTimeMessage").style.visibility = "visible";
         }
     });
 }
