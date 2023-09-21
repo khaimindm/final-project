@@ -47,6 +47,8 @@ public class CommonServices {
     }
     
     public List<String> getAvailableTimeBySpecialtyNameAndDate(String specialtyName, LocalDate date) {
+        //Optional<List<Time>> availableTimeBySpecialtyNameAndDate = workTimeRepository.findBySpecialtyNameAndDateOfWorkAndAvailability(specialtyName, date, true);
+
         Iterator<Time> iterator = workTimeRepository.findBySpecialtyNameAndDateOfWorkAndAvailability(specialtyName, date, true).iterator();
         List<String> availableTimes = new ArrayList<>();
         while (iterator.hasNext()) {
