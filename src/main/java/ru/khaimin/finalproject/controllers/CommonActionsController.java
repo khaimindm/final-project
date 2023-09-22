@@ -1,9 +1,11 @@
 package ru.khaimin.finalproject.controllers;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -47,6 +49,27 @@ public class CommonActionsController {
         ObjectMapper objectMapper = new ObjectMapper();
         String jsonArray = objectMapper.writeValueAsString(listOfTimes);
         return jsonArray;
+    }
+
+    @GetMapping(
+        value = "/specialists/availableSpecialistsBySpecialtyNameAndDateOfWorkAndWorkTimeStartAt",
+        produces = "application/json"
+    )
+    @ResponseBody
+    public String availableSpecialistsBySpecialtyNameAndDateOfWorkAndWorkTimeStartAt(@RequestParam HashMap<String, String> map) {
+        String specialtyName = map.get("specialtyName");
+        String dateOfWorkString = map.get("dateOfWork");
+        String workTimeStartAtString = map.get("workTimeStartAt");
+
+        DateTimeFormatter formatterDate= DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate dateOfWork = LocalDate.parse(dateOfWorkString, formatterDate);
+        
+        DateTimeFormatter formatterTime = DateTimeFormatter.ofPattern("HH:mm");
+        LocalTime workTimeStartAt = LocalTime.parse(workTimeStartAtString, formatterTime);
+
+        Map<Integer, String> availableSpecialistsMap = commonServices.
+        getAvailableSpecialistsBySpecialtyNameAndDateOfWorkAndWorkTimeStartAtAndAvailability(specialtyName, dateOfWork,
+                                                                                             workTimeStartAt);
     }
 
     @GetMapping("/specialists/{specialtyName}")

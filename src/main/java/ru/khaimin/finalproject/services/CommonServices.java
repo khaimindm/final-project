@@ -61,10 +61,14 @@ public class CommonServices {
         Iterator<WorkTime> iterator = workTimeRepository.
                 findBySpecialtyNameAndDateOfWorkAndWorkTimeStartAtAndAvailability(specialtyName, date, time,
                                                                         true).iterator();
-        Map<Integer, String> data = new HashMap<>();
+        Map<Integer, String> availableSpecialistsMap = new HashMap<>();
         while (iterator.hasNext()) {
-
+            WorkTime elWorkTime = iterator.next();
+            Person person = elWorkTime.getPerson();
+            availableSpecialistsMap.put(person.getId(), person.getLastName() + " " + person.getFirstName());
         }
+
+        return availableSpecialistsMap;
     }
 
     public List<LocalTime> getAvailableTimes(List<WorkTime> workTimes) {
