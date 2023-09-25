@@ -52,8 +52,13 @@ li.toppanelel {
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-#dateOfWork, #timeStartAt {
+#dateOfWork, #timeStartAt, #availableSpecialists {
     font-size: 20px;
+}
+
+#availableSpecialists {
+    width: 100%;
+    padding: 5px 5px;
 }
 
 .submit_button {

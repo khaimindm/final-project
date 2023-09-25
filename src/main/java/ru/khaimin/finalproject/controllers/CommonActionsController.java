@@ -56,7 +56,7 @@ public class CommonActionsController {
         produces = "application/json"
     )
     @ResponseBody
-    public String availableSpecialistsBySpecialtyNameAndDateOfWorkAndWorkTimeStartAt(@RequestParam HashMap<String, String> map) {
+    public String availableSpecialistsBySpecialtyNameAndDateOfWorkAndWorkTimeStartAt(@RequestParam HashMap<String, String> map) throws JsonProcessingException {
         String specialtyName = map.get("specialtyName");
         String dateOfWorkString = map.get("dateOfWork");
         String workTimeStartAtString = map.get("workTimeStartAt");
@@ -70,6 +70,10 @@ public class CommonActionsController {
         Map<Integer, String> availableSpecialistsMap = commonServices.
         getAvailableSpecialistsBySpecialtyNameAndDateOfWorkAndWorkTimeStartAtAndAvailability(specialtyName, dateOfWork,
                                                                                              workTimeStartAt);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        String jsonAvailableSpecialists = objectMapper.writeValueAsString(availableSpecialistsMap);
+        return jsonAvailableSpecialists;
     }
 
     @GetMapping("/specialists/{specialtyName}")
