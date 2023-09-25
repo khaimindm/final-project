@@ -30,7 +30,7 @@
   <div id="main">
     <h2 id="title" th:text="'Запись к: ' + ${specialtyName}"></h2>
 
-    <form id="dataSelectionForm" method="post">
+    <form id="dataSelectionForm" th:method="PATCH" th:action="">
       <label for="dateOfWork">Дата: </label>
       <input type="date" name="dateOfWork" id="dateOfWork"><br><br>
 

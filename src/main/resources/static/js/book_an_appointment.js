@@ -26,6 +26,10 @@ $(function () {
 function getAvailableTimeByDate() {
     document.getElementById("noAvailableTimeMessage").innerHTML = "";
     document.getElementById("noAvailableTimeMessage").style.visibility = "hidden";
+    let select = document.getElementById("timeStartAt");
+    select.options.length = 0;
+
+    document.getElementById("availableSpecialists").options.length = 0;
 
     let processingDate = document.getElementById('dateOfWork').value;
 
@@ -38,15 +42,11 @@ function getAvailableTimeByDate() {
         let dataJson = JSON.stringify(data);
         let value = JSON.parse(dataJson);
         if (value !=0 ) {
-            let select = document.getElementById("timeStartAt");
-            select.options.length = 0;
             for (let i = 0; i < value.length; i++) {
                 select[i] = new Option(value[i], value[i]);
             }
             getAvailableSpecialistsBySpecialtyNameAndDateOfWorkAndWorkTimeStartAt();
         } else {
-            let select = document.getElementById("timeStartAt");
-            select.options.length = 0;
             let message = "Нет записи на выбранную дату"
             document.getElementById("noAvailableTimeMessage").innerHTML = message;
             document.getElementById("noAvailableTimeMessage").style.visibility = "visible";
