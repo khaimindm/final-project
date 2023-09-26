@@ -8,6 +8,7 @@
   <link th:href="@{/css/book_an_appointment.css}" rel="stylesheet">
   <title>Заголовок</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    
 </head>
 <body>
     
@@ -30,9 +31,9 @@
   <div id="main">
     <h2 id="title" th:text="'Запись к: ' + ${specialtyName}"></h2>
 
-    <form id="dataSelectionForm" th:method="PATCH" th:action="">
+    <form id="dataSelectionForm" th:method="PATCH">
       <label for="dateOfWork">Дата: </label>
-      <input type="date" name="dateOfWork" id="dateOfWork"><br><br>
+      <input name="dateOfWork" id="dateOfWork"><br><br>
 
       <label for="timeStartAt">Выберите доступное время: </label>
       <select name="timeStartAt" id="timeStartAt">        
@@ -49,6 +50,8 @@
     </form>
         
   </div>
+
+ 
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 

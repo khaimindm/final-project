@@ -1,10 +1,10 @@
-document.getElementById("dateOfWork").addEventListener('change', getAvailableTimeByDate);
+//document.getElementById("dateOfWork").addEventListener('change', getAvailableTimeByDate);
 document.getElementById("timeStartAt").addEventListener('change', getAvailableSpecialistsBySpecialtyNameAndDateOfWorkAndWorkTimeStartAt);
 document.getElementById("dataSelectionForm").addEventListener("submit", checkForm);
 
-todayDate();
+//todayDate();
 
-function todayDate() {
+/* function todayDate() {
   let today = new Date();
 
   let yyyy = today.getFullYear();
@@ -13,7 +13,24 @@ function todayDate() {
 
   let result = yyyy + '-' + mm + '-' + dd;
   document.getElementById('dateOfWork').min = result;
-}
+} */
+
+let dateToday = new Date();
+
+$("#dateOfWork").datepicker({
+    minDate: dateToday,
+    onSelect: function(dateText, inst) {
+        let selectedDate = $(this).datepicker("getDate");
+        let slctdDate = selectedDate.getDate()
+        console.log("selectedDate = " + selectedDate);
+        console.log("slctdDate = " + slctdDate);
+
+        getAvailableTimeByDate(selectedDate);
+    },
+    beforeShowDay: function(date) {
+        return [date.getDate == slctdDate]
+    }
+});
 
 $(function () {
 	var token = $("meta[name='_csrf']").attr("content");
@@ -23,7 +40,7 @@ $(function () {
 	});
 });
 
-function getAvailableTimeByDate() {
+function getAvailableTimeByDate(processingDate) {
     document.getElementById("noAvailableTimeMessage").innerHTML = "";
     document.getElementById("noAvailableTimeMessage").style.visibility = "hidden";
     let select = document.getElementById("timeStartAt");
@@ -31,7 +48,7 @@ function getAvailableTimeByDate() {
 
     document.getElementById("availableSpecialists").options.length = 0;
 
-    let processingDate = document.getElementById('dateOfWork').value;
+    //let processingDate = document.getElementById('dateOfWork').value;
 
     let params = {
         processingDate: processingDate,
