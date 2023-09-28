@@ -32,8 +32,11 @@
     <h2 id="title" th:text="'Запись к: ' + ${specialtyName}"></h2>
 
     <form id="dataSelectionForm" th:method="PATCH">
-      <label for="dateOfWork">Дата: </label>
-      <input name="dateOfWork" id="dateOfWork"><br><br>
+      <label for="dateOfWork">Выберите доступную дату: </label>
+      <select name="dateOfWork" id="dateOfWork">
+        <option value="0"></option>
+        <option th:each="dateOfWork : ${availableDatesOfWork}" th:value="${dateOfWork}" th:text="${#dates.format(dateOfWork, 'dd.MM.yyyy')}"></option>        
+      </select><br><br>
 
       <label for="timeStartAt">Выберите доступное время: </label>
       <select name="timeStartAt" id="timeStartAt">        

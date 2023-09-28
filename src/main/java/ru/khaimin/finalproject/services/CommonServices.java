@@ -11,6 +11,7 @@ import ru.khaimin.finalproject.repositories.CommonRepository;
 import ru.khaimin.finalproject.repositories.WorkTimeRepository;
 import ru.khaimin.finalproject.security.PersonDetails;
 
+import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -31,6 +32,19 @@ public class CommonServices {
     public List<String> loadSpecialties() {
         List<String> specialties = commonRepository.getListOfSpecialties();
         return specialties;
+    }
+
+    public List<Date> getDatesOfWorkBySpecialtyName(String specialtyName) {
+        LocalDate currentDate = LocalDate.now();
+        Date date = Date.valueOf(currentDate);
+        System.out.println(currentDate);        
+        Iterator<Date> iterator = workTimeRepository.findBySpecialtyNameAndAvailabilityAndDateOfWork(specialtyName, true, date).iterator();
+        List<Date> availableDatesOfWork = new ArrayList<>();
+        while (iterator.hasNext()) {
+            availableDatesOfWork.add(iterator.next());
+        }
+
+        return availableDatesOfWork;
     }
 
     public List<WorkTime> getAvailableWorkTimeBySpecialtyNameAndDateOfWork(String specialtyName, LocalDate dateOfWork) {

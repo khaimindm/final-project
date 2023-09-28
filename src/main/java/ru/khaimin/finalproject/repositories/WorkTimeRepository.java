@@ -1,5 +1,6 @@
 package ru.khaimin.finalproject.repositories;
 
+import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -15,6 +16,14 @@ import ru.khaimin.finalproject.entity.WorkTime;
 
 @Repository
 public interface WorkTimeRepository extends JpaRepository<WorkTime, Integer>{
+    @Query(value = "SELECT DISTINCT date_of_work FROM work_time WHERE specialty_name = :specialtyName AND" +
+    " availability = :availability AND date_of_work >= :currentDate ORDER BY date_of_work", nativeQuery = true)
+    List<Date> findBySpecialtyNameAndAvailabilityAndDateOfWork(
+        @Param("specialtyName") String specialtyName,
+        @Param("availability") Boolean availability,
+        @Param("currentDate") Date currentDate
+    );
+
     @Query(value = "SELECT DISTINCT work_time_start_at FROM work_time WHERE specialty_name = :specialtyName AND" +
             " date_of_work = :date AND availability =:availability ORDER BY work_time_start_at", nativeQuery = true)
     List<Time> findBySpecialtyNameAndDateOfWorkAndAvailability(

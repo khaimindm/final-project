@@ -1,5 +1,6 @@
 package ru.khaimin.finalproject.controllers;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -79,6 +80,9 @@ public class CommonActionsController {
     @GetMapping("/specialists/{specialtyName}")
     public String bookAnAppointment(@PathVariable("specialtyName") String specialtyName, Model model) {
         model.addAttribute("specialtyName", specialtyName);
+
+        List<Date> availableDatesOfWork = commonServices.getDatesOfWorkBySpecialtyName(specialtyName);
+        model.addAttribute("availableDatesOfWork", availableDatesOfWork);
         
         return "book_an_appointment";
     }
