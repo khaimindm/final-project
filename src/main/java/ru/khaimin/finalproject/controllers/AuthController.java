@@ -28,7 +28,7 @@ public class AuthController {
     
     @Autowired
     public AuthController (RegistrationService registrationService, PersonValidator personValidator,
-                           AddSpecialistDataService addSpecialistDataService, CommonServices commonServices) {
+                           CommonServices commonServices) {
         this.registrationService = registrationService;
         this.personValidator = personValidator;
         this.commonServices = commonServices;

@@ -40,4 +40,23 @@ public interface WorkTimeRepository extends JpaRepository<WorkTime, Integer>{
                                                                       LocalTime workTimeStartAt);
     
     List<WorkTime> findBySpecialtyNameAndDateOfWork(String specialtyName, LocalDate dateOfWork);
+
+    /*Optional<WorkTime> findByPersonsPersonIdAndDateOfWorkAndWorkTimeStartAtAndAvailability(int personsPersonId,
+                                                                                           LocalDate dateOfWork,
+                                                                                           LocalTime workTimeStartAt,
+                                                                                           boolean availability);*/
+
+    /*Optional<WorkTime> findByPersonsPersonIdAndDateOfWorkAndWorkTimeStartAtAndAvailability(int personsPersonId,
+                                                                                           LocalDate dateOfWork,
+                                                                                           LocalTime workTimeStartAt,
+                                                                                           boolean availability);*/
+
+    @Query(value = "SELECT * FROM work_time WHERE persons_person_id = :personsPersonId AND " +
+            "date_of_work = :dateOfWork AND work_time_start_at = :workTimeStartAt AND availability = :availability",
+            nativeQuery = true)
+    Optional<WorkTime> findByPersonsPersonIdAndDateOfWorkAndWorkTimeStartAtAndAvailability(
+            @Param("personsPersonId") int personsPersonId,
+            @Param("dateOfWork") LocalDate dateOfWork,
+            @Param("workTimeStartAt") LocalTime workTimeStartAt,
+            @Param("availability") boolean availability);
 }

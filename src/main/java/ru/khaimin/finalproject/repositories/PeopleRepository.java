@@ -12,4 +12,6 @@ import ru.khaimin.finalproject.entity.Person;
 public interface PeopleRepository extends JpaRepository<Person, Integer> {
     Optional<Person> findByUsername(String username);
     List<Person> findAllByRole(String role);
+
+    //Optional<Person> findById(int id);
 }

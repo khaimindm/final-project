@@ -2,12 +2,16 @@ package ru.khaimin.finalproject.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import org.springframework.transaction.annotation.Transactional;
+import ru.khaimin.finalproject.entity.BookAppointment;
 import ru.khaimin.finalproject.entity.Person;
 import ru.khaimin.finalproject.entity.WorkTime;
 import ru.khaimin.finalproject.repositories.CommonRepository;
+import ru.khaimin.finalproject.repositories.PeopleRepository;
 import ru.khaimin.finalproject.repositories.WorkTimeRepository;
 import ru.khaimin.finalproject.security.PersonDetails;
 
@@ -23,10 +27,14 @@ public class CommonServices {
     private final CommonRepository commonRepository;
     private final WorkTimeRepository workTimeRepository;
 
+    private final PeopleRepository peopleRepository;
+
     @Autowired
-    public CommonServices(CommonRepository commonRepository, WorkTimeRepository workTimeRepository) {
+    public CommonServices(CommonRepository commonRepository, WorkTimeRepository workTimeRepository,
+                          PeopleRepository peopleRepository) {
         this.commonRepository = commonRepository;
         this.workTimeRepository = workTimeRepository;
+        this.peopleRepository = peopleRepository;
     }
 
     public List<String> loadSpecialties() {
@@ -98,5 +106,46 @@ public class CommonServices {
     public List<WorkTime> getAvailableWorkTimeBySpecialtyNameAndDateAndTime(String specialtyName, LocalDate date,
                                                                             LocalTime time) {
         return workTimeRepository.findBySpecialtyNameAndDateOfWorkAndWorkTimeStartAt(specialtyName, date, time);
+    }
+
+    /*public WorkTime getWorkTimeByPersonsPersonIdAndDateOfWorkAndWorkTimeStartAtAndAvailability(
+            int personsPersonId, LocalDate dateOfWork, LocalTime workTimeStartAt) {
+        return
+    }*/
+
+    /*public Person getPersonById(int id) {
+        return peopleRepository.findById(id).orElse(new Person());
+    }*/
+
+    public String getDefaultPageLinkCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+        String authorityName = "";
+        for (GrantedAuthority grantedAuthority: authorities) {
+            authorityName = grantedAuthority.getAuthority();
+        }
+
+        if (authorityName.equalsIgnoreCase("ROLE_RECORDKEEPER")) {
+            return "/main_record_keeper";
+        } else if (authorityName.equalsIgnoreCase("ROLE_SPECIALIST")) {
+            return "/main_specialist";
+        } else {
+            return "/main_patient";
+        }
+    }
+
+    @Transactional
+    public void makeBookingBySpecialistIdAndBookingDateAndBookingTime (int specialistId, LocalDate bookingDate,
+                                                                       LocalTime bookingTime) {
+        /*WorkTime workTime = commonServices.getWorkTimeByPersonsPersonIdAndDateOfWorkAndWorkTimeStartAtAndAvailability(
+                specialistId, bookingDate, bookingTime);*/
+        WorkTime workTime = workTimeRepository.findByPersonsPersonIdAndDateOfWorkAndWorkTimeStartAtAndAvailability(
+                specialistId, bookingDate, bookingTime, true).orElse(new WorkTime());
+
+        workTime.setAvailability(false);
+
+        BookAppointment bookAppointment = new BookAppointment();
+        bookAppointment.setPerson(getCurrentUser());
+        bookAppointment.setWorkTime(workTime);
     }
 }

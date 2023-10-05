@@ -35,13 +35,5 @@ public class PeopleService {
     public List<Person> getAllSpecialists() {        
         return peopleRepository.findAllByRole("ROLE_SPECIALIST");
     }
-
-
-    /*public ProfessionalActivity getProfessionalActivity(Person person) {
-        ProfessionalActivity temp = person.getProfessionalActivity();
-
-        //Optional<ProfessionalActivity> foundProfessionalActivity = professionalActivityRepository
-        return temp;
-    }*/
     
 }

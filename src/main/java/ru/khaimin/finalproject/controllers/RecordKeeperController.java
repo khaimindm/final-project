@@ -22,7 +22,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-//@RequestMapping("/recordkeeper")
 public class RecordKeeperController {  
     
     private final AddSpecialistDataService addSpecialistDataService;
@@ -44,16 +43,9 @@ public class RecordKeeperController {
     public String mainRecordKeeper(Model model) {
         List<String> specialties = commonServices.loadSpecialties();
         model.addAttribute("specialties", specialties);
-        //model.addAttribute("currentUser", commonServices.getCurrentUser());
-        
-        return "/main_record_keeper";
-    }
 
-    /* @GetMapping("/{specialtyName}")
-    public String appointment(@PathVariable("specialtyName") String specialtyName, Model model) {
-        model.addAttribute("specialtyName", specialtyName);
-        return "/appointment";
-    } */
+        return "main_record_keeper";
+    }
 
     @GetMapping("/adding_specialist_data")
     public String addingSpecialistData(@ModelAttribute("professionalActivity")
@@ -64,7 +56,7 @@ public class RecordKeeperController {
         Person currentPerson = addSpecialistDataService.getPersonToAddData();
         model.addAttribute("person_first_last_name", currentPerson.getFirstName() + " " + currentPerson.getLastName());
         //model.addAttribute("currentUser", commonServices.getCurrentUser());
-        return "/adding_specialist_data";
+        return "adding_specialist_data";
     }
     
     @PostMapping("/adding_specialist_data")
@@ -79,14 +71,14 @@ public class RecordKeeperController {
         String action = "/main_record_keeper";
         model.addAttribute("action", action);
 
-        return "/successful_action_page";
+        return "successful_action_page";
     }
 
     @GetMapping("/specialists")
     public String allSpecialists(Model model) {
         List<Person> allSpecialists = peopleService.getAllSpecialists();
         model.addAttribute("specialists", allSpecialists);
-        return "/list_of_specialists";
+        return "list_of_specialists";
     }
 
     @GetMapping("/specialist/{id}/work_time")
@@ -99,7 +91,7 @@ public class RecordKeeperController {
         dataForWorkTime.setFirstName(person.getFirstName());
 
         model.addAttribute("dataForWorkTime", dataForWorkTime);
-        return "/work_time";
+        return "work_time";
     }
 
     @PostMapping("/specialist/work_time")
@@ -111,7 +103,17 @@ public class RecordKeeperController {
         String action = "/main_record_keeper";
         model.addAttribute("action", action);
 
-        return "/successful_action_page";
+        return "successful_action_page";
+    }
+
+    @GetMapping("/all_tables")
+    public String allTables(Model model) {
+        model.addAttribute("persons", recordKeeperService.getAllPersons());
+        model.addAttribute("professionalActivitys", recordKeeperService.getAllProfessionalActivity());
+        model.addAttribute("workTimes", recordKeeperService.getAllWorkTime());
+        model.addAttribute("bookAppointments", recordKeeperService.getAllBookAppointment());
+
+        return "all_tables";
     }
 
     @ModelAttribute("currentUser")

@@ -1,0 +1,129 @@
+﻿<!DOCTYPE html>
+<html lang="ru-RU" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link th:href="@{/css/all_tables.css}" rel="stylesheet">
+    <title>Все таблицы</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+<body>
+
+<div id="top">
+    <ul id="toppanel">
+        <li class="toppanelel">
+            <a th:if="${currentUser.getRole} == 'ROLE_RECORDKEEPER'" th:href="@{/main_record_keeper}" id="home" class="material-icons">home</a></li>
+        <a th:if="${currentUser.getRole} == 'ROLE_SPECIALIST'" th:href="@{/main_specialist}" id="home" class="material-icons">home</a></li>
+        <a th:if="${currentUser.getRole} == 'ROLE_PATIENT'" th:href="@{/main_patient}" id="home" class="material-icons">home</a>
+        </li>
+        <li class="toppanelel" style="float: right;">
+            <form th:action="@{/logout}" th:method="POST">
+                <input type="submit" value="Выход"/>
+            </form>
+        </li>
+        <li class="toppanelel" style="float: right;"><a th:href="@{/person/{id}(id=*{currentUser.getId()})}" th:text="*{currentUser.getFirstName()} + ' ' + *{currentUser.getLastName()}"></a></li>
+    </ul>
+</div>
+
+<div id="main">
+    <table>
+        <caption>persons</caption>
+        <thead>
+        <tr>
+            <th>id</th>
+            <th>user_name</th>
+            <th>password</th>
+            <th>first_name</th>
+            <th>last_name</th>
+            <th>birthday</th>
+            <th>role</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="person: ${persons}">
+            <td th:text="${person.getId()}"></td>
+            <td th:text="${person.getUsername()}"></td>
+            <td th:text="${person.getPassword()}"></td>
+            <td th:text="${person.getFirstName()}"></td>
+            <td th:text="${person.getLastName()}"></td>
+            <td th:text="${person.getBirthday()}"></td>
+            <td th:text="${person.getRole()}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <br><br>
+
+    <table>
+        <caption>professional_activity</caption>
+        <thead>
+        <tr>
+            <th>specialist_id</th>
+            <th>specialty_name</th>
+            <th>degree_certificate</th>
+            <th>date_of_employment</th>
+            <th>persons_person_id</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="professionalActivity: ${professionalActivitys}">
+            <td th:text="${professionalActivity.getSpecialistId()}"></td>
+            <td th:text="${professionalActivity.getSpecialtyName()}"></td>
+            <td th:text="${professionalActivity.getDegreeCertificate()}"></td>
+            <td th:text="${professionalActivity.getDateOfEmployment()}"></td>
+            <td th:text="${professionalActivity.getPerson().getId()}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <br><br>
+
+    <table>
+        <caption>work_time</caption>
+        <thead>
+        <tr>
+            <th>work_time_id</th>
+            <th>date_of_work</th>
+            <th>work_time_start_at</th>
+            <th>work_time_end_at</th>
+            <th>availability</th>
+            <th>specialty_name</th>
+            <th>persons_person_id Specialist</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="workTime: ${workTimes}">
+            <td th:text="${workTime.getWorkTimeId()}"></td>
+            <td th:text="${workTime.getDateOfWork()}"></td>
+            <td th:text="${workTime.getWorkTimeStartAt()}"></td>
+            <td th:text="${workTime.getWorkTimeEndAt()}"></td>
+            <td th:text="${workTime.isAvailability()}"></td>
+            <td th:text="${workTime.getSpecialtyName()}"></td>
+            <td th:text="${workTime.getPerson().getId()}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <br><br>
+
+    <table>
+        <caption>book_appointment</caption>
+        <thead>
+        <tr>
+            <th>book_appointment_id</th>
+            <th>persons_person_id Patient</th>
+            <th>work_time_id</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="bookAppointment: ${bookAppointments}">
+            <td th:text="${bookAppointment.getBookAppointmentId()}"></td>
+            <td th:text="${bookAppointment.getPerson().getId()}"></td>
+            <td th:text="${bookAppointment.getWorkTime().getWorkTimeId()}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

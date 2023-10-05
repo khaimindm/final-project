@@ -17,21 +17,6 @@ function todayDate() {
 
 let dateToday = new Date();
 
-/* $("#dateOfWork").datepicker({
-    minDate: dateToday,
-    onSelect: function(dateText, inst) {
-        let selectedDate = $(this).datepicker("getDate");
-        let slctdDate = selectedDate.getDate()
-        console.log("selectedDate = " + selectedDate);
-        console.log("slctdDate = " + slctdDate);
-
-        getAvailableTimeByDate(selectedDate);
-    },
-    beforeShowDay: function(date) {
-        return [date.getDate == slctdDate]
-    }
-}); */
-
 $(function () {
 	var token = $("meta[name='_csrf']").attr("content");
 	var header = $("meta[name='_csrf_header']").attr("content");
@@ -100,10 +85,11 @@ function checkForm(event) {
 
     let dateOfWork = el.dateOfWork.value;
     let timeStartAt = el.timeStartAt.value;
+    let availableSpecialists = el.availableSpecialists.value;
 
     let error = "";
 
-    if(dateOfWork == "" || timeStartAt == "") {
+    if(dateOfWork == "" || timeStartAt == "" || availableSpecialists == "") {
         event.preventDefault();
         error = "Заполните все поля";
         document.getElementById('message').innerHTML = error;

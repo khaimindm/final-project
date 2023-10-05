@@ -2,10 +2,8 @@ package ru.khaimin.finalproject.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.khaimin.finalproject.entity.DataForWorkTime;
-import ru.khaimin.finalproject.entity.Person;
-import ru.khaimin.finalproject.entity.ProfessionalActivity;
-import ru.khaimin.finalproject.entity.WorkTime;
+import ru.khaimin.finalproject.entity.*;
+import ru.khaimin.finalproject.repositories.BookAppointmentRepository;
 import ru.khaimin.finalproject.repositories.PeopleRepository;
 import ru.khaimin.finalproject.repositories.ProfessionalActivityRepository;
 import ru.khaimin.finalproject.repositories.WorkTimeRepository;
@@ -21,13 +19,16 @@ public class RecordKeeperService {
     private final PeopleRepository peopleRepository;
     private final WorkTimeRepository workTimeRepository;
     private final ProfessionalActivityRepository professionalActivityRepository;
+    private final BookAppointmentRepository bookAppointmentRepository;
 
     @Autowired
     public RecordKeeperService(PeopleRepository peopleRepository, WorkTimeRepository workTimeRepository,
-                               ProfessionalActivityRepository professionalActivityRepository) {
+                               ProfessionalActivityRepository professionalActivityRepository,
+                               BookAppointmentRepository bookAppointmentRepository) {
         this.peopleRepository = peopleRepository;
         this.workTimeRepository = workTimeRepository;
         this.professionalActivityRepository = professionalActivityRepository;
+        this.bookAppointmentRepository = bookAppointmentRepository;
     }
 
     public Optional<Person> getPersonById(int id) {
@@ -79,5 +80,21 @@ public class RecordKeeperService {
 
             workTimeRepository.saveAll(workTimes);
         }
+    }
+
+    public List<Person> getAllPersons() {
+        return peopleRepository.findAll();
+    }
+
+    public List<ProfessionalActivity> getAllProfessionalActivity() {
+        return professionalActivityRepository.findAll();
+    }
+
+    public List<WorkTime> getAllWorkTime() {
+        return workTimeRepository.findAll();
+    }
+
+    public List<BookAppointment> getAllBookAppointment() {
+        return bookAppointmentRepository.findAll();
     }
 }
