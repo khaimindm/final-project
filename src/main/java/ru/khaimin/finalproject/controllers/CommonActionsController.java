@@ -74,36 +74,7 @@ public class CommonActionsController {
         String jsonAvailableSpecialists = objectMapper.writeValueAsString(availableSpecialistsMap);
         return jsonAvailableSpecialists;
     }
-
-    @GetMapping("/specialists/{specialtyName}")
-    public String bookAnAppointment(@PathVariable("specialtyName") String specialtyName, Model model) {
-        model.addAttribute("specialtyName", specialtyName);
-
-        List<Date> availableDatesOfWork = commonServices.getDatesOfWorkBySpecialtyName(specialtyName);
-        model.addAttribute("availableDatesOfWork", availableDatesOfWork);
-        
-        return "book_an_appointment";
-    }
-
-    @PatchMapping("/specialists/bookplace")
-    public String bookPlace(@ModelAttribute("bookApointment") BookAppointment bookAppointment,
-                            @RequestParam("dateOfWork") String bookingDateString,
-                            @RequestParam("timeStartAt") String bookingTimeString,
-                            @RequestParam("availableSpecialists") int specialistId,
-                            Model model) {
-        DateTimeFormatter formatterDate= DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate bookingDate = LocalDate.parse(bookingDateString, formatterDate);
-
-        DateTimeFormatter formatterTime = DateTimeFormatter.ofPattern("HH:mm");
-        LocalTime bookingTime = LocalTime.parse(bookingTimeString, formatterTime);
-
-        commonServices.makeBookingBySpecialistIdAndBookingDateAndBookingTime(specialistId, bookingDate, bookingTime);
-        String action = commonServices.getDefaultPageLinkCurrentUser();
-        model.addAttribute("action", action);
-
-        return "/successful_action_page";
-    }
-
+    
     @ModelAttribute("currentUser")
     public Person currentPerson() {
         return commonServices.getCurrentUser();

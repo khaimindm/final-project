@@ -23,8 +23,8 @@
       </li>      
       <li class="toppanelel" style="float: right;"><a th:href="@{/person/{id}(id=*{currentUser.getId()})}" th:text="*{currentUser.getFirstName()} + ' ' + *{currentUser.getLastName()}"></a></li>
     </ul>
-  </div> 
-
+  </div>
+  
   <div id="main">
     <h2>Специалисты</h2>
     <ul id="list">
@@ -41,62 +41,15 @@
         </form>
       </div>
       <p class="additionalFunctions">
-        <!-- <button id="addSpecBtn" class="additionalFunctionsBtn">Добавить специалиста</button><br><br> -->
         <a href="/auth/registration_record_keeper">Добавить специалиста, пользователя</a><br>
         <a href="/specialists">Установить график работы для специалистов</a>
-        <!-- <button id="deleteSpecBtn" class="additionalFunctionsBtn">Удалить специалиста</button> -->
-      </p>      
-    </div>
-  </div>
-  
-<!--
-  <div id="addModal" class="modal">
-    <div class="addModal-content">
-      <span class="addClose">&times;</span>
-      <h3 class="modalHeading">Добавить нового специалиста</h3>
-      <form id="addNewSpecForm" action="" method="post">
-        <label for="nameOfTheSpecialist">Наименование специалиста</label><br>
-        <input type="text" id="nameOfTheSpecialist" name="nameOfTheSpecialist"><br>
-        <label for="firstName">Имя:</label>
-        <input type="text" id="firstName" th:field="*{firstName}">
-        <div style="color:red" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">First name Error</div>
-        <br>
-        <label for="lastName">Фамилия:</label><br>
-        <input type="text" id="lastName" th:field="*{lastName}">
-        <div style="color:red" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Last name Error</div>
-        <br><br>
-        <label for="birthday">Дата рождения</label><br>
-        <input type="date" id="birthday" th:field="*{birthday}">
-        <div style="color:red" th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}">Birthday Error</div>
-        <br><br>        
-        <span id="messageAddNewSpecForm" name="messageAddNewSpecForm" class="message"></span><br>
-        <button type="button" id="cancelBtnAddModal" class="cancel">Отмена</button>
-        <input type="submit" class="applyBtn" value="Добавить"><br>
-      </form>
+      </p>
     </div>
   </div>
 
-  <div id="deleteModal" class="modal">
-    <div class="deleteModal-content">
-      <span class="deleteClose">&times;</span>
-      <h3 class="modalHeading">Удалить специалиста</h3>
-      <form id="deleteSpecForm" action="" method="post">
-        <label for="listExistingSpec">Выберите специалиста для удаления</label><br>
-        <input list="listExistingSpec" class="listExistingSpec" name="nameOfTheSpecToBeDeleted">
-        <datalist id="listExistingSpec">
-          <option value="Терапевт">
-          <option value="Хирург">
-          <option value="Кардиолог">
-          <option value="Невролог">
-        </datalist><br>
-        <span id="messageDeleteSpecForm" name="messageDeleteSpecForm" class="message"></span><br>
-        <button type="button" id="cancelBtnDeleteModal" class="cancel">Отмена</button>
-        <input type="submit" class="applyBtn" value="Удалить">
-      </form>
-    </div>
-  </div>
--->
-  
+  <br>
+  <a href="/all_tables">Все таблицы</a>
+    
   <script type="text/javascript" th:src="@{/js/main_record_keeper.js}"></script>
 
 </body>

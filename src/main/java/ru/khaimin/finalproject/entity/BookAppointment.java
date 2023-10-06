@@ -28,7 +28,7 @@ public class BookAppointment {
     private Person person;
     
     @OneToOne
-    @JoinColumn(name = "work_time_id", referencedColumnName = "work_time_id")
+    @JoinColumn(name = "book_appointment_work_time_id", referencedColumnName = "work_time_id")
     private WorkTime workTime;
 
     public BookAppointment() {

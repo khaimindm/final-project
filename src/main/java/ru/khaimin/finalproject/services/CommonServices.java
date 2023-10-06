@@ -134,18 +134,11 @@ public class CommonServices {
         }
     }
 
-    @Transactional
-    public void makeBookingBySpecialistIdAndBookingDateAndBookingTime (int specialistId, LocalDate bookingDate,
-                                                                       LocalTime bookingTime) {
-        /*WorkTime workTime = commonServices.getWorkTimeByPersonsPersonIdAndDateOfWorkAndWorkTimeStartAtAndAvailability(
-                specialistId, bookingDate, bookingTime);*/
-        WorkTime workTime = workTimeRepository.findByPersonsPersonIdAndDateOfWorkAndWorkTimeStartAtAndAvailability(
-                specialistId, bookingDate, bookingTime, true).orElse(new WorkTime());
-
-        workTime.setAvailability(false);
-
+    public void makeBooking(WorkTime workTime) {
         BookAppointment bookAppointment = new BookAppointment();
-        bookAppointment.setPerson(getCurrentUser());
-        bookAppointment.setWorkTime(workTime);
+                bookAppointment.setPerson(getCurrentUser());
+                bookAppointment.setWorkTime(workTime);
     }
+
+    
 }
