@@ -8,7 +8,6 @@ import ru.khaimin.finalproject.repositories.PeopleRepository;
 import ru.khaimin.finalproject.repositories.ProfessionalActivityRepository;
 import ru.khaimin.finalproject.repositories.WorkTimeRepository;
 
-import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;

@@ -112,14 +112,12 @@
         <tr>
             <th>book_appointment_id</th>
             <th>persons_person_id Patient</th>
-            <th>work_time_id</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="bookAppointment: ${bookAppointments}">
             <td th:text="${bookAppointment.getBookAppointmentId()}"></td>
             <td th:text="${bookAppointment.getPerson().getId()}"></td>
-            <td th:text="${bookAppointment.getWorkTime().getWorkTimeId()}"></td>
         </tr>
         </tbody>
     </table>

@@ -27,9 +27,9 @@ public class BookAppointment {
     @JoinColumn(name = "persons_person_id", referencedColumnName = "person_id")
     private Person person;
     
-    @OneToOne
+    /*@OneToOne
     @JoinColumn(name = "book_appointment_work_time_id", referencedColumnName = "work_time_id")
-    private WorkTime workTime;
+    private WorkTime workTime;*/
 
     public BookAppointment() {
 
@@ -51,12 +51,12 @@ public class BookAppointment {
         this.person = person;
     }
 
-    public WorkTime getWorkTime() {
+   /* public WorkTime getWorkTime() {
         return workTime;
-    }
+    }*/
 
-    public void setWorkTime(WorkTime workTime) {
+    /*public void setWorkTime(WorkTime workTime) {
         this.workTime = workTime;
-    }
+    }*/
     
 }

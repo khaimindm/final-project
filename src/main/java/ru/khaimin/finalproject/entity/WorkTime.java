@@ -44,9 +44,9 @@ public class WorkTime {
     @JoinColumn(name = "persons_person_id", referencedColumnName = "person_id")
     private Person person;
 
-    @OneToOne(mappedBy = "workTime")
+    /*@OneToOne(mappedBy = "workTime")
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
-    private BookAppointment bookAppointment;
+    private BookAppointment bookAppointment;*/
 
     public WorkTime() {
 
@@ -100,13 +100,13 @@ public class WorkTime {
         this.person = person;
     }
 
-    public BookAppointment getBookAppointment() {
+    /*public BookAppointment getBookAppointment() {
         return bookAppointment;
-    }
+    }*/
 
-    public void setBookAppointment(BookAppointment bookAppointment) {
+    /*public void setBookAppointment(BookAppointment bookAppointment) {
         this.bookAppointment = bookAppointment;
-    }
+    }*/
 
     public String getSpecialtyName() {
         return specialtyName;
