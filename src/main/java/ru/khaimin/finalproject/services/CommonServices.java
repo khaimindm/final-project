@@ -5,8 +5,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import ru.khaimin.finalproject.entity.BookAppointment;
 import ru.khaimin.finalproject.entity.Person;
 import ru.khaimin.finalproject.repositories.CommonRepository;
 import ru.khaimin.finalproject.security.PersonDetails;
@@ -49,12 +47,6 @@ public class CommonServices {
         } else {
             return "/main_patient";
         }
-    }
-
-    @Transactional
-    public void performRecording(BookAppointment bookAppointment) {
-        bookAppointment.setPerson(getCurrentUser());
-        //bookAppointment.setWorkTime(workTime);
     }
 
 }

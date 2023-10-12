@@ -1,19 +1,6 @@
 package ru.khaimin.finalproject.entity;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-
-import org.springframework.format.annotation.DateTimeFormat;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "book_appointment")
@@ -26,10 +13,6 @@ public class BookAppointment {
     @ManyToOne
     @JoinColumn(name = "persons_person_id", referencedColumnName = "person_id")
     private Person person;
-    
-    /*@OneToOne
-    @JoinColumn(name = "book_appointment_work_time_id", referencedColumnName = "work_time_id")
-    private WorkTime workTime;*/
 
     public BookAppointment() {
 
@@ -50,13 +33,4 @@ public class BookAppointment {
     public void setPerson(Person person) {
         this.person = person;
     }
-
-   /* public WorkTime getWorkTime() {
-        return workTime;
-    }*/
-
-    /*public void setWorkTime(WorkTime workTime) {
-        this.workTime = workTime;
-    }*/
-    
 }

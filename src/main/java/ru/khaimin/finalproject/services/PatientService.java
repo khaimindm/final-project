@@ -1,34 +1,35 @@
 package ru.khaimin.finalproject.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionCallbackWithoutResult;
+import org.springframework.transaction.support.TransactionTemplate;
+import ru.khaimin.finalproject.entity.BookAppointment;
+import ru.khaimin.finalproject.entity.Person;
+import ru.khaimin.finalproject.entity.WorkTime;
+import ru.khaimin.finalproject.repositories.WorkTimeRepository;
+
 import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.*;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.TransactionStatus;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.support.TransactionCallback;
-import org.springframework.transaction.support.TransactionCallbackWithoutResult;
-import org.springframework.transaction.support.TransactionTemplate;
-
-import ru.khaimin.finalproject.entity.BookAppointment;
-import ru.khaimin.finalproject.entity.Person;
-import ru.khaimin.finalproject.entity.WorkTime;
-import ru.khaimin.finalproject.repositories.WorkTimeRepository;
-
 @Service
 public class PatientService {
+    private final TransactionTemplate transactionTemplate;
     private final WorkTimeRepository workTimeRepository;
     private final CommonServices commonServices;
 
     @Autowired
-    public PatientService(WorkTimeRepository workTimeRepository, CommonServices commonServices) {
+    public PatientService(WorkTimeRepository workTimeRepository, CommonServices commonServices,
+                          PlatformTransactionManager transactionManager) {
         this.workTimeRepository = workTimeRepository;
         this.commonServices = commonServices;
+        this.transactionTemplate = new TransactionTemplate(transactionManager);
     }
 
     public List<String> getAvailableTimeBySpecialtyNameAndDate(String specialtyName, LocalDate date) {
@@ -70,17 +71,34 @@ public class PatientService {
         return availableDatesOfWork;
     }
 
-    @Transactional
+    //@Transactional
     public WorkTime makeBookingBySpecialistIdAndBookingDateAndBookingTime (int specialistId, LocalDate bookingDate,
-                                                                       LocalTime bookingTime) {
+                                                                           LocalTime bookingTime) {
         
         WorkTime workTime = workTimeRepository.findByPersonsPersonIdAndDateOfWorkAndWorkTimeStartAtAndAvailability(
                 specialistId, bookingDate, bookingTime, true).orElse(new WorkTime());
 
-        workTime.setAvailability(false);
-        
         return workTime;
     }
+
+    //@Transactional
+    public void book(WorkTime workTime, BookAppointment bookAppointment) {
+        transactionTemplate.execute(new TransactionCallbackWithoutResult() {
+            protected void doInTransactionWithoutResult(TransactionStatus status) {
+
+                //bookAppointment.setPerson(commonServices.getCurrentUser());
+                bookAppointment.setPerson(commonServices.getCurrentUser());
+                //workTime.setAvailability(false);
+            }
+        });
+    }
+
+    @Transactional
+    public void book2(BookAppointment bookAppointment) {
+        Person person = commonServices.getCurrentUser();
+        bookAppointment.setPerson(person);
+    }
+
 
 
 }

@@ -16,23 +16,27 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-//import ru.khaimin.finalproject.entity.BookAppointment;
 import ru.khaimin.finalproject.entity.BookAppointment;
 import ru.khaimin.finalproject.entity.Person;
-import ru.khaimin.finalproject.entity.WorkTime;
 import ru.khaimin.finalproject.services.CommonServices;
 
 import ru.khaimin.finalproject.services.PatientService;
 
 @Controller
 public class PatientController {
+
+
+
     private final CommonServices commonServices;
     private final PatientService patientService;
+    private final BookAppointment bookAppointment;
 
     @Autowired
-    public PatientController(CommonServices commonServices, PatientService patientService) {
+    public PatientController(CommonServices commonServices, PatientService patientService,
+                             BookAppointment bookAppointment) {
         this.commonServices = commonServices;
         this.patientService = patientService;
+        this.bookAppointment = bookAppointment;
     }
     
     @GetMapping("/main_patient")
@@ -110,17 +114,24 @@ public class PatientController {
         DateTimeFormatter formatterTime = DateTimeFormatter.ofPattern("HH:mm");
         LocalTime bookingTime = LocalTime.parse(bookingTimeString, formatterTime);
 
-        WorkTime workTime = patientService.makeBookingBySpecialistIdAndBookingDateAndBookingTime(specialistId,
-                bookingDate, bookingTime);
+        //WorkTime workTime = patientService.makeBookingBySpecialistIdAndBookingDateAndBookingTime(specialistId,
+                //bookingDate, bookingTime);
 
-        commonServices.performRecording(bookAppointment);
+        //patientService.book2(bookAppointment);
+
+        bookAppointment.setPerson(commonServices.getCurrentUser());
+
+
+
+        //patientService.performRecording(bookAppointment);
+        //patientService.book(workTime, bookAppointment);
 
         String action = commonServices.getDefaultPageLinkCurrentUser();
         model.addAttribute("action", action);
 
         return "/successful_action_page";
     }
-    
+
     @ModelAttribute("currentUser")
     public Person currentPerson() {
         return commonServices.getCurrentUser();

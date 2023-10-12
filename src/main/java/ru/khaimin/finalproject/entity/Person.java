@@ -127,12 +127,12 @@ public class Person {
         this.workTime = workTime;
     }
 
-    /*public List<BookAppointment> getBookAppointments() {
+    public List<BookAppointment> getBookAppointments() {
         return bookAppointments;
-    }*/
+    }
 
-    /*public void setBookAppointments(List<BookAppointment> bookAppointments) {
+    public void setBookAppointments(List<BookAppointment> bookAppointments) {
         this.bookAppointments = bookAppointments;
-    }*/
+    }
         
 }
