@@ -3,7 +3,7 @@ package ru.khaimin.finalproject.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.khaimin.finalproject.entity.*;
-import ru.khaimin.finalproject.repositories.BookAppointmentRepository;
+import ru.khaimin.finalproject.repositories.BookingListRepository;
 import ru.khaimin.finalproject.repositories.PeopleRepository;
 import ru.khaimin.finalproject.repositories.ProfessionalActivityRepository;
 import ru.khaimin.finalproject.repositories.WorkTimeRepository;
@@ -18,16 +18,16 @@ public class RecordKeeperService {
     private final PeopleRepository peopleRepository;
     private final WorkTimeRepository workTimeRepository;
     private final ProfessionalActivityRepository professionalActivityRepository;
-    private final BookAppointmentRepository bookAppointmentRepository;
+    private final BookingListRepository bookingListRepository;
 
     @Autowired
     public RecordKeeperService(PeopleRepository peopleRepository, WorkTimeRepository workTimeRepository,
                                ProfessionalActivityRepository professionalActivityRepository,
-                               BookAppointmentRepository bookAppointmentRepository) {
+                               BookingListRepository bookingListRepository) {
         this.peopleRepository = peopleRepository;
         this.workTimeRepository = workTimeRepository;
         this.professionalActivityRepository = professionalActivityRepository;
-        this.bookAppointmentRepository = bookAppointmentRepository;
+        this.bookingListRepository = bookingListRepository;
     }
 
     public Optional<Person> getPersonById(int id) {
@@ -92,8 +92,8 @@ public class RecordKeeperService {
     public List<WorkTime> getAllWorkTime() {
         return workTimeRepository.findAll();
     }
-
-    public List<BookAppointment> getAllBookAppointment() {
-        return bookAppointmentRepository.findAll();
+    
+    public List<BookingList> getAllBookingList() {
+        return bookingListRepository.findAll();
     }
 }

@@ -1,5 +1,6 @@
 package ru.khaimin.finalproject.services;
 
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -7,9 +8,11 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 import org.springframework.transaction.support.TransactionTemplate;
-import ru.khaimin.finalproject.entity.BookAppointment;
+
+import ru.khaimin.finalproject.entity.BookingList;
 import ru.khaimin.finalproject.entity.Person;
 import ru.khaimin.finalproject.entity.WorkTime;
+import ru.khaimin.finalproject.repositories.BookingListRepository;
 import ru.khaimin.finalproject.repositories.WorkTimeRepository;
 
 import java.sql.Date;
@@ -23,13 +26,17 @@ public class PatientService {
     private final TransactionTemplate transactionTemplate;
     private final WorkTimeRepository workTimeRepository;
     private final CommonServices commonServices;
+    //private final SessionFactory sessionFactory;
+    private final BookingListRepository bookingListRepository;
 
     @Autowired
     public PatientService(WorkTimeRepository workTimeRepository, CommonServices commonServices,
-                          PlatformTransactionManager transactionManager) {
+                          PlatformTransactionManager transactionManager,
+                          BookingListRepository bookingListRepository) {
         this.workTimeRepository = workTimeRepository;
         this.commonServices = commonServices;
         this.transactionTemplate = new TransactionTemplate(transactionManager);
+        this.bookingListRepository = bookingListRepository;
     }
 
     public List<String> getAvailableTimeBySpecialtyNameAndDate(String specialtyName, LocalDate date) {
@@ -71,34 +78,33 @@ public class PatientService {
         return availableDatesOfWork;
     }
 
-    //@Transactional
+    @Transactional
     public WorkTime makeBookingBySpecialistIdAndBookingDateAndBookingTime (int specialistId, LocalDate bookingDate,
                                                                            LocalTime bookingTime) {
         
         WorkTime workTime = workTimeRepository.findByPersonsPersonIdAndDateOfWorkAndWorkTimeStartAtAndAvailability(
                 specialistId, bookingDate, bookingTime, true).orElse(new WorkTime());
-
+        workTime.setAvailability(false);
+        
         return workTime;
     }
 
     //@Transactional
-    public void book(WorkTime workTime, BookAppointment bookAppointment) {
+    public void book(WorkTime workTime) {
         transactionTemplate.execute(new TransactionCallbackWithoutResult() {
             protected void doInTransactionWithoutResult(TransactionStatus status) {
-
-                //bookAppointment.setPerson(commonServices.getCurrentUser());
-                bookAppointment.setPerson(commonServices.getCurrentUser());
+                //bookAppointment.setPerson(commonServices.getCurrentUser())
                 //workTime.setAvailability(false);
             }
         });
     }
 
     @Transactional
-    public void book2(BookAppointment bookAppointment) {
+    public void makeBooking(BookingList bookingList, WorkTime workTime) {
         Person person = commonServices.getCurrentUser();
-        bookAppointment.setPerson(person);
+        bookingList.setPerson(person);
+        bookingList.setWorkTime(workTime);
+        bookingListRepository.save(bookingList);
     }
-
-
 
 }

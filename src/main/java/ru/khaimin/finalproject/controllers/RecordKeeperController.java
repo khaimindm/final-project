@@ -111,7 +111,7 @@ public class RecordKeeperController {
         model.addAttribute("persons", recordKeeperService.getAllPersons());
         model.addAttribute("professionalActivitys", recordKeeperService.getAllProfessionalActivity());
         model.addAttribute("workTimes", recordKeeperService.getAllWorkTime());
-        model.addAttribute("bookAppointments", recordKeeperService.getAllBookAppointment());
+        model.addAttribute("bookingLists", recordKeeperService.getAllBookingList());
 
         return "all_tables";
     }

@@ -107,17 +107,19 @@
     <br><br>
 
     <table>
-        <caption>book_appointment</caption>
+        <caption>booking_list</caption>
         <thead>
         <tr>
-            <th>book_appointment_id</th>
+            <th>booking_list_id</th>
             <th>persons_person_id Patient</th>
+            <th>work_time_id</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="bookAppointment: ${bookAppointments}">
-            <td th:text="${bookAppointment.getBookAppointmentId()}"></td>
-            <td th:text="${bookAppointment.getPerson().getId()}"></td>
+        <tr th:each="bookingList: ${bookingLists}">
+            <td th:text="${bookingList.getBookingListId()}"></td>
+            <td th:text="${bookingList.getPerson().getId()}"></td>
+            <td th:text="${bookingList.getWorkTime().getWorkTimeId()}"></td>
         </tr>
         </tbody>
     </table>
