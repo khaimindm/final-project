@@ -1,4 +1,43 @@
-document.getElementById("elForMainTable").addEventListener('click', userBtn);
+document.getElementById("date").addEventListener('change', getPatientListByDate);
+
+let today;
+
+todayDate();
+
+function todayDate() {
+    let today = new Date();
+  
+    let yyyy = today.getFullYear();
+    let mm = String(today.getMonth() + 1).padStart(2, '0');
+    let dd = String(today.getDate()).padStart(2, '0');
+  
+    today = yyyy + '-' + mm + '-' + dd;
+    document.getElementById('date').min = today;
+}
+
+$(function () {
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+	$(document).ajaxSend(function(e, xhr, options) {
+		xhr.setRequestHeader(header, token);
+	});
+});
+
+function getPatientListByDate() {
+    let processingDate = document.getElementById('date').value;
+
+    let param = {
+        processingDate: processingDate
+    }
+
+    $.getJSON('/patientListByDate', param, function(data){
+        let dataJson = JSON.stringify(data);
+        let value = JSON.parse(dataJson);
+        if (value != 0) {
+            console.log(value);
+        }
+    });
+}
 
 var modal = document.getElementById("doctorsAppointmentModal");
 

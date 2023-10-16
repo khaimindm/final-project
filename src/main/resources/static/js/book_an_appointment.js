@@ -2,7 +2,7 @@ document.getElementById("dateOfWork").addEventListener('change', getAvailableTim
 document.getElementById("timeStartAt").addEventListener('change', getAvailableSpecialistsBySpecialtyNameAndDateOfWorkAndWorkTimeStartAt);
 document.getElementById("dataSelectionForm").addEventListener("submit", checkForm);
 
-todayDate();
+/* todayDate();
 
 function todayDate() {
   let today = new Date();
@@ -13,9 +13,9 @@ function todayDate() {
 
   let result = yyyy + '-' + mm + '-' + dd;
   document.getElementById('dateOfWork').min = result;
-}
+} */
 
-let dateToday = new Date();
+//let dateToday = new Date();
 
 $(function () {
 	var token = $("meta[name='_csrf']").attr("content");
@@ -34,7 +34,7 @@ function getAvailableTimeByDate() {
     document.getElementById("availableSpecialists").options.length = 0;
 
     let processingDate = document.getElementById('dateOfWork').value;
-    console.log(processingDate);
+    //console.log(processingDate);
 
     let params = {
         processingDate: processingDate,
@@ -44,7 +44,7 @@ function getAvailableTimeByDate() {
     $.getJSON('/specialists/availableTimeByDate', params, function(data) {
         let dataJson = JSON.stringify(data);
         let value = JSON.parse(dataJson);
-        if (value !=0 ) {
+        if (value != 0) {
             for (let i = 0; i < value.length; i++) {
                 select[i] = new Option(value[i], value[i]);
             }
