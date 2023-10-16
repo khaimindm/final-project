@@ -1,6 +1,5 @@
 package ru.khaimin.finalproject.services;
 
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -8,7 +7,6 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 import org.springframework.transaction.support.TransactionTemplate;
-
 import ru.khaimin.finalproject.entity.BookingList;
 import ru.khaimin.finalproject.entity.Person;
 import ru.khaimin.finalproject.entity.WorkTime;
@@ -69,7 +67,8 @@ public class PatientService {
         LocalDate currentDate = LocalDate.now();
         java.sql.Date date = java.sql.Date.valueOf(currentDate);
         System.out.println(currentDate);
-        Iterator<java.sql.Date> iterator = workTimeRepository.findBySpecialtyNameAndAvailabilityAndDateOfWork(specialtyName, true, date).iterator();
+        Iterator<java.sql.Date> iterator = workTimeRepository.findBySpecialtyNameAndAvailabilityAndDateOfWork(
+                specialtyName, true, date).iterator();
         List<Date> availableDatesOfWork = new ArrayList<>();
         while (iterator.hasNext()) {
             availableDatesOfWork.add(iterator.next());
@@ -87,16 +86,6 @@ public class PatientService {
         workTime.setAvailability(false);
         
         return workTime;
-    }
-
-    //@Transactional
-    public void book(WorkTime workTime) {
-        transactionTemplate.execute(new TransactionCallbackWithoutResult() {
-            protected void doInTransactionWithoutResult(TransactionStatus status) {
-                //bookAppointment.setPerson(commonServices.getCurrentUser())
-                //workTime.setAvailability(false);
-            }
-        });
     }
 
     @Transactional

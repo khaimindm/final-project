@@ -25,9 +25,6 @@ import ru.khaimin.finalproject.services.PatientService;
 
 @Controller
 public class PatientController {
-
-
-
     private final CommonServices commonServices;
     private final PatientService patientService;
 
