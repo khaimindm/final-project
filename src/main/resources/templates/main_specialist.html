@@ -37,12 +37,16 @@
   <div id="elForMainTable">
     <table id="mainTable" class="mainTable">
       <caption>Список пациентов</caption>
-      <tr>
-        <th>ФИО пациента</th>
-        <th>Время</th>
-        <th class="mainTable">Прием осуществлен</th>
-      </tr>
-      <tr>
+      <thead>
+        <tr>
+          <th>Имя</th>
+          <th>Фамилия</th>
+          <th>Время</th>
+        </tr>
+      </thead>
+      <tbody id="patientList"></tbody>
+
+      <!-- <tr>
         <td class="user"><span id="0" class="user">ФИО Пользователь 1</span></td>
         <td class="mainTable">12:00</td>
         <td class="mainTable">Да</td>
@@ -61,7 +65,8 @@
         <td class="user"><span id="3" class="user">ФИО Пользователь 4</span></td>
         <td class="mainTable">15:00</td>
         <td class="mainTable">Да</td>
-      </tr>
+      </tr> -->
+      
     </table>
   </div>
   

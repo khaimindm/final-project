@@ -5,11 +5,11 @@ let today;
 todayDate();
 
 function todayDate() {
-    let today = new Date();
+    let todayDate = new Date();
   
-    let yyyy = today.getFullYear();
-    let mm = String(today.getMonth() + 1).padStart(2, '0');
-    let dd = String(today.getDate()).padStart(2, '0');
+    let yyyy = todayDate.getFullYear();
+    let mm = String(todayDate.getMonth() + 1).padStart(2, '0');
+    let dd = String(todayDate.getDate()).padStart(2, '0');
   
     today = yyyy + '-' + mm + '-' + dd;
     
@@ -25,6 +25,8 @@ $(function () {
 	});
 });
 
+getPatientListByDate();
+
 function getPatientListByDate() {
     let processingDate = document.getElementById('date').value;
 
@@ -34,9 +36,17 @@ function getPatientListByDate() {
 
     $.getJSON('/patientListByDate', param, function(data){
         let dataJson = JSON.stringify(data);
-        let value = JSON.parse(dataJson);
-        if (value != 0) {
-            console.log(value);
+        let patientList = JSON.parse(dataJson);
+        let tableContent = "";
+        if (patientList != 0) {
+            for(let i in patientList) {
+                tableContent += "<tr>";
+                tableContent += "<td>" + patientList[i].firstName + "</td>"
+                + "<td>" + patientList[i].lastName + "</td>"
+                + "<td>" + patientList[i].time + "</td>";
+                tableContent += "</tr>";
+            }
+        document.getElementById("patientList").innerHTML = tableContent;
         }
     });
 }
