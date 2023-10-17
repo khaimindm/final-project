@@ -13,6 +13,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import ru.khaimin.finalproject.entity.PatientList;
 import ru.khaimin.finalproject.entity.Person;
 import ru.khaimin.finalproject.entity.WorkTime;
 import ru.khaimin.finalproject.services.CommonServices;
@@ -39,12 +43,15 @@ public class SpecialistController {
         produces = "application/json"
     )
     @ResponseBody
-    public String patientListByDate(@RequestParam HashMap<String, Object> obj) {
+    public String patientListByDate(@RequestParam HashMap<String, Object> obj) throws JsonProcessingException {
         String processingDate = obj.get("processingDate").toString();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate date = LocalDate.parse(processingDate, formatter);
 
-        List<WorkTime> patientList = specialistService.getPatientListByDate(date);
+        List<PatientList> patientList = specialistService.getPatientListByDate(date);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.writeValueAsString(patientList);
     }
 
     @ModelAttribute("currentUser")

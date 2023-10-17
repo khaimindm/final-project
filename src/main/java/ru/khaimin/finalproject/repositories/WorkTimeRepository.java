@@ -60,6 +60,10 @@ public interface WorkTimeRepository extends JpaRepository<WorkTime, Integer>{
             @Param("workTimeStartAt") LocalTime workTimeStartAt,
             @Param("availability") boolean availability);
 
-    List<WorkTime> findByDateOfWorkAndAvailabilityAndPersonsPersonId(LocalDate dateOfWork, boolean availability,
-                                                                     int personsPersonId);
+
+        @Query(value = "SELECT * FROM work_time WHERE date_of_work = :dateOfWork AND availability = :availability AND persons_person_id = :personsPersonId", nativeQuery = true)
+        List<WorkTime> findByDateOfWorkAndAvailabilityAndPersonsPersonId(
+                @Param("dateOfWork") LocalDate dateOfWork, 
+                @Param("availability") boolean availability, 
+                @Param("personsPersonId") int personsPersonId);
 }

@@ -12,6 +12,8 @@ function todayDate() {
     let dd = String(today.getDate()).padStart(2, '0');
   
     today = yyyy + '-' + mm + '-' + dd;
+    
+    document.getElementById('date').value = today;
     document.getElementById('date').min = today;
 }
 

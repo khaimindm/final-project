@@ -75,6 +75,7 @@ public class AuthController {
         personValidator.validate(person, bindingResult);
 
         if (bindingResult.hasErrors()) {
+            model.addAttribute("currentUser", commonServices.getCurrentUser());
             return "/auth/registration_record_keeper";
         }
 
