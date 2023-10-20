@@ -40,13 +40,16 @@ function getPatientListByDate() {
         let tableContent = "";
         if (patientList != 0) {
             for(let i in patientList) {
+                let patientId = patientList[i].patientId;
+                let patientLinkById = "/appointment/" + patientId;
                 tableContent += "<tr>";
-                tableContent += "<td>" + patientList[i].firstName + "</td>"
-                + "<td>" + patientList[i].lastName + "</td>"
+                tableContent += "<td>" + "<a href=" + "'" + patientLinkById + "'" + ">" + patientList[i].lastName + " " + patientList[i].firstName + "</a>" + "</td>"
                 + "<td>" + patientList[i].time + "</td>";
                 tableContent += "</tr>";
             }
         document.getElementById("patientList").innerHTML = tableContent;
+        } else {
+            document.getElementById("patientList").innerHTML = "";
         }
     });
 }

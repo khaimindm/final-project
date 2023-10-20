@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -52,6 +53,13 @@ public class SpecialistController {
 
         ObjectMapper objectMapper = new ObjectMapper();
         return objectMapper.writeValueAsString(patientList);
+    }
+
+    @GetMapping("/appointment/{patientId}")
+    public String appointment(@PathVariable("patientId") int patientId) {
+        Person patient = specialistService.personById(patientId);
+        String name = patient.getFirstName() + " " + patient.getLastName();
+        return name;
     }
 
     @ModelAttribute("currentUser")
