@@ -59,7 +59,7 @@ public class SpecialistController {
     public String appointment(@PathVariable("patientId") int patientId) {
         Person patient = specialistService.personById(patientId);
         String name = patient.getFirstName() + " " + patient.getLastName();
-        return name;
+        return "medical_record";
     }
 
     @ModelAttribute("currentUser")
