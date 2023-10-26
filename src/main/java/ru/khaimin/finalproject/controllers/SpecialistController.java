@@ -11,12 +11,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import ru.khaimin.finalproject.entity.MedicalCard;
 import ru.khaimin.finalproject.entity.PatientList;
 import ru.khaimin.finalproject.entity.Person;
 import ru.khaimin.finalproject.entity.WorkTime;
@@ -56,10 +58,26 @@ public class SpecialistController {
     }
 
     @GetMapping("/appointment/{patientId}")
-    public String appointment(@PathVariable("patientId") int patientId) {
+    public String appointment(@PathVariable("patientId") int patientId, Model model,
+    @ModelAttribute("medicalCard") MedicalCard medicalCard) {
         Person patient = specialistService.personById(patientId);
-        String name = patient.getFirstName() + " " + patient.getLastName();
+        String patientName = patient.getFirstName() + " " + patient.getLastName();
+        model.addAttribute("patientName", patientName);
+        model.addAttribute("patientId", patientId);
+        model.addAttribute("specialistId", currentPerson().getId());
+
         return "medical_record";
+    }
+
+    @PostMapping("/appointment")
+    public String addDetailsOfDoctorsAppointment(@ModelAttribute("medicalCard") MedicalCard medicalCard,
+    Model model) {
+        specialistService.detailsOfDoctorsAppointment(medicalCard);
+        
+        String action = "/main_specialist";
+        model.addAttribute("action", action);
+
+        return "successful_action_page";
     }
 
     @ModelAttribute("currentUser")

@@ -3,7 +3,9 @@ package ru.khaimin.finalproject.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ru.khaimin.finalproject.dao.MedicalCardDAO;
 import ru.khaimin.finalproject.dao.PersonDAO;
+import ru.khaimin.finalproject.entity.MedicalCard;
 import ru.khaimin.finalproject.entity.PatientList;
 import ru.khaimin.finalproject.entity.Person;
 import ru.khaimin.finalproject.entity.WorkTime;
@@ -19,12 +21,15 @@ public class SpecialistService {
     private final WorkTimeRepository workTimeRepository;
     private final CommonServices commonServices;
     private final PersonDAO personDAO;
+    private final MedicalCardDAO medicalCardDAO;
 
     @Autowired
-    public SpecialistService(WorkTimeRepository workTimeRepository, CommonServices commonServices, PersonDAO personDAO) {
+    public SpecialistService(WorkTimeRepository workTimeRepository, CommonServices commonServices, PersonDAO personDAO,
+    MedicalCardDAO medicalCardDAO) {
         this.workTimeRepository = workTimeRepository;
         this.commonServices = commonServices;
         this.personDAO = personDAO;
+        this.medicalCardDAO = medicalCardDAO;
     }
 
     public List<PatientList> getPatientListByDate(LocalDate date) {
@@ -46,5 +51,9 @@ public class SpecialistService {
 
     public Person personById(int id) { 
         return personDAO.getPersonById(id);       
+    }
+
+    public void detailsOfDoctorsAppointment(MedicalCard medicalCard) {
+        medicalCardDAO.saveDetailsOfDoctorsAppointment(medicalCard);
     }
 }
