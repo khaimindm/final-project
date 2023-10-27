@@ -21,7 +21,7 @@
           <input type="submit" value="Выход"/>
         </form>
       </li>
-      <li class="toppanelel" style="float: right;"><a th:href="@{/person/{id}(id=*{currentUser.getId()})}" th:text="*{currentUser.getFirstName()} + ' ' + *{currentUser.getLastName()}"></a></li>
+      <li class="toppanelel" style="float: right;" th:text="*{currentUser.getFirstName()} + ' ' + *{currentUser.getLastName()}"></li>
     </ul>
   </div>
 

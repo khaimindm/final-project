@@ -14,7 +14,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 @Configuration
 @ComponentScan("ru.khaimin.finalproject")
-//@PropertySource("classpath:application.properties")
+@PropertySource("classpath:application.properties")
 public class SpringConfig {
     private final Environment environment;
 
@@ -25,14 +25,12 @@ public class SpringConfig {
     
     @Bean
     public DataSource dataSource() {
-        //DriverManagerDataSource dataSource = new DriverManagerDataSource();
-
         DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
 
-        dataSourceBuilder.driverClassName("org.h2.Driver");
-        dataSourceBuilder.url("jdbc:h2:mem:finalprojectdb");
-        dataSourceBuilder.username("sa");
-        dataSourceBuilder.password("password");
+        dataSourceBuilder.driverClassName(environment.getProperty("spring.datasource.driverClassName"));
+        dataSourceBuilder.url(environment.getProperty("spring.datasource.url"));
+        dataSourceBuilder.username(environment.getProperty("spring.datasource.username"));
+        dataSourceBuilder.password(environment.getProperty("spring.datasource.password"));
 
         return dataSourceBuilder.build();
     }

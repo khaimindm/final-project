@@ -21,14 +21,14 @@
           <input type="submit" value="Выход"/>
         </form>
       </li>      
-      <li class="toppanelel" style="float: right;"><a th:href="@{/person/{id}(id=*{currentUser.getId()})}" th:text="*{currentUser.getFirstName()} + ' ' + *{currentUser.getLastName()}"></a></li>
+      <li class="toppanelel" style="float: right;" th:text="*{currentUser.getFirstName()} + ' ' + *{currentUser.getLastName()}"></li>
     </ul>
   </div>
   
   <div id="main">
     <h2>Специалисты</h2>
     <ul id="list">
-      <li class="mainlist" th:each="specialty: ${specialties}"><a th:href="@{/{specialtyName}(specialtyName=${specialty})}" th:text="${specialty}"></a></li>
+      <li class="mainlist" th:each="specialty: ${specialties}"><a th:href="@{/specialists/{specialtyName}(specialtyName=${specialty})}" th:text="${specialty}"></a></li>
     </ul>
 
     <div id="additionalFunctions">
@@ -42,7 +42,7 @@
       </div>
       <p class="additionalFunctions">
         <a href="/auth/registration_record_keeper">Добавить специалиста, пользователя</a><br>
-        <a href="/specialists">Установить график работы для специалистов</a>
+        <a href="/all_specialists">Установить график работы для специалистов</a>
       </p>
     </div>
   </div>

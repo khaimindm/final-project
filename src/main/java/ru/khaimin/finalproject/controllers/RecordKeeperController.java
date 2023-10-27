@@ -74,7 +74,7 @@ public class RecordKeeperController {
         return "successful_action_page";
     }
 
-    @GetMapping("/specialists")
+    @GetMapping("/all_specialists")
     public String allSpecialists(Model model) {
         List<Person> allSpecialists = peopleService.getAllSpecialists();
         model.addAttribute("specialists", allSpecialists);
