@@ -2,6 +2,8 @@ package ru.khaimin.finalproject.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import ru.khaimin.finalproject.dao.MedicalCardDAO;
 import ru.khaimin.finalproject.entity.*;
 import ru.khaimin.finalproject.repositories.BookingListRepository;
 import ru.khaimin.finalproject.repositories.PeopleRepository;
@@ -19,15 +21,17 @@ public class RecordKeeperService {
     private final WorkTimeRepository workTimeRepository;
     private final ProfessionalActivityRepository professionalActivityRepository;
     private final BookingListRepository bookingListRepository;
+    private final MedicalCardDAO medicalCardDAO;
 
     @Autowired
     public RecordKeeperService(PeopleRepository peopleRepository, WorkTimeRepository workTimeRepository,
                                ProfessionalActivityRepository professionalActivityRepository,
-                               BookingListRepository bookingListRepository) {
+                               BookingListRepository bookingListRepository, MedicalCardDAO medicalCardDao) {
         this.peopleRepository = peopleRepository;
         this.workTimeRepository = workTimeRepository;
         this.professionalActivityRepository = professionalActivityRepository;
         this.bookingListRepository = bookingListRepository;
+        this.medicalCardDAO = medicalCardDao;
     }
 
     public Optional<Person> getPersonById(int id) {
@@ -95,5 +99,9 @@ public class RecordKeeperService {
     
     public List<BookingList> getAllBookingList() {
         return bookingListRepository.findAll();
+    }
+
+    public List<MedicalCard> getAllMedicalCards() {
+        return medicalCardDAO.allMedicalCards();
     }
 }

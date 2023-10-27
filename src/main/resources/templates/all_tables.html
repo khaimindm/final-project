@@ -123,6 +123,34 @@
         </tr>
         </tbody>
     </table>
+
+    <br><br>
+
+    <table>
+        <caption>medical_cards</caption>
+        <thead>
+            <tr>
+                <th>medical_card_id</th>
+                <th>patient_id</th>
+                <th>examination</th>
+                <th>diagnosis</th>
+                <th>assigned_therapy</th>
+                <th>date_of_appointment</th>
+                <th>specialist_id</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="medicalCard: ${medicalCards}">
+                <td th:text="${medicalCard.getMedicalCardId()}"></td>
+                <td th:text="${medicalCard.getPatientId()}"></td>
+                <td th:text="${medicalCard.getExamination()}"></td>
+                <td th:text="${medicalCard.getDiagnosis()}"></td>
+                <td th:text="${medicalCard.getAssignedTherapy()}"></td>
+                <td th:text="${medicalCard.getDateOfAppointment()}"></td>
+                <td th:text="${medicalCard.getSpecialistId()}"></td>
+            </tr>
+        </tbody>
+    </table>
 </div>
 
 </body>

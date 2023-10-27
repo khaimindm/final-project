@@ -1,6 +1,9 @@
 package ru.khaimin.finalproject.dao;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
@@ -16,7 +19,7 @@ public class MedicalCardDAO {
     }
     
     public void saveDetailsOfDoctorsAppointment(MedicalCard medicalCard) {
-        jdbcTemplate.update("INSERT INTO medical_cards (medical_card_id, patient_id, examination, diagnosis, assigned_therapy, date_of_appointment, specialist_id) VALUES(1, ?, ?, ?, ?, ?, ?)", 
+        jdbcTemplate.update("INSERT INTO medical_cards (patient_id, examination, diagnosis, assigned_therapy, date_of_appointment, specialist_id) VALUES(?, ?, ?, ?, ?, ?)", 
         medicalCard.getPatientId(),
         medicalCard.getExamination(), 
         medicalCard.getDiagnosis(), 
@@ -24,6 +27,10 @@ public class MedicalCardDAO {
         medicalCard.getDateOfAppointment(), 
         medicalCard.getSpecialistId()
         );
+    }
+
+    public List<MedicalCard> allMedicalCards() {
+        return jdbcTemplate.query("SELECT * FROM medical_cards", new BeanPropertyRowMapper<>(MedicalCard.class));
     }
     
 }

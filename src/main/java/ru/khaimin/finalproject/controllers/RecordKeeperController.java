@@ -112,6 +112,7 @@ public class RecordKeeperController {
         model.addAttribute("professionalActivitys", recordKeeperService.getAllProfessionalActivity());
         model.addAttribute("workTimes", recordKeeperService.getAllWorkTime());
         model.addAttribute("bookingLists", recordKeeperService.getAllBookingList());
+        model.addAttribute("medicalCards", recordKeeperService.getAllMedicalCards());
 
         return "all_tables";
     }

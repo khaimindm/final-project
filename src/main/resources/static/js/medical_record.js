@@ -1,6 +1,6 @@
 document.getElementById('medical_record_form').addEventListener("submit", checkForm);
 
-todayDate();
+/* todayDate();
 
 function todayDate() {
     let today = new Date();
@@ -11,8 +11,8 @@ function todayDate() {
 
     let result = yyyy + '-' + mm + '-' + dd;
 
-    document.getElementById('dateOfAppointment').value = result;
-}
+    
+} */
 
 function checkForm(event) {
     let el = document.getElementById('medical_record_form');

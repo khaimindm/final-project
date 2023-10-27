@@ -64,14 +64,16 @@ public class SpecialistController {
         String patientName = patient.getFirstName() + " " + patient.getLastName();
         model.addAttribute("patientName", patientName);
         model.addAttribute("patientId", patientId);
-        model.addAttribute("specialistId", currentPerson().getId());
-
+        
         return "medical_record";
     }
 
     @PostMapping("/appointment")
     public String addDetailsOfDoctorsAppointment(@ModelAttribute("medicalCard") MedicalCard medicalCard,
     Model model) {
+        medicalCard.setSpecialistId(currentPerson().getId());
+        LocalDate currentDate = LocalDate.now();
+        medicalCard.setDateOfAppointment(currentDate);
         specialistService.detailsOfDoctorsAppointment(medicalCard);
         
         String action = "/main_specialist";
