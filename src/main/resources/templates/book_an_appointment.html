@@ -6,7 +6,7 @@
   <meta th:name="_csrf" th:content="${_csrf.token}"/>
   <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
   <link th:href="@{/css/book_an_appointment.css}" rel="stylesheet">
-  <title>Заголовок</title>
+  <title>Запись к специалисту</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     
 </head>
@@ -15,16 +15,16 @@
   <div id="top">
     <ul id="toppanel">
       <li class="toppanelel">
-        <a th:if="${currentUser.getRole} == 'ROLE_RECORDKEEPER'" th:href="@{/main_record_keeper}" id="home" class="material-icons">home</a></li>
-        <a th:if="${currentUser.getRole} == 'ROLE_SPECIALIST'" th:href="@{/main_specialist}" id="home" class="material-icons">home</a></li>
-        <a th:if="${currentUser.getRole} == 'ROLE_PATIENT'" th:href="@{/main_patient}" id="home" class="material-icons">home</a>
+        <a th:if="${currentUser.getRole()} == 'ROLE_RECORDKEEPER'" th:href="@{/main_record_keeper}" id="home" class="material-icons">home</a></li>
+        <a th:if="${currentUser.getRole()} == 'ROLE_SPECIALIST'" th:href="@{/main_specialist}" id="home" class="material-icons">home</a></li>
+        <a th:if="${currentUser.getRole()} == 'ROLE_PATIENT'" th:href="@{/main_patient}" id="home" class="material-icons">home</a>
       </li>
       <li class="toppanelel" style="float: right;">
         <form th:action="@{/logout}" th:method="POST">
           <input type="submit" value="Выход"/>
         </form>
-      </li>      
-      <li class="toppanelel" style="float: right;"><a th:href="@{/person/{id}(id=*{currentUser.getId()})}" th:text="*{currentUser.getFirstName()} + ' ' + *{currentUser.getLastName()}"></a></li>      
+      </li>
+      <li class="toppanelel" style="float: right;" th:text="*{currentUser.getLastName()} + ' ' + *{currentUser.getFirstName()}"></li>
     </ul>    
   </div>
 
@@ -35,7 +35,8 @@
       <label for="dateOfWork">Выберите доступную дату: </label>
       <select name="dateOfWork" id="dateOfWork">
         <option value="0"></option>
-        <option th:each="dateOfWork : ${availableDatesOfWork}" th:value="${dateOfWork}" th:text="${#dates.format(dateOfWork, 'dd.MM.yyyy')}"></option>        
+        <option th:if="${availableDatesOfWork} == ' '" th:value="1">Нет доступных дат</option>
+        <option th:unless="${availableDatesOfWork} == ' '" th:each="dateOfWork : ${availableDatesOfWork}" th:value="${dateOfWork}" th:text="${#dates.format(dateOfWork, 'dd.MM.yyyy')}"></option>
       </select><br><br>
 
       <label for="timeStartAt">Выберите доступное время: </label>
@@ -45,6 +46,9 @@
       <br><br>
       <label for="availableSpecialists">Выберите специалиста: </label><br>
       <select name="availableSpecialists" id="availableSpecialists" size="3">        
+      </select><br><br>
+      <label for="patient">Пациент</label><br>
+      <select name="patient" id="patient">
       </select><br>
 
       <br><br><br>
@@ -54,11 +58,13 @@
         
   </div>
 
- 
-
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 
   <script th:inline="javascript">let specialtyName = [[${specialtyName}]]</script>
+  <script th:inline="javascript">let currentUserRole = [[${currentUser.getRole()}]]</script>
+  <script th:inline="javascript">let currentUserLastName = [[${currentUser.getLastName()}]]</script>
+  <script th:inline="javascript">let currentUserFirstName = [[${currentUser.getFirstName()}]]</script>
+  <script th:inline="javascript">let currentUserId = [[${currentUser.getId()}]]</script>
   
   <script type="text/javascript" th:src="@{/js/book_an_appointment.js}"></script>
 

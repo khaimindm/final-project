@@ -35,7 +35,7 @@ li.toppanelel {
     background-color: #0b7dda;
 }
 
-#main {
+#mainDate {
     clear: both;    
     margin-left: 10px;
     padding-top: 15px;
@@ -49,20 +49,8 @@ li.toppanelel {
     font-size: 15px;    
 }
 
-#elForMainTable {
-    width: 650px;
-    background-color: white;
-    margin-top: 15px;
-    margin-left: 10px;
-    padding-top: 25px;
-    padding-bottom: 25px;
-    border-radius: 2px;
-    box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
-}
-
 table.mainTable {
     width: 600px;
-    margin: auto;
 }
 
 th.mainTable {
@@ -191,4 +179,35 @@ input.apply:hover {
 
 li.mainlist {
     padding: 3px;
+}
+
+#additionalFunctions {
+    border-style: solid;
+    border-width: thin;
+    max-width: 700px;
+}
+
+h3 {
+    color: #4d4d4d;
+    margin-left: 10px;
+}
+
+.additionalFunctions {
+    margin-left: 10px;
+}
+
+#main {
+    clear: both;
+    border-left: 6px solid #2196f3;
+    background-color: #ffffff;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    padding-top: 1px;
+    padding-bottom: 25px;
+    padding-left: 10px;
+}
+
+.content {
+    font-size: large;
 }

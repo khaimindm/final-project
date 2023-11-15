@@ -18,10 +18,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import ru.khaimin.finalproject.entity.AppointmentData;
+import ru.khaimin.finalproject.entity.BookingList;
 import ru.khaimin.finalproject.entity.MedicalCard;
-import ru.khaimin.finalproject.entity.PatientList;
 import ru.khaimin.finalproject.entity.Person;
-import ru.khaimin.finalproject.entity.WorkTime;
 import ru.khaimin.finalproject.services.CommonServices;
 import ru.khaimin.finalproject.services.SpecialistService;
 
@@ -42,28 +42,28 @@ public class SpecialistController {
     }
 
     @GetMapping(
-        value = "/patientListByDate",
+        value = "/bookingListByDate",
         produces = "application/json"
     )
     @ResponseBody
-    public String patientListByDate(@RequestParam HashMap<String, Object> obj) throws JsonProcessingException {
+    public String bookingListByDate(@RequestParam HashMap<String, Object> obj) throws JsonProcessingException {
         String processingDate = obj.get("processingDate").toString();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate date = LocalDate.parse(processingDate, formatter);
 
-        List<PatientList> patientList = specialistService.getPatientListByDate(date);
+        List<AppointmentData> appointmentData = specialistService.getAppointmentDataByDate(date);
 
         ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.writeValueAsString(patientList);
+        return objectMapper.writeValueAsString(appointmentData);
     }
 
-    @GetMapping("/appointment/{patientId}")
-    public String appointment(@PathVariable("patientId") int patientId, Model model,
+    @GetMapping("/appointment/{bookingListId}")
+    public String appointment(@PathVariable("bookingListId") int bookingListId, Model model,
     @ModelAttribute("medicalCard") MedicalCard medicalCard) {
-        Person patient = specialistService.personById(patientId);
+        Person patient = commonServices.getBookingListByBookingListId(bookingListId).getPerson();
         String patientName = patient.getFirstName() + " " + patient.getLastName();
         model.addAttribute("patientName", patientName);
-        model.addAttribute("patientId", patientId);
+        model.addAttribute("bookingListId", bookingListId);
         
         return "medical_record";
     }
@@ -74,6 +74,11 @@ public class SpecialistController {
         medicalCard.setSpecialistId(currentPerson().getId());
         LocalDate currentDate = LocalDate.now();
         medicalCard.setDateOfAppointment(currentDate);
+
+        BookingList bookingList = commonServices.getBookingListByBookingListId(medicalCard.getBookingListId());
+        bookingList.setCompleted(true);
+        specialistService.saveBookingList(bookingList);
+
         specialistService.detailsOfDoctorsAppointment(medicalCard);
         
         String action = "/main_specialist";

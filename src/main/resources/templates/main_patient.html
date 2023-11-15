@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link th:href="@{/css/main_patient.css}" rel="stylesheet">
-  <title>Заголовок</title>
+  <title>Главная страница</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
 <body>
@@ -12,16 +12,16 @@
   <div id="top">
     <ul id="toppanel">
       <li class="toppanelel">
-        <a th:if="${currentUser.getRole} == 'ROLE_RECORDKEEPER'" th:href="@{/main_record_keeper}" id="home" class="material-icons">home</a></li>
-        <a th:if="${currentUser.getRole} == 'ROLE_SPECIALIST'" th:href="@{/main_specialist}" id="home" class="material-icons">home</a></li>
-        <a th:if="${currentUser.getRole} == 'ROLE_PATIENT'" th:href="@{/main_patient}" id="home" class="material-icons">home</a>
+        <a th:if="${currentUser.getRole()} == 'ROLE_RECORDKEEPER'" th:href="@{/main_record_keeper}" id="home" class="material-icons">home</a></li>
+        <a th:if="${currentUser.getRole()} == 'ROLE_SPECIALIST'" th:href="@{/main_specialist}" id="home" class="material-icons">home</a></li>
+        <a th:if="${currentUser.getRole()} == 'ROLE_PATIENT'" th:href="@{/main_patient}" id="home" class="material-icons">home</a>
       </li>
       <li class="toppanelel" style="float: right;">
         <form th:action="@{/logout}" th:method="POST">
           <input type="submit" value="Выход"/>
         </form>
-      </li>      
-      <li class="toppanelel" style="float: right;"><a th:href="@{/person/{id}(id=*{currentUser.getId()})}" th:text="*{currentUser.getFirstName()} + ' ' + *{currentUser.getLastName()}"></a></li>      
+      </li>
+      <li class="toppanelel" style="float: right;" th:text="*{currentUser.getLastName()} + ' ' + *{currentUser.getFirstName()}"></li>
     </ul>    
   </div>
 

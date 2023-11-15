@@ -1,18 +1,16 @@
 package ru.khaimin.finalproject.entity;
 
-import java.time.LocalTime;
-
-public class PatientList {
-    private int patientId;
+public class AppointmentData {
+    private int bookingListId;
     private String firstName;
     private String lastName;
     private String time;
 
-    public int getPatientId() {
-        return patientId;
+    public int getBookingListId() {
+        return bookingListId;
     }
-    public void setPatientId(int patientId) {
-        this.patientId = patientId;
+    public void setBookingListId(int bookingListId) {
+        this.bookingListId = bookingListId;
     }
     public String getFirstName() {
         return firstName;

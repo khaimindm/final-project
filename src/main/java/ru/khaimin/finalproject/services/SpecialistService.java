@@ -3,18 +3,18 @@ package ru.khaimin.finalproject.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import org.springframework.transaction.annotation.Transactional;
 import ru.khaimin.finalproject.dao.MedicalCardDAO;
 import ru.khaimin.finalproject.dao.PersonDAO;
-import ru.khaimin.finalproject.entity.MedicalCard;
-import ru.khaimin.finalproject.entity.PatientList;
-import ru.khaimin.finalproject.entity.Person;
-import ru.khaimin.finalproject.entity.WorkTime;
+import ru.khaimin.finalproject.entity.*;
+import ru.khaimin.finalproject.repositories.BookingListRepository;
 import ru.khaimin.finalproject.repositories.WorkTimeRepository;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SpecialistService {
@@ -22,31 +22,35 @@ public class SpecialistService {
     private final CommonServices commonServices;
     private final PersonDAO personDAO;
     private final MedicalCardDAO medicalCardDAO;
+    private final BookingListRepository bookingListRepository;
 
     @Autowired
     public SpecialistService(WorkTimeRepository workTimeRepository, CommonServices commonServices, PersonDAO personDAO,
-    MedicalCardDAO medicalCardDAO) {
+                             MedicalCardDAO medicalCardDAO, BookingListRepository bookingListRepository) {
         this.workTimeRepository = workTimeRepository;
         this.commonServices = commonServices;
         this.personDAO = personDAO;
         this.medicalCardDAO = medicalCardDAO;
+        this.bookingListRepository = bookingListRepository;
     }
 
-    public List<PatientList> getPatientListByDate(LocalDate date) {
-        Iterator<WorkTime> iterator = workTimeRepository.findByDateOfWorkAndAvailabilityAndPersonsPersonId(date, false,
-        commonServices.getCurrentUser().getId()).iterator();
-        List<PatientList> patientLists = new ArrayList<>();
+    public List<AppointmentData> getAppointmentDataByDate(LocalDate date) {
+        Iterator<WorkTime> iterator = workTimeRepository.findByDateOfWorkAndAvailabilityAndPersonsPersonId(date,
+                false, commonServices.getCurrentUser().getId()).iterator();
+        List<AppointmentData> appointmentDataList = new ArrayList<>();
         while (iterator.hasNext()) {
-            PatientList patient = new PatientList();
             WorkTime el = iterator.next();
-            patient.setPatientId(el.getBookingList().getPerson().getId());
-            patient.setFirstName(el.getBookingList().getPerson().getFirstName());
-            patient.setLastName(el.getBookingList().getPerson().getLastName());
-            patient.setTime(el.getWorkTimeStartAt().toString());            
-            patientLists.add(patient);
+            if (!el.getBookingList().isCompleted()) {
+                AppointmentData appointmentData = new AppointmentData();
+                appointmentData.setBookingListId(el.getBookingList().getBookingListId());
+                appointmentData.setFirstName(el.getBookingList().getPerson().getFirstName());
+                appointmentData.setLastName(el.getBookingList().getPerson().getLastName());
+                appointmentData.setTime(el.getWorkTimeStartAt().toString());
+                appointmentDataList.add(appointmentData);
+            }
         }
 
-        return patientLists;
+        return appointmentDataList;
     }
 
     public Person personById(int id) { 
@@ -55,5 +59,10 @@ public class SpecialistService {
 
     public void detailsOfDoctorsAppointment(MedicalCard medicalCard) {
         medicalCardDAO.saveDetailsOfDoctorsAppointment(medicalCard);
+    }
+
+    @Transactional
+    public void saveBookingList(BookingList bookingList) {
+        bookingListRepository.save(bookingList);
     }
 }

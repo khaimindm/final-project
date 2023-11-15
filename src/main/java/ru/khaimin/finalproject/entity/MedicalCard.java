@@ -15,9 +15,6 @@ public class MedicalCard {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int medicalCardId;
 
-    @Column(name = "patient_id")
-    private int patientId;
-
     @Column(name = "examination")
     private String examination;
 
@@ -33,20 +30,14 @@ public class MedicalCard {
     @Column(name = "specialist_id")
     private int specialistId;
 
+    @Column(name = "booking_list_id")
+    private int bookingListId;
     public int getMedicalCardId() {
         return medicalCardId;
     }
 
     public void setMedicalCardId(int medicalCardId) {
         this.medicalCardId = medicalCardId;
-    }
-
-    public int getPatientId() {
-        return patientId;
-    }
-
-    public void setPatientId(int patientId) {
-        this.patientId = patientId;
     }
 
     public String getExamination() {
@@ -88,5 +79,12 @@ public class MedicalCard {
     public void setSpecialistId(int specialistId) {
         this.specialistId = specialistId;
     }
-    
+
+    public int getBookingListId() {
+        return bookingListId;
+    }
+
+    public void setBookingListId(int bookingListId) {
+        this.bookingListId = bookingListId;
+    }
 }

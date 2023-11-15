@@ -2,21 +2,6 @@ document.getElementById("dateOfWork").addEventListener('change', getAvailableTim
 document.getElementById("timeStartAt").addEventListener('change', getAvailableSpecialistsBySpecialtyNameAndDateOfWorkAndWorkTimeStartAt);
 document.getElementById("dataSelectionForm").addEventListener("submit", checkForm);
 
-/* todayDate();
-
-function todayDate() {
-  let today = new Date();
-
-  let yyyy = today.getFullYear();
-  let mm = String(today.getMonth() + 1).padStart(2, '0');
-  let dd = String(today.getDate()).padStart(2, '0');
-
-  let result = yyyy + '-' + mm + '-' + dd;
-  document.getElementById('dateOfWork').min = result;
-} */
-
-//let dateToday = new Date();
-
 $(function () {
 	var token = $("meta[name='_csrf']").attr("content");
 	var header = $("meta[name='_csrf_header']").attr("content");
@@ -24,6 +9,31 @@ $(function () {
 		xhr.setRequestHeader(header, token);
 	});
 });
+
+viewOfSelectElementFromRole();
+
+function viewOfSelectElementFromRole() {
+    let patientSelectElement = document.getElementById("patient");
+    patientSelectElement.options.length = 0;
+
+    if (currentUserRole == "ROLE_PATIENT") {
+        patientSelectElement.options[0] = new Option(currentUserLastName + " " + currentUserFirstName, currentUserId);
+    } else {
+        $.getJSON('/patients/all', function (data) {
+            let dataJson = JSON.stringify(data);
+            let value = JSON.parse(dataJson);
+
+            if (value != 0) {
+                patientSelectElement.options[0] = new Option("", "");
+                for(index in value) {
+                    patientSelectElement.options[patientSelectElement.options.length] = new Option(value[index], index);
+                }
+            } else {
+                patientSelectElement = new Option("Нет ни одного пациента")
+            }
+        });
+    }
+}
 
 function getAvailableTimeByDate() {
     document.getElementById("noAvailableTimeMessage").innerHTML = "";
@@ -34,7 +44,6 @@ function getAvailableTimeByDate() {
     document.getElementById("availableSpecialists").options.length = 0;
 
     let processingDate = document.getElementById('dateOfWork').value;
-    //console.log(processingDate);
 
     let params = {
         processingDate: processingDate,
@@ -55,8 +64,6 @@ function getAvailableTimeByDate() {
             document.getElementById("noAvailableTimeMessage").style.visibility = "visible";
         }
     });
-
-    
 }
 
 function getAvailableSpecialistsBySpecialtyNameAndDateOfWorkAndWorkTimeStartAt() {
@@ -86,10 +93,11 @@ function checkForm(event) {
     let dateOfWork = el.dateOfWork.value;
     let timeStartAt = el.timeStartAt.value;
     let availableSpecialists = el.availableSpecialists.value;
+    let patient = el.patient.value;
 
     let error = "";
 
-    if(dateOfWork == "" || timeStartAt == "" || availableSpecialists == "") {
+    if(dateOfWork == "" || timeStartAt == "" || availableSpecialists == "" || patient == "") {
         event.preventDefault();
         error = "Заполните все поля";
         document.getElementById('message').innerHTML = error;

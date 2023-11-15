@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+<html lang="ru-RU" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link th:href="@{/css/patient_data.css}" rel="stylesheet">
+  <title>Страница пациента</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+<body>
+    
+  <div id="top">
+    <ul id="toppanel">
+      <li class="toppanelel">
+        <a th:if="${currentUser.getRole()} == 'ROLE_RECORDKEEPER'" th:href="@{/main_record_keeper}" id="home" class="material-icons">home</a></li>
+        <a th:if="${currentUser.getRole()} == 'ROLE_SPECIALIST'" th:href="@{/main_specialist}" id="home" class="material-icons">home</a></li>
+        <a th:if="${currentUser.getRole()} == 'ROLE_PATIENT'" th:href="@{/main_patient}" id="home" class="material-icons">home</a>
+      </li>
+      <li class="toppanelel" style="float: right;">
+        <form th:action="@{/logout}" th:method="POST">
+          <input type="submit" value="Выход"/>
+        </form>
+      </li>
+      <li class="toppanelel" style="float: right;" th:text="*{currentUser.getLastName()} + ' ' + *{currentUser.getFirstName()}"></li>
+    </ul>    
+  </div>
+
+  <div id="main">
+    <h2 id="patientName" th:text="${patient.getLastName()} + ' ' + ${patient.getFirstName()}"></h2>
+    <br>
+    <h3>Текущие записи к специалистам:</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Специалист</th>
+          <th>Фамилия, Имя специалиста</th>
+          <th>Дата</th>
+          <th>Время</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="futurePatientAppointment: ${futurePatientAppointments}">
+          <td th:text="${futurePatientAppointment.getSpecialtyName()}"></td>
+          <td th:text="${futurePatientAppointment.getSpecialistsLastName()} + ' ' + ${futurePatientAppointment.getSpecialistsFirstName()}"></td>
+          <td th:text="${#temporals.format(futurePatientAppointment.getAppointmentDate(), 'dd.MM.yyyy')}"></td>
+          <td th:text="${futurePatientAppointment.getAppointmentTime()}"></td>
+        </tr>
+      </tbody>
+    </table>
+    <br><br>
+    <h3>Журнал посещения специалистов:</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Дата</th>
+          <th>Специалист</th>
+          <th>Фамилия, Имя специалиста</th>
+          <th>Подробности приема</th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr th:each="appointmentBook: ${appointmentBooks}">
+        <td th:text="${#temporals.format(appointmentBook.getDateOfAppointment(), 'dd.MM.yyyy')}"></td>
+        <td th:text="${appointmentBook.getSpecialtyName()}"></td>
+        <td th:text="${appointmentBook.getSpecialistsLastName()} + ' ' + ${appointmentBook.getSpecialistsFirstName()}"></td>
+        <td class="buttonCell"><a class="linkButton" th:href="@{/patient/medical_card/{id}(id=*{appointmentBook.getMedicalCardId()})}">Подробнее</a></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+</body>
+</html>

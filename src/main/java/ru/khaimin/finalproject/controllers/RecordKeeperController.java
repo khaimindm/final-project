@@ -1,8 +1,6 @@
 package ru.khaimin.finalproject.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,14 +10,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import ru.khaimin.finalproject.entity.DataForWorkTime;
 import ru.khaimin.finalproject.entity.Person;
 import ru.khaimin.finalproject.entity.ProfessionalActivity;
-import ru.khaimin.finalproject.security.PersonDetails;
 import ru.khaimin.finalproject.services.AddSpecialistDataService;
 import ru.khaimin.finalproject.services.CommonServices;
 import ru.khaimin.finalproject.services.PeopleService;
 import ru.khaimin.finalproject.services.RecordKeeperService;
 
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class RecordKeeperController {  
@@ -76,14 +72,15 @@ public class RecordKeeperController {
 
     @GetMapping("/all_specialists")
     public String allSpecialists(Model model) {
-        List<Person> allSpecialists = peopleService.getAllSpecialists();
+        List<Person> allSpecialists = peopleService.getAllByRole("ROLE_SPECIALIST");
         model.addAttribute("specialists", allSpecialists);
+
         return "list_of_specialists";
     }
 
     @GetMapping("/specialist/{id}/work_time")
     public String workTime(@PathVariable("id") int id, Model model) {
-        Person person = recordKeeperService.getPersonById(id).orElse(new Person());
+        Person person = commonServices.getPersonById(id).orElse(new Person());
 
         DataForWorkTime dataForWorkTime = new DataForWorkTime();
         dataForWorkTime.setDataForWorkTimeId(person.getId());
@@ -97,7 +94,7 @@ public class RecordKeeperController {
     @PostMapping("/specialist/work_time")
     public String addWorkTime(@ModelAttribute("dataForWorkTime") DataForWorkTime dataForWorkTime, Model model) {
         
-        Person person = recordKeeperService.getPersonById(dataForWorkTime.getDataForWorkTimeId()).orElse(new Person());
+        Person person = commonServices.getPersonById(dataForWorkTime.getDataForWorkTimeId()).orElse(new Person());
         recordKeeperService.workTime(person, dataForWorkTime);
 
         String action = "/main_record_keeper";

@@ -1,6 +1,5 @@
 ﻿document.getElementById('registration-form').addEventListener("submit", checkForm);
 
-
 todayDate();
 
 function todayDate() {

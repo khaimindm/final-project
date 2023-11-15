@@ -12,16 +12,16 @@
   <div id="top">
     <ul id="toppanel">
       <li class="toppanelel">
-        <a th:if="${currentUser.getRole} == 'ROLE_RECORDKEEPER'" th:href="@{/main_record_keeper}" id="home" class="material-icons">home</a></li>
-        <a th:if="${currentUser.getRole} == 'ROLE_SPECIALIST'" th:href="@{/main_specialist}" id="home" class="material-icons">home</a></li>
-        <a th:if="${currentUser.getRole} == 'ROLE_PATIENT'" th:href="@{/main_patient}" id="home" class="material-icons">home</a>
+        <a th:if="${currentUser.getRole()} == 'ROLE_RECORDKEEPER'" th:href="@{/main_record_keeper}" id="home" class="material-icons">home</a></li>
+        <a th:if="${currentUser.getRole()} == 'ROLE_SPECIALIST'" th:href="@{/main_specialist}" id="home" class="material-icons">home</a></li>
+        <a th:if="${currentUser.getRole()} == 'ROLE_PATIENT'" th:href="@{/main_patient}" id="home" class="material-icons">home</a>
       </li>
       <li class="toppanelel" style="float: right;">
         <form th:action="@{/logout}" th:method="POST">
           <input type="submit" value="Выход"/>
         </form>
       </li>      
-      <li class="toppanelel" style="float: right;" th:text="*{currentUser.getFirstName()} + ' ' + *{currentUser.getLastName()}"></li>
+      <li class="toppanelel" style="float: right;" th:text="*{currentUser.getLastName()} + ' ' + *{currentUser.getFirstName()}"></li>
     </ul>
   </div>
   
@@ -33,13 +33,6 @@
 
     <div id="additionalFunctions">
       <h3>Дополнительные функции</h3>
-      <div id="maxPeriodEl">
-        <form id="maxPeriodForm" action="" method="post">
-          <label for="maxPeriod">Максимальный срок записи к специалисту (1-31), дней:</label>
-          <input type="number" id="maxPeriod" name="maxPeriod" min="1" max="31" value="7">
-          <input type="submit" value="Применить">
-        </form>
-      </div>
       <p class="additionalFunctions">
         <a href="/auth/registration_record_keeper">Добавить специалиста, пользователя</a><br>
         <a href="/all_specialists">Установить график работы для специалистов</a>

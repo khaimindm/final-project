@@ -1,19 +1,5 @@
 document.getElementById('medical_record_form').addEventListener("submit", checkForm);
 
-/* todayDate();
-
-function todayDate() {
-    let today = new Date();
-
-    let yyyy = today.getFullYear();
-    let mm = String(today.getMonth() + 1).padStart(2, '0');
-    let dd = String(today.getDate()).padStart(2, '0');
-
-    let result = yyyy + '-' + mm + '-' + dd;
-
-    
-} */
-
 function checkForm(event) {
     let el = document.getElementById('medical_record_form');
 

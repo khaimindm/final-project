@@ -1,0 +1,14 @@
+body {
+    background-color: #f0f0f1;
+    font-family: Arial, Verdana, sans-serif;
+}
+
+#message {
+    font-size: 60px;
+    text-align: center;
+    color: #006699;
+}
+
+#description {
+    text-align: center;
+}

@@ -33,14 +33,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // конфигурируем авторизацию
 
         http.authorizeRequests()
-        .antMatchers("/main_record_keeper", "/auth/registration_record_keeper",
-                     "/adding_specialist_data", "/appointment", "/list_of_specialists", "/work_time", "/all_tables", "/specialists/*")
-                     .hasRole("RECORDKEEPER")
-        .antMatchers("/main_specialist", "/patientListByDate", "/appointment/*", "/appointment").hasRole("SPECIALIST")
-        .antMatchers("/main_patient", "/specialists/*").hasRole("PATIENT")
+        .antMatchers("/main_record_keeper", "/auth/registration_record_keeper", "/adding_specialist_data",
+                "/appointment", "/list_of_specialists", "/work_time", "/all_tables").hasRole("RECORDKEEPER")
+        .antMatchers("/main_specialist", "/bookingListByDate", "/appointment/*", "/appointment",
+                "/all_patients", "/patient/medical_card/*").hasRole("SPECIALIST")
+        .antMatchers("/main_patient").hasRole("PATIENT")
         .antMatchers("/auth/login", "/auth/registration", "/error", "/css/**", "/js/**",
-                     "/successful_action_page").permitAll()
-        .anyRequest().hasAnyRole("RECORDKEEPER")        
+                "/successful_action_page", "/invalid_page").permitAll()
+                .antMatchers("/specialists/*", "/patients/all").hasAnyRole("RECORDKEEPER","PATIENT")
         .and()
         .formLogin().loginPage("/auth/login")
         .loginProcessingUrl("/process_login")

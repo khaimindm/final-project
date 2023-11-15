@@ -34,10 +34,7 @@ public class RecordKeeperService {
         this.medicalCardDAO = medicalCardDao;
     }
 
-    public Optional<Person> getPersonById(int id) {
-        Optional<Person> foundPerson = peopleRepository.findById(id);
-        return foundPerson;
-    }
+
 
     public void workTime(Person person, DataForWorkTime dataForWorkTime) {
          String specialtyName = professionalActivityRepository.findByPerson(person).orElse(new ProfessionalActivity()).getSpecialtyName();

@@ -12,16 +12,16 @@
 <div id="top">
     <ul id="toppanel">
         <li class="toppanelel">
-            <a th:if="${currentUser.getRole} == 'ROLE_RECORDKEEPER'" th:href="@{/main_record_keeper}" id="home" class="material-icons">home</a></li>
-        <a th:if="${currentUser.getRole} == 'ROLE_SPECIALIST'" th:href="@{/main_specialist}" id="home" class="material-icons">home</a></li>
-        <a th:if="${currentUser.getRole} == 'ROLE_PATIENT'" th:href="@{/main_patient}" id="home" class="material-icons">home</a>
+            <a th:if="${currentUser.getRole()} == 'ROLE_RECORDKEEPER'" th:href="@{/main_record_keeper}" id="home" class="material-icons">home</a></li>
+        <a th:if="${currentUser.getRole()} == 'ROLE_SPECIALIST'" th:href="@{/main_specialist}" id="home" class="material-icons">home</a></li>
+        <a th:if="${currentUser.getRole()} == 'ROLE_PATIENT'" th:href="@{/main_patient}" id="home" class="material-icons">home</a>
         </li>
         <li class="toppanelel" style="float: right;">
             <form th:action="@{/logout}" th:method="POST">
                 <input type="submit" value="Выход"/>
             </form>
         </li>
-        <li class="toppanelel" style="float: right;" th:text="*{currentUser.getFirstName()} + ' ' + *{currentUser.getLastName()}"></li>
+        <li class="toppanelel" style="float: right;" th:text="*{currentUser.getLastName()} + ' ' + *{currentUser.getFirstName()}"></li>
     </ul>
 </div>
 
@@ -30,7 +30,7 @@
         <caption>persons</caption>
         <thead>
         <tr>
-            <th>id</th>
+            <th>person_id</th>
             <th>user_name</th>
             <th>password</th>
             <th>first_name</th>
@@ -113,6 +113,7 @@
             <th>booking_list_id</th>
             <th>persons_person_id Patient</th>
             <th>work_time_id</th>
+            <th>completed</th>
         </tr>
         </thead>
         <tbody>
@@ -120,6 +121,7 @@
             <td th:text="${bookingList.getBookingListId()}"></td>
             <td th:text="${bookingList.getPerson().getId()}"></td>
             <td th:text="${bookingList.getWorkTime().getWorkTimeId()}"></td>
+            <td th:text="${bookingList.isCompleted()}"></td>
         </tr>
         </tbody>
     </table>
@@ -131,23 +133,23 @@
         <thead>
             <tr>
                 <th>medical_card_id</th>
-                <th>patient_id</th>
                 <th>examination</th>
                 <th>diagnosis</th>
                 <th>assigned_therapy</th>
                 <th>date_of_appointment</th>
                 <th>specialist_id</th>
+                <th>booking_list_id</th>
             </tr>
         </thead>
         <tbody>
             <tr th:each="medicalCard: ${medicalCards}">
                 <td th:text="${medicalCard.getMedicalCardId()}"></td>
-                <td th:text="${medicalCard.getPatientId()}"></td>
                 <td th:text="${medicalCard.getExamination()}"></td>
                 <td th:text="${medicalCard.getDiagnosis()}"></td>
                 <td th:text="${medicalCard.getAssignedTherapy()}"></td>
                 <td th:text="${medicalCard.getDateOfAppointment()}"></td>
                 <td th:text="${medicalCard.getSpecialistId()}"></td>
+                <td th:text="${medicalCard.getBookingListId()}"></td>
             </tr>
         </tbody>
     </table>

@@ -4,16 +4,11 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import ru.khaimin.finalproject.entity.Person;
-import ru.khaimin.finalproject.entity.ProfessionalActivity;
 import ru.khaimin.finalproject.repositories.PeopleRepository;
 import ru.khaimin.finalproject.repositories.ProfessionalActivityRepository;
-import ru.khaimin.finalproject.security.PersonDetails;
 
 @Service
 public class PeopleService {
@@ -32,8 +27,8 @@ public class PeopleService {
         return person;
     }
 
-    public List<Person> getAllSpecialists() {        
-        return peopleRepository.findAllByRole("ROLE_SPECIALIST");
+    public List<Person> getAllByRole(String role) {
+        return peopleRepository.findAllByRole(role);
     }
     
 }

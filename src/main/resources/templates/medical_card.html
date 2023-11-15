@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html lang="ru-RU" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link th:href="@{/css/medical_card.css}" rel="stylesheet">
+  <title>Данные о приеме</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+<body>
+    
+  <div id="top">
+    <ul id="toppanel">
+      <li class="toppanelel">
+        <a th:if="${currentUser.getRole()} == 'ROLE_RECORDKEEPER'" th:href="@{/main_record_keeper}" id="home" class="material-icons">home</a></li>
+        <a th:if="${currentUser.getRole()} == 'ROLE_SPECIALIST'" th:href="@{/main_specialist}" id="home" class="material-icons">home</a></li>
+        <a th:if="${currentUser.getRole()} == 'ROLE_PATIENT'" th:href="@{/main_patient}" id="home" class="material-icons">home</a>
+      </li>
+      <li class="toppanelel" style="float: right;">
+        <form th:action="@{/logout}" th:method="POST">
+          <input type="submit" value="Выход"/>
+        </form>
+      </li>
+      <li class="toppanelel" style="float: right;" th:text="*{currentUser.getLastName()} + ' ' + *{currentUser.getFirstName()}"></li>
+    </ul>    
+  </div>
+
+  <div id="main">
+    <h2 id="title">Данные о приеме</h2><br>
+    <p th:text="'Пациент:' + ' ' + ${patientsLastName} + ' ' + ${patientsFirstName}"></p>
+    <p th:text="'Специальность врача:' + ' ' + ${specialtyName}"></p>
+    <p th:text="'Врач:' + ' ' + ${specialistsLastName} + ' ' + ${specialistsFirstName}"></p>
+    <p th:text="'Дата приема:' + ' ' + ${#temporals.format(medicalCard.getDateOfAppointment(), 'dd.MM.yyyy')}"></p>
+    <br>
+    <label for="examination">Сведения о приеме</label><br>
+    <textarea th:text="${medicalCard.getExamination()}" id="examination" rows="6" readonly></textarea><br><br>
+    <label for="diagnosis">Диагноз</label><br>
+    <textarea th:text="${medicalCard.getDiagnosis()}" id="diagnosis" rows="3" readonly></textarea><br><br>
+    <label for="assignedTherapy">Назначено лечение</label><br>
+    <textarea th:text="${medicalCard.getAssignedTherapy()}" id="assignedTherapy" rows="5" readonly></textarea>
+  </div>
+
+</body>
+</html>

@@ -26,6 +26,9 @@ public class BookingList {
     @JoinColumn(name = "work_time_id", referencedColumnName = "work_time_id")
     private WorkTime workTime;
 
+    @Column(name = "completed")
+    private boolean completed;
+
     public BookingList() {
 
     }
@@ -52,5 +55,13 @@ public class BookingList {
 
     public void setWorkTime(WorkTime workTime) {
         this.workTime = workTime;
+    }
+
+    public boolean isCompleted() {
+        return completed;
+    }
+
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
     }
 }

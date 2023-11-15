@@ -14,92 +14,48 @@
 <div id="top">
   <ul id="toppanel">
     <li class="toppanelel">
-      <a th:if="${currentUser.getRole} == 'ROLE_RECORDKEEPER'" th:href="@{/main_record_keeper}" id="home" class="material-icons">home</a></li>
-    <a th:if="${currentUser.getRole} == 'ROLE_SPECIALIST'" th:href="@{/main_specialist}" id="home" class="material-icons">home</a></li>
-    <a th:if="${currentUser.getRole} == 'ROLE_PATIENT'" th:href="@{/main_patient}" id="home" class="material-icons">home</a>
+      <a th:if="${currentUser.getRole()} == 'ROLE_RECORDKEEPER'" th:href="@{/main_record_keeper}" id="home" class="material-icons">home</a></li>
+    <a th:if="${currentUser.getRole()} == 'ROLE_SPECIALIST'" th:href="@{/main_specialist}" id="home" class="material-icons">home</a></li>
+    <a th:if="${currentUser.getRole()} == 'ROLE_PATIENT'" th:href="@{/main_patient}" id="home" class="material-icons">home</a>
     </li>
     <li class="toppanelel" style="float: right;">
       <form th:action="@{/logout}" th:method="POST">
         <input type="submit" value="Выход"/>
       </form>
     </li>
-    <li class="toppanelel" style="float: right;"><a th:href="@{/person/{id}(id=*{currentUser.getId()})}" th:text="*{currentUser.getFirstName()} + ' ' + *{currentUser.getLastName()}"></a></li>
+    <li class="toppanelel" style="float: right;" th:text="*{currentUser.getLastName()} + ' ' + *{currentUser.getFirstName()}"></li>
   </ul>
 </div>
 
-  <div id="main">    
+  <div id="mainDate">
     <form id="dateForm" action="" method="post">
       <label for="date">Дата:</label>
       <input type="date" name="date" id="date">
     </form>
   </div>
 
-  <div id="elForMainTable">
+<div id="main">
+    <h2>Список пациентов</h2>
     <table id="mainTable" class="mainTable">
-      <caption>Список пациентов</caption>
       <thead>
         <tr>
           <th>Фамилия, Имя</th>
           <th>Время</th>
         </tr>
       </thead>
-      <tbody id="patientList"></tbody>
-
-      <!-- <tr>
-        <td class="user"><span id="0" class="user">ФИО Пользователь 1</span></td>
-        <td class="mainTable">12:00</td>
-        <td class="mainTable">Да</td>
-      </tr>
-      <tr>
-        <td class="user"><span id="1" class="user">ФИО Пользователь 2</span></td>
-        <td class="mainTable">13:00</td>
-        <td class="mainTable">Нет</td>
-      </tr>
-      <tr>
-        <td class="user"><span id="2" class="user">ФИО Пользователь 3</span></td>
-        <td class="mainTable">14:00</td>
-        <td class="mainTable">Да</td>
-      </tr>
-      <tr>
-        <td class="user"><span id="3" class="user">ФИО Пользователь 4</span></td>
-        <td class="mainTable">15:00</td>
-        <td class="mainTable">Да</td>
-      </tr> -->
-      
+      <tbody id="appointmentData"></tbody>
     </table>
+  <br><br>
+
+  <div id="additionalFunctions">
+    <h3>Дополнительные функции</h3>
+    <p class="additionalFunctions">
+      <a href="/all_patients">Все пациенты</a>
+    </p>
   </div>
-  
-  <div id="doctorsAppointmentModal" class="modal">
-    
-    <div class="modal-content">
-      <span class="close">&times;</span>
-      <H3 id="modalHeader">Пациент</H3>
-      <div id="mainEl">
-        <form id="doctorsAppointmentModalForm" action="" method="post">
-          <div>
-            <label for="medicalHistory" class="mainForm">Анамнез</label>
-            <textarea name="medicalHistory" id="medicalHistory" rows="5"></textarea><br>
-          </div><br>
+</div>
 
-          <div>
-            <label for="diagn" class="mainForm">Диагноз</label>
-            <textarea name="diagn" id="diagn" rows="2"></textarea><br>
-          </div><br>
-
-          <label for="result" class="mainForm">Прием осуществлен?</label>
-          <select name="" id="result">
-            <option value="true">Да</option>
-            <option value="false">Нет</option>
-          </select><br><br>
-          <span id="message" class="message"></span><br>
-          <button type="button" id="cancelBtn" class="cancel">Отмена</button>
-          <input type="submit" id="applyBtn" class="apply" value="Применить">
-
-        </form>      
-      </div>      
-    </div>
-
-  </div><br><br>
+<br><br>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 

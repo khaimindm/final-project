@@ -1,4 +1,4 @@
-document.getElementById("date").addEventListener('change', getPatientListByDate);
+document.getElementById("date").addEventListener('change', getBookingListByDate);
 
 let today;
 
@@ -25,31 +25,32 @@ $(function () {
 	});
 });
 
-getPatientListByDate();
+getBookingListByDate();
 
-function getPatientListByDate() {
+function getBookingListByDate() {
     let processingDate = document.getElementById('date').value;
 
     let param = {
         processingDate: processingDate
     }
 
-    $.getJSON('/patientListByDate', param, function(data){
+    $.getJSON('/bookingListByDate', param, function(data){
         let dataJson = JSON.stringify(data);
-        let patientList = JSON.parse(dataJson);
+        let appointmentData = JSON.parse(dataJson);
         let tableContent = "";
-        if (patientList != 0) {
-            for(let i in patientList) {
-                let patientId = patientList[i].patientId;
-                let patientLinkById = "/appointment/" + patientId;
-                tableContent += "<tr>";
-                tableContent += "<td>" + "<a href=" + "'" + patientLinkById + "'" + ">" + patientList[i].lastName + " " + patientList[i].firstName + "</a>" + "</td>"
-                + "<td>" + patientList[i].time + "</td>";
+        if (appointmentData != 0) {
+            for(let i in appointmentData) {
+                let bookingListId = appointmentData[i].bookingListId;
+                let appointmentLinkByBookingListId = "/appointment/" + bookingListId;
+                tableContent += "<tr class='content'>";
+                tableContent += "<td>" + "<a href=" + "'" + appointmentLinkByBookingListId + "'" + ">" + appointmentData[i].lastName + " " + appointmentData[i].firstName + "</a>" + "</td>"
+                + "<td>" + appointmentData[i].time + "</td>";
                 tableContent += "</tr>";
             }
-        document.getElementById("patientList").innerHTML = tableContent;
+        document.getElementById("appointmentData").innerHTML = tableContent;
         } else {
-            document.getElementById("patientList").innerHTML = "";
+            let tableContent = "<tr class='content'><td>Нет записанных пациентов на выбранную дату</td></tr>"
+            document.getElementById("appointmentData").innerHTML = tableContent;
         }
     });
 }
