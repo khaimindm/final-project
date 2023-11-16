@@ -34,9 +34,9 @@
     <form id="dataSelectionForm" th:method="PATCH" th:action="@{/specialists/bookplace}">
       <label for="dateOfWork">Выберите доступную дату: </label>
       <select name="dateOfWork" id="dateOfWork">
-        <option value="0"></option>
-        <option th:if="${availableDatesOfWork} == ' '" th:value="1">Нет доступных дат</option>
-        <option th:unless="${availableDatesOfWork} == ' '" th:each="dateOfWork : ${availableDatesOfWork}" th:value="${dateOfWork}" th:text="${#dates.format(dateOfWork, 'dd.MM.yyyy')}"></option>
+        <option th:if="${!availableDatesOfWork.isEmpty()}" th:value="0"></option>
+        <option th:if="${!availableDatesOfWork.isEmpty()}" th:each="dateOfWork : ${availableDatesOfWork}" th:value="${dateOfWork}" th:text="${#dates.format(dateOfWork, 'dd.MM.yyyy')}"></option>
+        <option th:unless="${!availableDatesOfWork.isEmpty()}" th:value="0">Нет доступных дат</option>
       </select><br><br>
 
       <label for="timeStartAt">Выберите доступное время: </label>
