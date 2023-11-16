@@ -11,3 +11,5 @@ spring.sql.init.mode=always
 spring.jpa.hibernate.ddl-auto=none
 
 spring.h2.console.enabled=true
+
+spring.mvc.hiddenmethod.filter.enabled=true
