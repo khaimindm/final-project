@@ -26,9 +26,6 @@ public class ProfessionalActivity {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfEmployment;
 
-    //@Column(name = "persons_person_id")
-    //private int personId;
-
     @OneToOne
     @JoinColumn(name = "persons_person_id", referencedColumnName = "person_id")
     private Person person;
@@ -76,14 +73,5 @@ public class ProfessionalActivity {
     public void setPerson(Person person) {
         this.person = person;
     }
-
-    //public int getPersonId() {
-    //    return personId;
-    //}
-
-    //public void setPersonId(int personId) {
-    //    this.personId = personId;
-    //}
-
     
 }

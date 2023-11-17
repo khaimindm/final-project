@@ -29,9 +29,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     protected void configure(HttpSecurity http) throws Exception {
-        // конфигурируем сам Spring Security
-        // конфигурируем авторизацию
-
         http.authorizeRequests()
         .antMatchers("/main_record_keeper", "/auth/registration_record_keeper", "/adding_specialist_data",
                 "/appointment", "/list_of_specialists", "/work_time", "/all_tables").hasRole("RECORDKEEPER")

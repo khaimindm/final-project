@@ -24,7 +24,7 @@ public class RegistrationService {
 
     public void register(Person person) {
         person.setPassword(passwordEncoder.encode(person.getPassword()));
-        //person.setRole("ROLE_PATIENT");
+        
         peopleRepository.save(person);
         if (person.getRole().equals("ROLE_SPECIALIST")) {
             addSpecialistDataService.setPersonId(person.getId());

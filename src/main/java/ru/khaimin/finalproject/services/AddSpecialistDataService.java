@@ -23,18 +23,10 @@ public class AddSpecialistDataService {
     }
 
     public void addData(ProfessionalActivity professionalActivity) {
-        /* if (personId == 0) {
-        } */
-
-        //professionalActivity.setPersonId(personId);
-
         professionalActivityRepository.save(professionalActivity);
-        //personId = 0;
     }
 
     public String getPersonName() {
-        //return person.getFirstName().toString() + person.getLastName().toString();
-        
         return null;
     }
 
@@ -53,6 +45,5 @@ public class AddSpecialistDataService {
     public void setPersonToAddData(Person personToAddData) {
         this.personToAddData = personToAddData;
     }
-
     
 }

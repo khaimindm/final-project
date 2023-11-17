@@ -51,7 +51,7 @@ public class RecordKeeperController {
         }
         Person currentPerson = addSpecialistDataService.getPersonToAddData();
         model.addAttribute("person_first_last_name", currentPerson.getFirstName() + " " + currentPerson.getLastName());
-        //model.addAttribute("currentUser", commonServices.getCurrentUser());
+        
         return "adding_specialist_data";
     }
     

@@ -14,12 +14,10 @@ import java.util.List;
 @Controller
 public class PatientController {
     private final CommonServices commonServices;
-    private final PatientService patientService;
-
+    
     @Autowired
     public PatientController(CommonServices commonServices, PatientService patientService) {
         this.commonServices = commonServices;
-        this.patientService = patientService;
     }
     
     @GetMapping("/main_patient")
